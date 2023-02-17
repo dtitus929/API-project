@@ -8,9 +8,11 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const validateSignup = [
     check('firstName')
+        .notEmpty()
         .exists({ checkFalsy: true })
         .withMessage('Please provide a valid first name.'),
     check('lastName')
+        .notEmpty()
         .exists({ checkFalsy: true })
         .withMessage('Please provide a valid last name.'),
     check('email')
