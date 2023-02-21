@@ -84,13 +84,25 @@ app.use((err, _req, _res, next) => {
 
 // Error formatter
 app.use((err, _req, res, _next) => {
-    res.status(err.status || 500);
+
     console.error(err);
+
+    if (err.message === 'Invalid credentials') delete err.errors
+
+    if (err.message === 'User with that email already exists' ||
+        err.message === 'User with that username already exists') {
+        err.message = 'User already exists';
+        err.status = 403;
+    }
+
+    res.status(err.status || 500);
+
     res.json({
-        title: err.title || 'Server Error',
+        // title: err.title || 'Server Error',
         message: err.message,
-        errors: err.errors,
-        stack: isProduction ? null : err.stack
+        statusCode: err.status,
+        errors: err.errors
+        // stack: isProduction ? null : err.stack
     });
 });
 
