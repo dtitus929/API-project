@@ -59,7 +59,7 @@ app.use(routes); // Connect all the routes
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
-    const err = new Error("The requested resource couldn't be found.");
+    const err = new Error("Resource Not Found");
     err.title = "Resource Not Found";
     err.errors = { message: "The requested resource couldn't be found." };
     err.status = 404;
@@ -87,7 +87,10 @@ app.use((err, _req, res, _next) => {
 
     console.error(err);
 
-    if (err.message === 'Invalid credentials') delete err.errors
+    if (err.message === 'Invalid credentials' ||
+        err.message === 'Authentication required') {
+        delete err.errors
+    }
 
     if (err.message === 'User with that email already exists' ||
         err.message === 'User with that username already exists') {
