@@ -2,7 +2,7 @@ const express = require('express');
 
 const { requireAuth } = require('../../utils/auth');
 
-const { Spot, Booking, Review, SpotImage, ReviewImage, User } = require('../../db/models');
+const { Spot, Booking, Review, SpotImage, ReviewImage, User, sequelize } = require('../../db/models');
 
 // Validation ===================
 // const { check } = require('express-validator');
@@ -19,9 +19,9 @@ const router = express.Router();
 
 // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-// Get all Spots
-// GET => /api/spots
-router.get('/', async (req, res, next) => {
+// Get all Spots TEST
+// GET => /api/spots/all
+router.get('/all', async (req, res, next) => {
 
     const spots = await Spot.findAll({
         include: [
@@ -33,6 +33,72 @@ router.get('/', async (req, res, next) => {
     })
     // console.log(spots);
     res.json(spots)
+})
+
+// ======================
+
+// Get all Spots
+// GET => /api/spots
+router.get('/', async (req, res, next) => {
+
+    let query = {
+        where: {},
+        include: []
+    };
+
+    query.include.push({
+        model: SpotImage
+    })
+
+    const spotsIn = await Spot.findAll(query)
+
+    const Spots = [];
+
+    for (let i = 0; i < spotsIn.length; i++) {
+        const spot = spotsIn[i];
+        Spots.push(spot.toJSON())
+    }
+
+    for (let i = 0; i < Spots.length; i++) {
+        const spot = Spots[i];
+
+        // Find avgRating
+        let reviewData = await Review.findOne({
+            where: {
+                spotId: spot.id
+            },
+            attributes: {
+                include: [
+                    [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']
+                ]
+            }
+        })
+
+        let reviewAvg = reviewData.toJSON().avgRating
+        if (reviewAvg) {
+            spot.avgRating = reviewAvg
+        } else {
+            spot.avgRating = "No reviews yet"
+        }
+
+        // Get previewImage
+        if (spot.SpotImages.length > 0) {
+            for (let j = 0; j < spot.SpotImages.length; j++) {
+                const image = spot.SpotImages[j];
+                if (image.preview === true) {
+                    spot.previewImage = image.url
+                }
+            }
+            if (!spot.previewImage) {
+                spot.previewImage = "No preview image for this spot"
+            }
+        } else {
+            spot.previewImage = "No preview image for this spot"
+        }
+        delete spot.SpotImages
+    }
+
+    res.json({ Spots })
 })
 
 // ======================
