@@ -2,7 +2,7 @@ const express = require('express');
 
 const { requireAuth } = require('../../utils/auth');
 
-const { Spot } = require('../../db/models');
+const { Spot, Booking, Review, SpotImage, ReviewImage, User } = require('../../db/models');
 
 // Validation ===================
 // const { check } = require('express-validator');
@@ -22,7 +22,17 @@ const router = express.Router();
 // Get all Spots
 // GET => /api/spots
 router.get('/', async (req, res, next) => {
-    res.json('get spots')
+
+    const spots = await Spot.findAll({
+        include: [
+            { model: SpotImage },
+            { model: Review },
+            { model: Booking },
+            { model: User, as: "Owner" },
+        ]
+    })
+    // console.log(spots);
+    res.json(spots)
 })
 
 // ======================
