@@ -27,11 +27,11 @@ module.exports = {
         onDelete: 'CASCADE'
       },
       startDate: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING(150),
         allowNull: false
       },
       endDate: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING(150),
         allowNull: false
       },
       createdAt: {
