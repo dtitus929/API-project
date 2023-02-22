@@ -70,6 +70,9 @@ router.get('/', async (req, res, next) => {
             attributes: [
                 [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']
             ],
+            dialectOptions: {
+                decimalNumbers: true
+            }
 
         })
 
