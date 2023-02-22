@@ -69,14 +69,10 @@ router.get('/', async (req, res, next) => {
             },
             attributes: [
                 [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']
-            ],
-            dialectOptions: {
-                decimalNumbers: true
-            }
-
+            ]
         })
 
-        let reviewAvg = reviewData.toJSON().avgRating
+        let reviewAvg = Number(parseFloat(reviewData.toJSON().avgRating).toFixed(1))
         if (reviewAvg) {
             spot.avgRating = reviewAvg
         } else {
