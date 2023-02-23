@@ -114,8 +114,6 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         return next(err);
     }
 
-    console.log(theReview.ReviewImages.length);
-
     if (theReview.ReviewImages.length >= 10) {
         const err = new Error("Maximum number of images for this resource was reached");
         err.status = 403;
@@ -190,7 +188,6 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
 
     res.json({ message: 'Successfully deleted', statusCode: 200 })
 })
-
 
 // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 

@@ -2,18 +2,7 @@ const express = require('express');
 
 const { requireAuth } = require('../../utils/auth');
 
-const { SpotImage } = require('../../db/models');
-
-// Validation ===================
-// const { check } = require('express-validator');
-// const { handleValidationErrors } = require('../../utils/validation');
-// const validateSignup = [
-//     check('firstName')
-//         .notEmpty()
-//         .exists({ checkFalsy: true })
-//         .withMessage('First Name is required'),
-//     handleValidationErrors
-// ];
+const { SpotImage, Spot } = require('../../db/models');
 
 const router = express.Router();
 
@@ -23,15 +12,31 @@ const router = express.Router();
 // DELETE => /api/spot-images/:imageId
 router.delete('/:imageId', requireAuth, async (req, res, next) => {
 
-    // if (??????) {
-    //     const err = new Error("Forbidden");
-    //     err.status = 403;
-    //     return next(err);
-    // }
+    const thisSpotImage = await SpotImage.findByPk(req.params.imageId, {
+        include: [
+            {
+                model: Spot,
+                attributes: ['ownerId']
+            }
+        ]
+    })
 
-    res.json('delete spot image')
+    if (!thisSpotImage) {
+        const err = new Error("Spot Image couldn't be found");
+        err.status = 404;
+        return next(err);
+    }
+
+    if (thisSpotImage.Spot.ownerId !== req.user.id) {
+        const err = new Error("Forbidden");
+        err.status = 403;
+        return next(err);
+    }
+
+    await thisSpotImage.destroy()
+
+    res.json({ message: 'Successfully deleted', statusCode: 200 })
 })
-
 
 // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
