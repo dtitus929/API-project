@@ -28,12 +28,26 @@ const validateCreateSpot = [
     check('lat')
         .notEmpty()
         .exists({ checkFalsy: true })
-        .isLatLong()
+        .withMessage('Latitude is not valid'),
+    check('lat')
+        .custom((value) => {
+            if (value < -90 || value > 90) {
+                throw new Error('Latitude must be between -90 and 90');
+            }
+            return true;
+        })
         .withMessage('Latitude is not valid'),
     check('lng')
         .notEmpty()
         .exists({ checkFalsy: true })
-        .isLatLong()
+        .withMessage('Longitude is not valid'),
+    check('lng')
+        .custom((value) => {
+            if (value < -180 || value > 180) {
+                throw new Error('Longituded must be between -180 and 180');
+            }
+            return true;
+        })
         .withMessage('Longitude is not valid'),
     check('name')
         .notEmpty()
@@ -357,7 +371,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         preview
     })
 
-    console.log(newSpotImage.id);
+    // console.log(newSpotImage.id);
     const responseData = await SpotImage.findByPk(newSpotImage.id, {
         attributes: ['id', 'url', 'preview']
     })
@@ -411,7 +425,7 @@ router.put('/:spotId', requireAuth, validateCreateSpot, async (req, res, next) =
 router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
     const theSpot = await Spot.findByPk(req.params.spotId)
-    console.log(theSpot);
+    // console.log(theSpot);
 
     if (!theSpot) {
         const err = new Error("Spot couldn't be found");

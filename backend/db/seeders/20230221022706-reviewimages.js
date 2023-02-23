@@ -14,8 +14,32 @@ module.exports = {
         url: "image1.url1"
       },
       {
+        reviewId: 1,
+        url: "image1.url2"
+      },
+      {
+        reviewId: 1,
+        url: "image1.url3"
+      },
+      {
         reviewId: 2,
         url: "image2.url1"
+      },
+      {
+        reviewId: 2,
+        url: "image2.url2"
+      },
+      {
+        reviewId: 2,
+        url: "image2.url3"
+      },
+      {
+        reviewId: 2,
+        url: "image2.url4"
+      },
+      {
+        reviewId: 2,
+        url: "image2.url5"
       },
       {
         reviewId: 3,
@@ -24,7 +48,43 @@ module.exports = {
       {
         reviewId: 4,
         url: "image4.url1"
-      }
+      },
+      {
+        reviewId: 4,
+        url: "image4.url2"
+      },
+      {
+        reviewId: 4,
+        url: "image4.url3"
+      },
+      {
+        reviewId: 4,
+        url: "image4.url4"
+      },
+      {
+        reviewId: 4,
+        url: "image4.url5"
+      },
+      {
+        reviewId: 4,
+        url: "image4.url6"
+      },
+      {
+        reviewId: 4,
+        url: "image4.url7"
+      },
+      {
+        reviewId: 4,
+        url: "image4.url8"
+      },
+      {
+        reviewId: 4,
+        url: "image4.url9"
+      },
+      {
+        reviewId: 4,
+        url: "image4.url10"
+      },
     ], {});
   },
 
