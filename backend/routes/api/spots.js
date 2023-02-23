@@ -107,12 +107,11 @@ router.get('/all', async (req, res, next) => {
             { model: User, as: "Owner" },
         ]
     })
-    // console.log(spots);
+
     res.json(spots)
 })
 
 // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-
 
 // Get all Spots
 // GET => /api/spots
@@ -371,7 +370,6 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         preview
     })
 
-    // console.log(newSpotImage.id);
     const responseData = await SpotImage.findByPk(newSpotImage.id, {
         attributes: ['id', 'url', 'preview']
     })
@@ -425,7 +423,6 @@ router.put('/:spotId', requireAuth, validateCreateSpot, async (req, res, next) =
 router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
     const theSpot = await Spot.findByPk(req.params.spotId)
-    // console.log(theSpot);
 
     if (!theSpot) {
         const err = new Error("Spot couldn't be found");
@@ -608,15 +605,11 @@ router.post('/:spotId/bookings', requireAuth, validateCreateBooking, async (req,
         const dateSet = checkDates[i];
         const bookedStart = new Date(dateSet.startDate);
         const bookedEnd = new Date(dateSet.endDate)
-        // console.log(bookedStart, " | ", bookedEnd);
-        // console.log(requestedStart, " | ", requestedEnd);
         if ((requestedStart >= bookedStart) && (requestedStart <= bookedEnd)) {
-            // console.log('Problem Start');
             isConflict = true;
             err.errors["startDate"] = "Start date conflicts with an existing booking";
         }
         if ((requestedEnd >= bookedStart) && (requestedEnd <= bookedEnd)) {
-            // console.log('Problem End');
             isConflict = true;
             err.errors["endDate"] = 'End date conflicts with an existing booking';
         }

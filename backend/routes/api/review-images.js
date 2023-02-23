@@ -2,18 +2,7 @@ const express = require('express');
 
 const { requireAuth } = require('../../utils/auth');
 
-const { ReviewImage } = require('../../db/models');
-
-// Validation ===================
-// const { check } = require('express-validator');
-// const { handleValidationErrors } = require('../../utils/validation');
-// const validateSignup = [
-//     check('firstName')
-//         .notEmpty()
-//         .exists({ checkFalsy: true })
-//         .withMessage('First Name is required'),
-//     handleValidationErrors
-// ];
+const { ReviewImage, Review } = require('../../db/models');
 
 const router = express.Router();
 
@@ -23,15 +12,32 @@ const router = express.Router();
 // DELETE => /api/review-images/:imageId
 router.delete('/:imageId', requireAuth, async (req, res, next) => {
 
-    // if (??????) {
-    //     const err = new Error("Forbidden");
-    //     err.status = 403;
-    //     return next(err);
-    // }
+    const thisReviewImage = await ReviewImage.findByPk(req.params.imageId, {
+        include: [
+            {
+                model: Review,
+                attributes: ['userId']
+            }
+        ]
+    })
 
-    res.json('delete review image')
+    if (!thisReviewImage) {
+        const err = new Error("Review Image couldn't be found");
+        err.status = 404;
+        return next(err);
+    }
+
+
+    if (thisReviewImage.Review.userId !== req.user.id) {
+        const err = new Error("Forbidden");
+        err.status = 403;
+        return next(err);
+    }
+
+    await thisReviewImage.destroy()
+
+    res.json({ message: 'Successfully deleted', statusCode: 200 })
 })
-
 
 // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
