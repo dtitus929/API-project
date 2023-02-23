@@ -50,7 +50,7 @@ router.post(
 
         await setTokenCookie(res, user);
 
-        user.dataValues.token = "";
+        // user.dataValues.token = "";
 
         return res.json(
             user
