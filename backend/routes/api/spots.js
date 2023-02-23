@@ -28,12 +28,12 @@ const validateCreateSpot = [
     check('lat')
         .notEmpty()
         .exists({ checkFalsy: true })
-        .isDecimal()
+        .isLatLong()
         .withMessage('Latitude is not valid'),
     check('lng')
         .notEmpty()
         .exists({ checkFalsy: true })
-        .isDecimal()
+        .isLatLong()
         .withMessage('Longitude is not valid'),
     check('name')
         .notEmpty()
@@ -62,6 +62,18 @@ const validateCreateReview = [
         .notEmpty()
         .isInt({ min: 1, max: 5 })
         .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+];
+
+const validateCreateBooking = [
+    check('startDate')
+        .notEmpty()
+        .exists({ checkFalsy: true })
+        .withMessage('Start date is required'),
+    check('endDate')
+        .notEmpty()
+        .exists({ checkFalsy: true })
+        .withMessage('End date is required'),
     handleValidationErrors
 ];
 
@@ -531,7 +543,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
 // 	Create a Booking from a Spot based on the Spot's id
 // POST => /api/spots/:spotId/bookings
-router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
+router.post('/:spotId/bookings', requireAuth, validateCreateBooking, async (req, res, next) => {
 
     const thisSpot = await Spot.findByPk(req.params.spotId)
 
