@@ -85,6 +85,22 @@ module.exports = {
         reviewId: 4,
         url: "image4.url10"
       },
+      {
+        reviewId: 7,
+        url: "image5.url1"
+      },
+      {
+        reviewId: 8,
+        url: "image5.url2"
+      },
+      {
+        reviewId: 9,
+        url: "image5.url3"
+      },
+      {
+        reviewId: 10,
+        url: "image5.url4"
+      },
     ], {});
   },
 
