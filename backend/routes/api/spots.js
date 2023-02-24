@@ -38,14 +38,6 @@ const validateCreateSpot = [
             return true;
         })
         .withMessage('Latitude is not valid'),
-    check('lat')
-        .custom((value) => {
-            if (!Number(value % 1)) {
-                throw new Error();
-            }
-            return true;
-        })
-        .withMessage('Latitude is not valid'),
     check('lng')
         .notEmpty()
         .exists({ checkFalsy: true })
@@ -53,14 +45,6 @@ const validateCreateSpot = [
     check('lng')
         .custom((value) => {
             if (value < -180 || value > 180) {
-                throw new Error();
-            }
-            return true;
-        })
-        .withMessage('Longitude is not valid'),
-    check('lng')
-        .custom((value) => {
-            if (!Number(value % 1)) {
                 throw new Error();
             }
             return true;
@@ -128,28 +112,12 @@ const validateFiltersPage = [
     // ----------------
     check('minLat')
         .custom((value) => {
-            if (value && !Number(value % 1)) {
-                throw new Error();
-            }
-            return true;
-        })
-        .withMessage('Minimum latitude is invalid'),
-    check('minLat')
-        .custom((value) => {
             if (value && (value < -90 || value > 90)) {
                 throw new Error();
             }
             return true;
         })
         .withMessage('Minimum latitude is invalid'),
-    check('maxLat')
-        .custom((value) => {
-            if (value && !Number(value % 1)) {
-                throw new Error();
-            }
-            return true;
-        })
-        .withMessage('Maximum latitude is invalid'),
     check('maxLat')
         .custom((value) => {
             if (value && (value < -90 || value > 90)) {
@@ -161,28 +129,12 @@ const validateFiltersPage = [
     // ----------------
     check('minLng')
         .custom((value) => {
-            if (value && !Number(value % 1)) {
-                throw new Error();
-            }
-            return true;
-        })
-        .withMessage('Minimum longitude is invalid'),
-    check('minLng')
-        .custom((value) => {
             if (value && (value < -180 || value > 180)) {
                 throw new Error();
             }
             return true;
         })
         .withMessage('Minimum longitude is invalid'),
-    check('maxLng')
-        .custom((value) => {
-            if (value && !Number(value % 1)) {
-                throw new Error();
-            }
-            return true;
-        })
-        .withMessage('Maximum longitude is invalid'),
     check('maxLng')
         .custom((value) => {
             if (value && (value < -180 || value > 180)) {
