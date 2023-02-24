@@ -3,6 +3,7 @@ const express = require('express');
 const { requireAuth } = require('../../utils/auth');
 
 const { Spot, Booking, Review, SpotImage, ReviewImage, User, sequelize } = require('../../db/models');
+const { Op } = require('sequelize');
 
 // Validation ===================
 const { check } = require('express-validator');
@@ -32,7 +33,15 @@ const validateCreateSpot = [
     check('lat')
         .custom((value) => {
             if (value < -90 || value > 90) {
-                throw new Error('Latitude must be between -90 and 90');
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Latitude is not valid'),
+    check('lat')
+        .custom((value) => {
+            if (!Number(value % 1)) {
+                throw new Error();
             }
             return true;
         })
@@ -44,7 +53,15 @@ const validateCreateSpot = [
     check('lng')
         .custom((value) => {
             if (value < -180 || value > 180) {
-                throw new Error('Longituded must be between -180 and 180');
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Longitude is not valid'),
+    check('lng')
+        .custom((value) => {
+            if (!Number(value % 1)) {
+                throw new Error();
             }
             return true;
         })
@@ -91,6 +108,109 @@ const validateCreateBooking = [
     handleValidationErrors
 ];
 
+const validateFiltersPage = [
+    check('page')
+        .custom((value) => {
+            if (value && value <= 0) {
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Page must be greater than or equal to 1'),
+    check('size')
+        .custom((value) => {
+            if (value && value <= 0) {
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Size must be greater than or equal to 1'),
+    // ----------------
+    check('minLat')
+        .custom((value) => {
+            if (value && !Number(value % 1)) {
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Minimum latitude is invalid'),
+    check('minLat')
+        .custom((value) => {
+            if (value && (value < -90 || value > 90)) {
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Minimum latitude is invalid'),
+    check('maxLat')
+        .custom((value) => {
+            if (value && !Number(value % 1)) {
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Maximum latitude is invalid'),
+    check('maxLat')
+        .custom((value) => {
+            if (value && (value < -90 || value > 90)) {
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Maximum latitude is invalid'),
+    // ----------------
+    check('minLng')
+        .custom((value) => {
+            if (value && !Number(value % 1)) {
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Minimum longitude is invalid'),
+    check('minLng')
+        .custom((value) => {
+            if (value && (value < -180 || value > 180)) {
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Minimum longitude is invalid'),
+    check('maxLng')
+        .custom((value) => {
+            if (value && !Number(value % 1)) {
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Maximum longitude is invalid'),
+    check('maxLng')
+        .custom((value) => {
+            if (value && (value < -180 || value > 180)) {
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Maximum longitude is invalid'),
+    // ----------------
+    check('minPrice')
+        .custom((value) => {
+            if (value && value < 0) {
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Minimum price must be greater than or equal to 0'),
+    check('maxPrice')
+        .custom((value) => {
+            if (value && value < 0) {
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Maximum price must be greater than or equal to 0'),
+    handleValidationErrors
+];
+
 const router = express.Router();
 
 // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
@@ -115,7 +235,7 @@ router.get('/all', async (req, res, next) => {
 
 // Get all Spots
 // GET => /api/spots
-router.get('/', async (req, res, next) => {
+router.get('/', validateFiltersPage, async (req, res, next) => {
 
     let query = {
         where: {},
@@ -125,6 +245,72 @@ router.get('/', async (req, res, next) => {
     query.include.push({
         model: SpotImage
     })
+
+    ///// Filters/Pagination START /////
+
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+    // Pagination ================
+
+    if (page === undefined || page <= 0 || page > 10) {
+        page = 1
+    } else {
+        page = parseInt(req.query.page)
+    }
+    if (size === undefined || size <= 0 || size > 20) {
+        size = 20
+    } else {
+        size = parseInt(req.query.size)
+    }
+
+    if (page >= 1 && size >= 1) {
+        query.limit = size;
+        query.offset = size * (page - 1);
+    }
+
+    // Filters ================
+
+    if (minLat && !maxLat) {
+        query.where.lat = { [Op.gte]: minLat }
+    }
+
+    if (maxLat && !minLat) {
+        query.where.lat = { [Op.lte]: maxLat }
+    }
+
+    if (maxLat && minLat) {
+        query.where.lat = { [Op.between]: [minLat, maxLat] }
+    }
+
+    // ------
+
+    if (minLng && !maxLng) {
+        query.where.lng = { [Op.gte]: minLng }
+    }
+
+    if (maxLng && !minLng) {
+        query.where.lng = { [Op.lte]: maxLng }
+    }
+
+    if (maxLng && minLng) {
+        query.where.lng = { [Op.between]: [minLng, maxLng] }
+    }
+
+    // ------
+
+    if (minPrice && !maxPrice) {
+        query.where.price = { [Op.gte]: minPrice }
+    }
+
+    if (maxPrice && !minPrice) {
+        query.where.price = { [Op.lte]: maxPrice }
+    }
+
+    if (maxPrice && minPrice) {
+        query.where.price = { [Op.between]: [minPrice, maxPrice] }
+    }
+
+    ///// Filters/Pagination END /////
 
     const spotsIn = await Spot.findAll(query)
 
@@ -172,7 +358,7 @@ router.get('/', async (req, res, next) => {
         delete spot.SpotImages
     }
 
-    res.json({ Spots })
+    res.json({ Spots, "page": page, "size": size })
 })
 
 // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
