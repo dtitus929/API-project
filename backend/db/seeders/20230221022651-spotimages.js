@@ -68,6 +68,16 @@ module.exports = {
         spotId: 4,
         url: "image4.url3",
         preview: false
+      },
+      {
+        spotId: 5,
+        url: "image5.url1",
+        preview: true
+      },
+      {
+        spotId: 5,
+        url: "image5.url2",
+        preview: false
       }
     ], {});
   },

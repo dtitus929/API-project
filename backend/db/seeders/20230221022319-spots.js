@@ -56,6 +56,18 @@ module.exports = {
         name: "Sunrise Way",
         description: "Be the first in the US to see the sunrise.  Have yourself a lobster.",
         price: 320
+      },
+      {
+        ownerId: 5,
+        address: "2323 Beach Way",
+        city: "South Padre",
+        state: "Texas",
+        country: "United States of America",
+        lat: 26.110979,
+        lng: -97.165718,
+        name: "Just Beachy",
+        description: "Gulf views and plenty of sunshine.",
+        price: 220.50
       }
     ], {});
   },
