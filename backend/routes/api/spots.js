@@ -173,7 +173,7 @@ const validateAddSpotImage = [
         .withMessage('Preview must be true or false'),
     check('preview')
         .custom((value) => {
-            if (value && (value !== false || value !== true)) {
+            if (value && value !== true && value !== false) {
                 throw new Error();
             }
             return true;
