@@ -20,6 +20,14 @@ const validateEditReview = [
     handleValidationErrors
 ];
 
+const validateAddReviewImage = [
+    check('url')
+        .notEmpty()
+        .exists({ checkFalsy: true })
+        .withMessage('Image url is required'),
+    handleValidationErrors
+];
+
 const router = express.Router();
 
 // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
@@ -40,7 +48,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
             {
                 model: Spot,
                 attributes: {
-                    exclude: ['createdAt', 'updatedAt']
+                    exclude: ['createdAt', 'updatedAt', 'description']
                 },
                 include: [
                     {
@@ -90,7 +98,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
 // Add an Image to a Review based on the Review's id
 // POST => /api/reviews/:reviewId/images
-router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
+router.post('/:reviewId/images', requireAuth, validateAddReviewImage, async (req, res, next) => {
 
     const { url } = req.body
 

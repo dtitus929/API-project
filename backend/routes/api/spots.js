@@ -163,6 +163,25 @@ const validateFiltersPage = [
     handleValidationErrors
 ];
 
+const validateAddSpotImage = [
+    check('url')
+        .notEmpty()
+        .exists({ checkFalsy: true })
+        .withMessage('Image url is required'),
+    check('preview')
+        .notEmpty()
+        .withMessage('Preview must be true or false'),
+    check('preview')
+        .custom((value) => {
+            if (value && (value !== false || value !== true)) {
+                throw new Error();
+            }
+            return true;
+        })
+        .withMessage('Preview must be true or false'),
+    handleValidationErrors
+];
+
 const router = express.Router();
 
 // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
@@ -477,6 +496,7 @@ router.post('/', requireAuth, validateCreateSpot, async (req, res, next) => {
         price
     })
 
+    res.status(201)
     res.json(newSpot)
 })
 
@@ -484,7 +504,7 @@ router.post('/', requireAuth, validateCreateSpot, async (req, res, next) => {
 
 // Add an Image to a Spot based on the Spot's id
 // POST => /api/spots/:spotId/images
-router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+router.post('/:spotId/images', requireAuth, validateAddSpotImage, async (req, res, next) => {
 
     const { url, preview } = req.body
 
@@ -646,7 +666,7 @@ router.post('/:spotId/reviews', requireAuth, validateCreateReview, async (req, r
         stars
     })
 
-
+    res.status(201)
     res.json(newReview)
 })
 
