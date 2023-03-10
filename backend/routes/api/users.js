@@ -52,9 +52,13 @@ router.post(
 
         // user.dataValues.token = "";
 
-        return res.json(
-            user
-        );
+        // return res.json(
+        //     user
+        // );
+
+        return res.json({
+            user: user
+        });
     }
 );
 
