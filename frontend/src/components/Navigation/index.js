@@ -18,8 +18,6 @@ function Navigation({ isLoaded, setShowLogin, setShowSignup }) {
     } else {
         sessionLinks = (
             <div>
-                <NavLink to="/login">Log In</NavLink>
-                <NavLink to="/signup">Sign Up</NavLink>
                 <button onClick={() => setShowLogin(true)}>Login</button>
                 <button onClick={() => setShowSignup(true)}>Signup</button>
             </div>

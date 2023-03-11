@@ -15,21 +15,6 @@ function LoginFormPage(props) {
         <Redirect to="/" />
     );
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-
-    //     setErrors(false);
-    //     return dispatch(sessionActions.login({ credential, password }))
-    //         .then(async () => {
-    //             setShowLogin(false)
-    //         })
-    //         .catch(async (res) => {
-    //             const data = await res.json();
-    //             console.log('code:', data.statusCode);
-    //             if (data.statusCode === 401) setErrors(true);
-    //         })
-
-    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();

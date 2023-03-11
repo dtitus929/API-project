@@ -7,6 +7,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import LoginModal from './components/Modal/LoginModal'
 import SignupModal from './components/Modal/SignupModal'
+import Home from "./components/Home";
 
 
 function App() {
@@ -26,7 +27,9 @@ function App() {
       <Navigation isLoaded={isLoaded} setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
       {isLoaded && (
         <Switch>
-          {/* <div style={{ width: '100%', backgroundColor: 'blue' }}>hi</div> */}
+          <Route path="/" exact>
+            <Home />
+          </Route>
         </Switch>
       )}
 
