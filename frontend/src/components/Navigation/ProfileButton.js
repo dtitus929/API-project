@@ -7,24 +7,25 @@ function ProfileButton({ user }) {
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
 
-    // const openMenu = () => {
-    //     if (showMenu) return;
-    //     setShowMenu(true);
-    // };
+    const openMenu = (e) => {
+        if (showMenu) return;
+        setShowMenu(true);
+        e.stopPropagation();
+    };
 
-    // useEffect(() => {
-    //     if (!showMenu) return;
+    useEffect(() => {
+        if (!showMenu) return;
 
-    //     const closeMenu = (e) => {
-    //         if (!ulRef.current.contains(e.target)) {
-    //             setShowMenu(false);
-    //         }
-    //     };
+        const closeMenu = (e) => {
+            if (!ulRef.current.contains(e.target)) {
+                setShowMenu(false);
+            }
+        };
 
-    //     document.addEventListener('click', closeMenu);
+        document.addEventListener('click', closeMenu);
 
-    //     return () => document.removeEventListener("click", closeMenu);
-    // }, [showMenu]);
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showMenu]);
 
     const logout = (e) => {
         e.preventDefault();
@@ -32,12 +33,11 @@ function ProfileButton({ user }) {
     };
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-    // console.log(ulClassName);
 
     return (
         <>
-            <button onClick={() => { setShowMenu(!showMenu) }}>
-                <i className="fa-sharp fa-solid fa-circle-user" style={{ fontSize: '30px', color: 'purple' }} />
+            <button onClick={openMenu}>
+                <i className="fa-sharp fa-solid fa-bars"></i><i className="fas fa-user-circle" />
             </button>
             <ul className={ulClassName} ref={ulRef}>
                 <li>{user.username}</li>
@@ -47,7 +47,6 @@ function ProfileButton({ user }) {
                     <button onClick={logout}>Log Out</button>
                 </li>
             </ul>
-            {String(showMenu)}
         </>
     );
 }
