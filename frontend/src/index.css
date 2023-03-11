@@ -40,7 +40,7 @@ form input {
     display: visible;
     list-style-type: none;
     position: absolute;
-    left: -70px;
+    transform: translateX(-80%);
     background-color: white;
 }
 

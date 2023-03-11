@@ -9,32 +9,49 @@ function LoginFormPage(props) {
     const sessionUser = useSelector(state => state.session.user);
     const [credential, setCredential] = useState('');
     const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState(false);
+    const [errors, setErrors] = useState([]);
 
     if (sessionUser) return (
         <Redirect to="/" />
     );
 
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+
+    //     setErrors(false);
+    //     return dispatch(sessionActions.login({ credential, password }))
+    //         .then(async () => {
+    //             setShowLogin(false)
+    //         })
+    //         .catch(async (res) => {
+    //             const data = await res.json();
+    //             console.log('code:', data.statusCode);
+    //             if (data.statusCode === 401) setErrors(true);
+    //         })
+
+    // }
+
     const handleSubmit = (e) => {
         e.preventDefault();
-
         setErrors([]);
+
         return dispatch(sessionActions.login({ credential, password }))
             .then(async () => {
                 setShowLogin(false)
             })
             .catch(async (res) => {
                 const data = await res.json();
-                console.log('code:', data.statusCode);
-                if (data.statusCode === 401) setErrors(true);
-            })
+                if (data && data.statusCode === 401) {
+                    setErrors(['The provided credentials were invalid.']);
+                }
+            });
 
-    }
+    };
 
     return (
         <form onSubmit={handleSubmit}>
             <ul>
-                {errors === true && (<li>The provided credentials were invalid.</li>)}
+                {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
             <label>
                 Username or Email:

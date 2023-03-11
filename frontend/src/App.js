@@ -26,12 +26,12 @@ function App() {
       <Navigation isLoaded={isLoaded} setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
       {isLoaded && (
         <Switch>
-          <div style={{ width: '100%', backgroundColor: 'blue' }}>hi</div>
+          {/* <div style={{ width: '100%', backgroundColor: 'blue' }}>hi</div> */}
         </Switch>
       )}
 
       <LoginModal onClose={() => setShowLogin(false)} show={showLogin}>
-        <LoginFormPage setShow={setShowLogin} />
+        <LoginFormPage setShowLogin={setShowLogin} />
       </LoginModal>
 
       <SignupModal onClose={() => setShowSignup(false)} show={showSignup}>
