@@ -1,7 +1,11 @@
 /* TODO Add site wide styles */
+
 * {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0px;
 }
+
+
 
 form {
     display: flex;
@@ -18,14 +22,24 @@ form input {
     margin: 0px 5px;
 }
 
+.nav-ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    margin: 0px;
+
+}
+
+.profile-button-group {
+    text-align: right;
+}
+
+
 .profile-dropdown {
-    display: visible
+    display: visible;
+    list-style-type: none;
 }
 
 .hidden {
     display: none
-}
-
-.nav-ul {
-    list-style-type: none;
 }

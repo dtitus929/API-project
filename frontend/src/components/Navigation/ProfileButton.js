@@ -35,19 +35,19 @@ function ProfileButton({ user }) {
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
     return (
-        <>
-            <button onClick={openMenu}>
+        <div className="profile-button-group">
+            <button className="profile-button" onClick={openMenu}>
                 <i className="fa-sharp fa-solid fa-bars"></i><i className="fas fa-user-circle" />
             </button>
-            <ul className={ulClassName} ref={ulRef}>
-                <li>{user.username}</li>
-                <li>{user.firstName} {user.lastName}</li>
-                <li>{user.email}</li>
-                <li>
+            <div className={ulClassName} ref={ulRef}>
+                <div>{user.username}</div>
+                <div>{user.firstName} {user.lastName}</div>
+                <div>{user.email}</div>
+                <div>
                     <button onClick={logout}>Log Out</button>
-                </li>
-            </ul>
-        </>
+                </div>
+            </div>
+        </div>
     );
 }
 
