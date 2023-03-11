@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 function LoginFormPage(props) {
-    const { setShow } = props;
+    const { setShowLogin } = props;
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const [credential, setCredential] = useState('');
@@ -21,7 +21,7 @@ function LoginFormPage(props) {
         setErrors([]);
         return dispatch(sessionActions.login({ credential, password }))
             .then(async () => {
-                setShow(false)
+                setShowLogin(false)
             })
             .catch(async (res) => {
                 const data = await res.json();

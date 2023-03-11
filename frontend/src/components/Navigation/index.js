@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 
 
-function Navigation({ isLoaded, setShow }) {
+function Navigation({ isLoaded, setShowLogin, setShowSignup }) {
+
     const sessionUser = useSelector(state => state.session.user);
 
     let sessionLinks;
@@ -19,16 +20,15 @@ function Navigation({ isLoaded, setShow }) {
             <div>
                 <NavLink to="/login">Log In</NavLink>
                 <NavLink to="/signup">Sign Up</NavLink>
-                <button onClick={() => setShow(true)}>Login</button>
+                <button onClick={() => setShowLogin(true)}>Login</button>
+                <button onClick={() => setShowSignup(true)}>Signup</button>
             </div>
         );
     }
 
     return (
-        <div className='nav-ul'>
-            <div>
-                <NavLink exact to="/">Home</NavLink>
-            </div>
+        <div className='nav-div'>
+            <NavLink exact to="/">Home</NavLink>
             {isLoaded && sessionLinks}
         </div>
     );

@@ -22,22 +22,26 @@ form input {
     margin: 0px 5px;
 }
 
-.nav-ul {
+.nav-div {
     list-style-type: none;
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
     margin: 0px;
-
 }
 
 .profile-button-group {
     text-align: right;
+    position: relative;
 }
 
 
 .profile-dropdown {
     display: visible;
     list-style-type: none;
+    position: absolute;
+    left: -70px;
+    background-color: white;
 }
 
 .hidden {

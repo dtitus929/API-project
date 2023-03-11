@@ -5,14 +5,16 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import Modal from "./components/Modal/Modal";
+import LoginModal from './components/Modal/LoginModal'
+import SignupModal from './components/Modal/SignupModal'
 
 
 function App() {
 
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [show, setShow] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -21,21 +23,21 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} setShow={setShow} />
+      <Navigation isLoaded={isLoaded} setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
       {isLoaded && (
         <Switch>
-          <Route path="/login">
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
+          <div style={{ width: '100%', backgroundColor: 'blue' }}>hi</div>
         </Switch>
       )}
 
-      <Modal title="My Modal" onClose={() => setShow(false)} show={show}>
-        <LoginFormPage setShow={setShow} />
-      </Modal>
+      <LoginModal onClose={() => setShowLogin(false)} show={showLogin}>
+        <LoginFormPage setShow={setShowLogin} />
+      </LoginModal>
+
+      <SignupModal onClose={() => setShowSignup(false)} show={showSignup}>
+        <SignupFormPage setShowSignup={setShowSignup} />
+      </SignupModal>
+
     </>
   );
 }
