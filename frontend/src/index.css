@@ -18,6 +18,14 @@ form input {
     margin: 0px 5px;
 }
 
+.profile-dropdown {
+    display: visible
+}
+
+.hidden {
+    display: none
+}
+
 .nav-ul {
     list-style-type: none;
 }
