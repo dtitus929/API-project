@@ -1,1 +1,23 @@
 /* TODO Add site wide styles */
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap: 5px;
+}
+
+form div {
+    padding-bottom: 8px;
+}
+
+form input {
+    margin: 0px 5px;
+}
+
+.nav-ul {
+    list-style-type: none;
+}
