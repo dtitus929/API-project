@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOMClent from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import './index.css';
@@ -10,8 +10,6 @@ import * as sessionActions from './store/session';
 
 const store = configureStore();
 
-const root = ReactDOMClent.createRoot(document.getElementById("root"));
-
 if (process.env.NODE_ENV !== 'production') {
   restoreCSRF();
 
@@ -20,12 +18,19 @@ if (process.env.NODE_ENV !== 'production') {
   window.sessionActions = sessionActions;
 }
 
-root.render(
-  <React.StrictMode>
+function Root() {
+  return (
     <ReduxProvider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </ReduxProvider>
-  </React.StrictMode>
+  );
+}
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Root />
+  </React.StrictMode>,
+  document.getElementById('root')
 );
