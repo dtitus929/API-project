@@ -3,7 +3,8 @@ import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-function LoginFormPage() {
+function LoginFormPage(props) {
+    const { setShow } = props;
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const [credential, setCredential] = useState('');
@@ -16,18 +17,24 @@ function LoginFormPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         setErrors([]);
         return dispatch(sessionActions.login({ credential, password }))
+            .then(async () => {
+                setShow(false)
+            })
             .catch(async (res) => {
                 const data = await res.json();
-                if (data && data.message) setErrors(true);
-            });
+                console.log('code:', data.statusCode);
+                if (data.statusCode === 401) setErrors(true);
+            })
+
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <ul>
-                {errors && (<li>The provided credentials were invalid.</li>)}
+                {errors === true && (<li>The provided credentials were invalid.</li>)}
             </ul>
             <label>
                 Username or Email:

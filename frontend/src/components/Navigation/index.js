@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 
 
-function Navigation({ isLoaded }) {
+function Navigation({ isLoaded, setShow }) {
     const sessionUser = useSelector(state => state.session.user);
 
     let sessionLinks;
@@ -19,6 +19,7 @@ function Navigation({ isLoaded }) {
             <div>
                 <NavLink to="/login">Log In</NavLink>
                 <NavLink to="/signup">Sign Up</NavLink>
+                <button onClick={() => setShow(true)}>Login</button>
             </div>
         );
     }
