@@ -1,0 +1,49 @@
+/* TODO Add site wide styles */
+
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0px;
+}
+
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap: 5px;
+}
+
+form div {
+    padding-bottom: 8px;
+}
+
+form input {
+    margin: 0px 5px;
+}
+
+.nav-div {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 0px;
+}
+
+.profile-button-group {
+    text-align: right;
+    position: relative;
+}
+
+
+.profile-dropdown {
+    display: visible;
+    list-style-type: none;
+    position: absolute;
+    transform: translateX(-80%);
+    background-color: white;
+}
+
+.hidden {
+    display: none
+}
