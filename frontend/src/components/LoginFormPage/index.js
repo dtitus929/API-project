@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -11,9 +12,21 @@ function LoginFormPage(props) {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
+    const history = useHistory();
+
     if (sessionUser) return (
         <Redirect to="/" />
     );
+
+    const handleDemo = () => {
+        setCredential('alice@user.io');
+        setPassword('alicepass');
+    };
+
+    const handleDemo2 = () => {
+        setCredential('CindyOwner');
+        setPassword('cindypass');
+    };
 
 
     const handleSubmit = (e) => {
@@ -23,6 +36,7 @@ function LoginFormPage(props) {
         return dispatch(sessionActions.login({ credential, password }))
             .then(async () => {
                 setShowLogin(false)
+                history.push("/")
             })
             .catch(async (res) => {
                 const data = await res.json();
@@ -34,6 +48,7 @@ function LoginFormPage(props) {
     };
 
     return (
+
         <form onSubmit={handleSubmit}>
             <ul>
                 {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -57,7 +72,10 @@ function LoginFormPage(props) {
                 />
             </label>
             <button type="submit">Log In</button>
+            <button onClick={async () => { handleDemo() }} type="submit">Demo User</button>
+            <button onClick={async () => { handleDemo2() }} type="submit">Demo Owner</button>
         </form>
+
     );
 }
 

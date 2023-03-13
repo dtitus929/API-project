@@ -1,11 +1,31 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 
+
 function ProfileButton({ user }) {
+
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
+    const [ownsSpots, setOwnsSpots] = useState(null);
     const ulRef = useRef();
+
+    const spots = useSelector((state) => state.spots.allSpots);
+    // console.log("From Profile:", spots);
+
+    if (spots && ownsSpots === null) {
+        spots.forEach(element => {
+            // console.log(user.id, element.ownerId);
+            if (user.id === element.ownerId) {
+                setOwnsSpots(true)
+                return
+            }
+        })
+    };
+
+    // console.log(ownsSpots);
+
 
     const openMenu = (e) => {
         if (showMenu) return;
@@ -36,13 +56,16 @@ function ProfileButton({ user }) {
 
     return (
         <div className="profile-button-group">
+            <Link to='/spots/new' style={{ paddingRight: '10px' }}>Create a New Spot</Link>
             <button className="profile-button" onClick={openMenu}>
-                <i className="fa-sharp fa-solid fa-bars"></i><i className="fas fa-user-circle" />
+                <i className="fa-sharp fa-solid fa-bars" style={{ transform: 'scale(1.4, 1)', fontSize: '14px', color: '#993399', paddingRight: '10px' }}></i><i className="fas fa-user-circle" style={{ fontSize: '30px', color: '#993399' }} />
             </button>
             <div className={ulClassName} ref={ulRef}>
-                <div>{user.username}</div>
-                <div>{user.firstName} {user.lastName}</div>
+                <div>Hello, {user.firstName}</div>
                 <div>{user.email}</div>
+                {ownsSpots && (
+                    <div>Manage Spots</div>
+                )}
                 <div>
                     <button onClick={logout}>Log Out</button>
                 </div>

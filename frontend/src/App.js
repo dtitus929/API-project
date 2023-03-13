@@ -8,6 +8,8 @@ import Navigation from "./components/Navigation";
 import LoginModal from './components/Modal/LoginModal'
 import SignupModal from './components/Modal/SignupModal'
 import Home from "./components/Home";
+import Footer from "./components/Footer";
+import SpotDetails from "./components/SpotDetails";
 
 
 function App() {
@@ -27,17 +29,33 @@ function App() {
       <Navigation isLoaded={isLoaded} setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
       {isLoaded && (
         <Switch>
+
           <Route path="/" exact>
-            <Home />
+            <Home className="content" />
+          </Route>
+
+          <Route exact path="/spots/new">
+            <div className="content" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingBottom: '100px' }}>New Spot</div>
+          </Route>
+
+          <Route exact path="/spots/:spotId">
+            <SpotDetails className="content" />
+          </Route>
+
+          <Route>
+            <div className="content" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingBottom: '100px' }}>
+              Page Not Found
+            </div>
           </Route>
         </Switch>
       )}
+      <Footer />
 
-      <LoginModal onClose={() => setShowLogin(false)} show={showLogin}>
+      <LoginModal title="Log In" onClose={() => setShowLogin(false)} show={showLogin}>
         <LoginFormPage setShowLogin={setShowLogin} />
       </LoginModal>
 
-      <SignupModal onClose={() => setShowSignup(false)} show={showSignup}>
+      <SignupModal title="Sign Up" onClose={() => setShowSignup(false)} show={showSignup}>
         <SignupFormPage setShowSignup={setShowSignup} />
       </SignupModal>
 

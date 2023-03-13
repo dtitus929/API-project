@@ -1,6 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const LOAD_SPOTS = 'home/loadSpots';
+const LOAD_ONE_SPOT = 'home/loadOneSpot';
 
 const loadSpots = data => {
     return {
@@ -14,8 +15,26 @@ export const getSpots = () => async dispatch => {
 
     if (response.ok) {
         const list = await response.json();
-        console.log('BACK:', list.Spots)
+        // console.log('BACK:', list.Spots)
         dispatch(loadSpots(list.Spots));
+    }
+};
+
+const loadOneSpot = data => {
+    return {
+        type: LOAD_ONE_SPOT,
+        payload: data
+    };
+};
+
+export const getOneSpot = (id) => async dispatch => {
+    console.log(id);
+    const response = await csrfFetch(`/api/spots/${id}`);
+
+    if (response.ok) {
+        const spot = await response.json();
+        console.log('BACK:', spot)
+        dispatch(loadOneSpot(spot));
     }
 };
 
@@ -26,7 +45,7 @@ const spotsReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case LOAD_SPOTS:
-            console.log('PAYLOAD:', action.payload);
+            // console.log('PAYLOAD:', action.payload);
             return { ...state, allSpots: action.payload }
 
         // const allSpots = {};
@@ -34,6 +53,9 @@ const spotsReducer = (state = initialState, action) => {
         // return {
         //     ...state, allSpots: { ...allSpots }
         // }
+        case LOAD_ONE_SPOT:
+            return { ...state, singleSpot: [action.payload] }
+
         default:
             return state;
     }
