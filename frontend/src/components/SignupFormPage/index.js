@@ -30,7 +30,7 @@ function SignupFormPage(props) {
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) {
-                        console.log(Object.values(data.errors))
+                        // console.log(Object.values(data.errors))
                         setErrors(Object.values(data.errors));
                         if (data.message === 'User already exists') {
                             let newErrors = errors;

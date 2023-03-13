@@ -1,10 +1,56 @@
 /* TODO Add site wide styles */
 
-* {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+html, body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
     margin: 0px;
+    box-sizing: border-box;
+    height: 100%;
+    color: #222222;
+
 }
 
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.content {
+    flex: 1 0 auto;
+    padding: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #993399;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/**
+ * Restrict sizing to the page width in all browsers (opinionated). ???????
+ */
+
+:where(iframe, img, input, video, select, textarea) {
+    height: auto;
+    max-width: 100%;
+}
+
+.footer {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-direction: row;
+    border-top: 1px solid #CCCCCC;
+    padding: 18px 35px;
+    background-color: #FFFFFF;
+    justify-content: space-between;
+}
 
 
 form {
@@ -22,17 +68,70 @@ form input {
     margin: 0px 5px;
 }
 
+.spot-card-link {
+    color: #000000;
+}
+
+.spot-card-link:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.fake-footer-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
 .nav-div {
     list-style-type: none;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+    align-items: center;
     margin: 0px;
+    border-bottom: 1px solid #CCCCCC;
+    padding: 10px 35px;
+}
+
+.logsign-button {
+    background-color: white;
+    border: 1px solid #b17bb1;
+    border-radius: 14px;
+    padding: 3px 14px;
+    margin: 0px 3px;
+    color: #993399;
+}
+
+.logsign-button:hover {
+    background-color: #f8f2f8;
+    cursor: pointer;
+}
+
+.profile-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid #c3a5c3;
+    border-radius: 25px;
+    background-color: #FFFFFF;
+    padding: 5px 7px 5px 18px;
+}
+
+.profile-button:hover {
+    background-color: #FFFFFF;
+    border: 1px solid #ab7dab;
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
+    background-color: #f8f2f8;
+    cursor: pointer;
 }
 
 .profile-button-group {
+    display: flex;
+    align-items: center;
     text-align: right;
     position: relative;
+    white-space: nowrap;
 }
 
 
@@ -40,10 +139,64 @@ form input {
     display: visible;
     list-style-type: none;
     position: absolute;
-    transform: translateX(-80%);
-    background-color: white;
+    transform: translateX(-50px);
+    width: 220px;
+    top: 48px;
+    background-color: #FFFFFF;
+    border: 1px solid #ab7dab;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
+    text-align: left;
 }
 
 .hidden {
     display: none
+}
+
+.spot-card-holder {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 35px;
+}
+
+.spot-card {
+    padding: 0px;
+}
+
+.detail-container {
+    display: grid;
+    grid-template-columns: 1fr 0.5fr 0.5fr;
+    grid-template-rows: 1fr 1fr;
+    /* gap: 1px; */
+    grid-template-areas:
+        "detail-left . ."
+        "detail-left . .";
+}
+
+.detail-left {
+    grid-area: detail-left;
+}
+
+/* ======================================= */
+
+@media screen and (max-width:1124px) {
+    .spot-card-holder {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width:950px) {
+    .spot-card-holder {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media screen and (max-width:550px) {
+    .spot-card-holder {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
 }
