@@ -55,7 +55,7 @@ export default function SpotDetails() {
                             <div style={{ border: '1px solid #ab7dab', borderRadius: '15px', width: '300px', padding: '20px', display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
 
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-                                    <div style={{ fontWeight: '500', fontSize: '16px' }}>${price.toFixed(2)}&nbsp;<span style={{ fontWeight: '300' }}>night</span></div>
+                                    <div style={{ fontWeight: '500', fontSize: '16px' }}>${Number(price).toFixed(2)}&nbsp;<span style={{ fontWeight: '300' }}>night</span></div>
                                     <div style={{ fontWeight: '300' }}><i className="fa-solid fa-star" style={{ color: '#993399' }} />&nbsp;{avgStarRating === 'No reviews yet' ? 'New' : (Math.round(avgStarRating * 100) / 100).toFixed(1)} &nbsp;·&nbsp; {numReviews} {numReviews > 1 ? 'Reviews' : 'Review'} </div>
                                 </div>
 
