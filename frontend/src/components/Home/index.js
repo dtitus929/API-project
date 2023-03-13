@@ -17,11 +17,14 @@ export default function Home() {
     const spots = useSelector((state) => state.spots.allSpots);
     // console.log("The spots are:", spots);
 
+    const arrSpots = Object.values(spots);
+    // console.log("The arrSpots is:", arrSpots);
+
     return (
 
         <div className='spot-card-holder'>
 
-            {spots?.map(({ id, city, state, avgRating, price, previewImage }) => (
+            {arrSpots?.map(({ id, city, state, avgRating, price, previewImage }) => (
                 <Link key={id} className='spot-card-link' to={`/spots/${id}`}>
                     <div className="spot-card" style={{ backgroundImage: '' }}>
                         <img src={previewImage} alt={id} style={{ borderRadius: '14px', marginBottom: '8px' }} />

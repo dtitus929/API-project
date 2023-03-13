@@ -92,6 +92,7 @@ form input {
     margin: 0px;
     border-bottom: 1px solid #CCCCCC;
     padding: 10px 35px;
+    min-height: 46px;
 }
 
 .logsign-button {
@@ -169,7 +170,7 @@ form input {
     display: grid;
     grid-template-columns: 1fr 0.5fr 0.5fr;
     grid-template-rows: 1fr 1fr;
-    /* gap: 1px; */
+    gap: 7px;
     grid-template-areas:
         "detail-left . ."
         "detail-left . .";
