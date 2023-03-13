@@ -11,252 +11,252 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: "http://www.creativegozone.com/aircnc/castle1.png",
+        url: "https://i.ibb.co/4SGM2g6/castle1.png",
         preview: true
       },
       {
         spotId: 1,
-        url: "http://www.creativegozone.com/aircnc/castleint1.png",
+        url: "https://i.ibb.co/7NjS1rR/castleint1.png",
         preview: false
       },
       {
         spotId: 1,
-        url: "http://www.creativegozone.com/aircnc/castleint2.png",
+        url: "https://i.ibb.co/7YQySgz/castleint2.png",
         preview: false
       },
       {
         spotId: 1,
-        url: "http://www.creativegozone.com/aircnc/castleint3.png",
+        url: "https://i.ibb.co/d5wCgNQ/castleint3.png",
         preview: false
       },
       {
         spotId: 1,
-        url: "http://www.creativegozone.com/aircnc/castleint4.png",
+        url: "https://i.ibb.co/xH9wm1w/castleint4.png",
         preview: false
       },
       {
         spotId: 2,
-        url: "http://www.creativegozone.com/aircnc/cottage1.png",
+        url: "https://i.ibb.co/gWZckKZ/cottage1.png",
         preview: true
       },
       {
         spotId: 2,
-        url: "http://www.creativegozone.com/aircnc/cottageint1.png",
+        url: "https://i.ibb.co/bFHcGkH/cottageint1.png",
         preview: false
       },
       {
         spotId: 2,
-        url: "http://www.creativegozone.com/aircnc/cottageint2.png",
+        url: "https://i.ibb.co/SdDdQpw/cottageint2.png",
         preview: false
       },
       {
         spotId: 2,
-        url: "http://www.creativegozone.com/aircnc/cottageint3.png",
+        url: "https://i.ibb.co/1sDgD6H/cottageint3.png",
         preview: false
       },
       {
         spotId: 2,
-        url: "http://www.creativegozone.com/aircnc/cottageint4.png",
+        url: "https://i.ibb.co/jhQ6twJ/cottageint4.png",
         preview: false
       },
       {
         spotId: 3,
-        url: "http://www.creativegozone.com/aircnc/castle2.png",
+        url: "https://i.ibb.co/JR9T0Wy/castle2.png",
         preview: true
       },
       {
         spotId: 3,
-        url: "http://www.creativegozone.com/aircnc/castleint1.png",
+        url: "https://i.ibb.co/7NjS1rR/castleint1.png",
         preview: false
       },
       {
         spotId: 3,
-        url: "http://www.creativegozone.com/aircnc/castleint2.png",
+        url: "https://i.ibb.co/7YQySgz/castleint2.png",
         preview: false
       },
       {
         spotId: 3,
-        url: "http://www.creativegozone.com/aircnc/castleint3.png",
+        url: "https://i.ibb.co/d5wCgNQ/castleint3.png",
         preview: false
       },
       {
         spotId: 3,
-        url: "http://www.creativegozone.com/aircnc/castleint4.png",
+        url: "https://i.ibb.co/xH9wm1w/castleint4.png",
         preview: false
       },
       {
         spotId: 4,
-        url: "http://www.creativegozone.com/aircnc/cottage2.png",
+        url: "https://i.ibb.co/TPKDzpJ/cottage2.png",
         preview: true
       },
       {
         spotId: 4,
-        url: "http://www.creativegozone.com/aircnc/cottageint1.png",
+        url: "https://i.ibb.co/bFHcGkH/cottageint1.png",
         preview: false
       },
       {
         spotId: 4,
-        url: "http://www.creativegozone.com/aircnc/cottageint2.png",
+        url: "https://i.ibb.co/SdDdQpw/cottageint2.png",
         preview: false
       },
       {
         spotId: 4,
-        url: "http://www.creativegozone.com/aircnc/cottageint3.png",
+        url: "https://i.ibb.co/1sDgD6H/cottageint3.png",
         preview: false
       },
       {
         spotId: 4,
-        url: "http://www.creativegozone.com/aircnc/cottageint4.png",
+        url: "https://i.ibb.co/jhQ6twJ/cottageint4.png",
         preview: false
       },
       {
         spotId: 5,
-        url: "http://www.creativegozone.com/aircnc/castle3.png",
+        url: "https://i.ibb.co/NjG5MFg/castle3.png",
         preview: true
       },
       {
         spotId: 5,
-        url: "http://www.creativegozone.com/aircnc/castleint1.png",
+        url: "https://i.ibb.co/7NjS1rR/castleint1.png",
         preview: false
       },
       {
         spotId: 5,
-        url: "http://www.creativegozone.com/aircnc/castleint2.png",
+        url: "https://i.ibb.co/7YQySgz/castleint2.png",
         preview: false
       },
       {
         spotId: 5,
-        url: "http://www.creativegozone.com/aircnc/castleint3.png",
+        url: "https://i.ibb.co/d5wCgNQ/castleint3.png",
         preview: false
       },
       {
         spotId: 5,
-        url: "http://www.creativegozone.com/aircnc/castleint4.png",
+        url: "https://i.ibb.co/xH9wm1w/castleint4.png",
         preview: false
       },
       {
         spotId: 6,
-        url: "http://www.creativegozone.com/aircnc/cottage3.png",
+        url: "https://i.ibb.co/Qp3SyHS/cottage3.png",
         preview: true
       },
       {
         spotId: 6,
-        url: "http://www.creativegozone.com/aircnc/cottageint1.png",
+        url: "https://i.ibb.co/bFHcGkH/cottageint1.png",
         preview: false
       },
       {
         spotId: 6,
-        url: "http://www.creativegozone.com/aircnc/cottageint2.png",
+        url: "https://i.ibb.co/SdDdQpw/cottageint2.png",
         preview: false
       },
       {
         spotId: 6,
-        url: "http://www.creativegozone.com/aircnc/cottageint3.png",
+        url: "https://i.ibb.co/1sDgD6H/cottageint3.png",
         preview: false
       },
       {
         spotId: 6,
-        url: "http://www.creativegozone.com/aircnc/cottageint4.png",
+        url: "https://i.ibb.co/jhQ6twJ/cottageint4.png",
         preview: false
       },
       {
         spotId: 7,
-        url: "http://www.creativegozone.com/aircnc/castle4.png",
+        url: "https://i.ibb.co/TcLb5PJ/castle4.png",
         preview: true
       },
       {
         spotId: 7,
-        url: "http://www.creativegozone.com/aircnc/castleint1.png",
+        url: "https://i.ibb.co/7NjS1rR/castleint1.png",
         preview: false
       },
       {
         spotId: 7,
-        url: "http://www.creativegozone.com/aircnc/castleint2.png",
+        url: "https://i.ibb.co/7YQySgz/castleint2.png",
         preview: false
       },
       {
         spotId: 7,
-        url: "http://www.creativegozone.com/aircnc/castleint3.png",
+        url: "https://i.ibb.co/d5wCgNQ/castleint3.png",
         preview: false
       },
       {
         spotId: 7,
-        url: "http://www.creativegozone.com/aircnc/castleint4.png",
+        url: "https://i.ibb.co/xH9wm1w/castleint4.png",
         preview: false
       },
       {
         spotId: 8,
-        url: "http://www.creativegozone.com/aircnc/cottage4.png",
+        url: "https://i.ibb.co/pdf1QkJ/cottage4.png",
         preview: true
       },
       {
         spotId: 8,
-        url: "http://www.creativegozone.com/aircnc/cottageint1.png",
+        url: "https://i.ibb.co/bFHcGkH/cottageint1.png",
         preview: false
       },
       {
         spotId: 8,
-        url: "http://www.creativegozone.com/aircnc/cottageint2.png",
+        url: "https://i.ibb.co/SdDdQpw/cottageint2.png",
         preview: false
       },
       {
         spotId: 8,
-        url: "http://www.creativegozone.com/aircnc/cottageint3.png",
+        url: "https://i.ibb.co/1sDgD6H/cottageint3.png",
         preview: false
       },
       {
         spotId: 8,
-        url: "http://www.creativegozone.com/aircnc/cottageint4.png",
+        url: "https://i.ibb.co/jhQ6twJ/cottageint4.png",
         preview: false
       },
       {
         spotId: 9,
-        url: "http://www.creativegozone.com/aircnc/castle5.png",
+        url: "https://i.ibb.co/SdyXmvT/castle5.png",
         preview: true
       },
       {
         spotId: 9,
-        url: "http://www.creativegozone.com/aircnc/castleint1.png",
+        url: "https://i.ibb.co/7NjS1rR/castleint1.png",
         preview: false
       },
       {
         spotId: 9,
-        url: "http://www.creativegozone.com/aircnc/castleint2.png",
+        url: "https://i.ibb.co/7YQySgz/castleint2.png",
         preview: false
       },
       {
         spotId: 9,
-        url: "http://www.creativegozone.com/aircnc/castleint3.png",
+        url: "https://i.ibb.co/d5wCgNQ/castleint3.png",
         preview: false
       },
       {
         spotId: 9,
-        url: "http://www.creativegozone.com/aircnc/castleint4.png",
+        url: "https://i.ibb.co/xH9wm1w/castleint4.png",
         preview: false
       },
       {
         spotId: 10,
-        url: "http://www.creativegozone.com/aircnc/cottage5.png",
+        url: "https://i.ibb.co/FHyxH3S/cottage5.png",
         preview: true
       },
       {
         spotId: 10,
-        url: "http://www.creativegozone.com/aircnc/cottageint1.png",
+        url: "https://i.ibb.co/bFHcGkH/cottageint1.png",
         preview: false
       },
       {
         spotId: 10,
-        url: "http://www.creativegozone.com/aircnc/cottageint2.png",
+        url: "https://i.ibb.co/SdDdQpw/cottageint2.png",
         preview: false
       },
       {
         spotId: 10,
-        url: "http://www.creativegozone.com/aircnc/cottageint3.png",
+        url: "https://i.ibb.co/1sDgD6H/cottageint3.png",
         preview: false
       },
       {
         spotId: 10,
-        url: "http://www.creativegozone.com/aircnc/cottageint4.png",
+        url: "https://i.ibb.co/jhQ6twJ/cottageint4.png",
         preview: false
       }
     ], {});
