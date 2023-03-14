@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import LoginFormPage from "./components/LoginFormPage";
-import SignupFormPage from "./components/SignupFormPage";
+
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import LoginModal from './components/Modal/LoginModal'
-import SignupModal from './components/Modal/SignupModal'
+
+
+import Modal from './components/Modal/Modal'
+
+import LoginFormPage from "./components/LoginFormPage";
+import SignupFormPage from "./components/SignupFormPage";
+
+
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import SpotDetails from "./components/SpotDetails";
@@ -16,8 +21,9 @@ function App() {
 
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
-  const [showSignup, setShowSignup] = useState(false);
+
+  const [show, setShow] = useState(false);
+  const [currentModal, setCurrentModal] = useState('');
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -26,7 +32,7 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
+      <Navigation isLoaded={isLoaded} setShow={setShow} setCurrentModal={setCurrentModal} />
       {isLoaded && (
         <Switch>
 
@@ -51,13 +57,18 @@ function App() {
       )}
       <Footer />
 
-      <LoginModal title="Log In" onClose={() => setShowLogin(false)} show={showLogin}>
-        <LoginFormPage setShowLogin={setShowLogin} />
-      </LoginModal>
+      <Modal onClose={() => setShow(false)} show={show}>
+        {currentModal === 'login' && (<LoginFormPage setShow={setShow} />)}
+        {currentModal === 'signup' && (<SignupFormPage setShow={setShow} />)}
+      </Modal>
 
-      <SignupModal title="Sign Up" onClose={() => setShowSignup(false)} show={showSignup}>
+      {/* <LoginModal title="Log In" onClose={() => setShowLogin(false)} show={showLogin}>
+        <LoginFormPage setShowLogin={setShowLogin} />
+      </LoginModal> */}
+
+      {/* <SignupModal title="Sign Up" onClose={() => setShowSignup(false)} show={showSignup}>
         <SignupFormPage setShowSignup={setShowSignup} />
-      </SignupModal>
+      </SignupModal> */}
 
     </>
   );

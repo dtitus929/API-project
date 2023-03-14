@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 function LoginFormPage(props) {
-    const { setShowLogin } = props;
+    const { setShow } = props;
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const [credential, setCredential] = useState('');
@@ -47,7 +47,7 @@ function LoginFormPage(props) {
 
         return dispatch(sessionActions.login({ credential, password }))
             .then(async () => {
-                setShowLogin(false)
+                setShow(false);
                 history.push("/")
             })
             .catch(async (res) => {

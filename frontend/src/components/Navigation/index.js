@@ -5,9 +5,14 @@ import ProfileButton from './ProfileButton';
 import logo from './aircnc-logo.svg';
 
 
-function Navigation({ isLoaded, setShowLogin, setShowSignup }) {
+function Navigation({ isLoaded, setShow, setCurrentModal }) {
 
     const sessionUser = useSelector(state => state.session.user);
+
+    const handleModal = modal => {
+        setCurrentModal(modal);
+        setShow(true);
+    }
 
     let sessionLinks;
     if (sessionUser) {
@@ -19,8 +24,8 @@ function Navigation({ isLoaded, setShowLogin, setShowSignup }) {
     } else {
         sessionLinks = (
             <div>
-                <button className='logsign-button' onClick={() => setShowLogin(true)}>Login</button>
-                <button className='logsign-button' onClick={() => setShowSignup(true)}>Signup</button>
+                <button className='logsign-button' onClick={() => handleModal('login')}>Login</button>
+                <button className='logsign-button' onClick={() => handleModal('signup')}>Signup</button>
             </div>
         );
     }
