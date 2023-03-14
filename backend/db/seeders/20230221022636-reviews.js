@@ -48,7 +48,7 @@ module.exports = {
       {
         spotId: 5,
         userId: 1,
-        review: "The giant building across the street might have a view of the beach.  This place does not",
+        review: "The giant building across the street might have a view of the beach.  This place does not!",
         stars: 1
       }
       ,
@@ -69,7 +69,7 @@ module.exports = {
       {
         spotId: 5,
         userId: 4,
-        review: "Holy moldy fridge Batman! Robin laid a rotten egg in the next door dumpster",
+        review: "Holy moldy fridge Batman! Robin laid a rotten egg in the next door dumpster.",
         stars: 2
       }
     ], {});

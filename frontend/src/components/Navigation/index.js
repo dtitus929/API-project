@@ -26,10 +26,12 @@ function Navigation({ isLoaded, setShowLogin, setShowSignup }) {
     }
 
     return (
-        <div className='nav-div'>
-            <NavLink exact to="/"><img src={logo} alt="logo" style={{ height: '38px' }} /></NavLink >
-            {isLoaded && sessionLinks}
-        </div >
+        <div className='nav-div-holder'>
+            <div className='nav-div'>
+                <NavLink exact to="/"><img src={logo} alt="logo" style={{ height: '38px' }} /></NavLink >
+                {isLoaded && sessionLinks}
+            </div >
+        </div>
     );
 }
 

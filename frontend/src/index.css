@@ -39,49 +39,13 @@ a:hover {
     max-width: 100%;
 }
 
-.footer {
+/* ===== NAV ===== */
+
+.nav-div-holder {
     display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    flex-direction: row;
-    border-top: 1px solid #CCCCCC;
-    padding: 18px 35px;
-    background-color: #FFFFFF;
-    justify-content: space-between;
+    justify-content: center;
+    border-bottom: 1px solid #CCCCCC;
 }
-
-
-form {
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    gap: 5px;
-}
-
-form div {
-    padding-bottom: 8px;
-}
-
-form input {
-    margin: 0px 5px;
-}
-
-.spot-card-link {
-    color: #000000;
-}
-
-.spot-card-link:hover {
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.fake-footer-link:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
 
 .nav-div {
     list-style-type: none;
@@ -90,9 +54,9 @@ form input {
     flex-direction: row;
     align-items: center;
     margin: 0px;
-    border-bottom: 1px solid #CCCCCC;
     padding: 10px 35px;
     min-height: 46px;
+    width: 100%;
 }
 
 .logsign-button {
@@ -120,10 +84,9 @@ form input {
 }
 
 .profile-button:hover {
-    background-color: #FFFFFF;
     border: 1px solid #ab7dab;
     box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
-    background-color: #f8f2f8;
+    background-color: #FFFFFF;
     cursor: pointer;
 }
 
@@ -144,7 +107,7 @@ form input {
     width: 220px;
     top: 48px;
     background-color: #FFFFFF;
-    border: 1px solid #ab7dab;
+    border: 1px solid #e8e8e8;
     border-radius: 12px;
     padding: 16px;
     box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
@@ -155,18 +118,91 @@ form input {
     display: none
 }
 
+/* ===== FOOTER ===== */
+
+.footer-holder {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 18px 35px;
+    background-color: #FFFFFF;
+    border-top: 1px solid #CCCCCC;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.fake-footer-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* ===== FORMS ===== */
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap: 5px;
+}
+
+form div {
+    padding-bottom: 8px;
+}
+
+form input {
+    margin: 0px 5px;
+}
+
+/* ===== HOME ===== */
+
+.spot-holder {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
 .spot-card-holder {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     padding: 35px;
+    width: 100%;
 }
 
 .spot-card {
     padding: 0px;
 }
 
-.detail-container {
+.spot-card-link {
+    color: #000000;
+}
+
+.spot-card-link:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* ===== SPOT DETAIL ===== */
+
+.spotdetail-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 30px 30px 80px 30px;
+    max-width: 1000px;
+    margin: 0px auto;
+}
+
+.spotdetail-image-container {
     display: grid;
     grid-template-columns: 1fr 0.5fr 0.5fr;
     grid-template-rows: 1fr 1fr;
@@ -176,11 +212,22 @@ form input {
         "detail-left . .";
 }
 
-.detail-left {
+.spotdetail-image-left {
     grid-area: detail-left;
 }
 
-/* ======================================= */
+.spotdetail-infobox {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
+}
+
+/* ================= Media Queries ====================== */
 
 @media screen and (max-width:1124px) {
     .spot-card-holder {

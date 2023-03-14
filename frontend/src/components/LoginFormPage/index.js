@@ -63,7 +63,7 @@ function LoginFormPage(props) {
 
         <form onSubmit={handleSubmit}>
 
-            {errors && errors.map((error, idx) => <ul><li key={idx}>{error}</li></ul>)}
+            {errors && errors.map((error, idx) => <ul key={idx}><li>{error}</li></ul>)}
 
             <label>
                 Username or Email:

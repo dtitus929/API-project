@@ -1,7 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const LOAD_SPOTS = 'home/loadSpots';
-const LOAD_ONE_SPOT = 'home/loadOneSpot';
+const LOAD_ONE_SPOT = 'spotdetails/loadOneSpot';
 
 const loadSpots = data => {
     return {
