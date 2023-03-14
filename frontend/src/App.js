@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-
-
-import Modal from './components/Modal/Modal'
-
-import LoginFormPage from "./components/LoginFormPage";
-import SignupFormPage from "./components/SignupFormPage";
-
-
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import SpotDetails from "./components/SpotDetails";
+import Modal from './components/Modal/Modal'
+import LoginFormPage from "./components/LoginFormPage";
+import SignupFormPage from "./components/SignupFormPage";
 
 
 function App() {
@@ -37,21 +31,19 @@ function App() {
         <Switch>
 
           <Route path="/" exact>
-            <Home className="content" />
+            <Home />
           </Route>
 
           <Route exact path="/spots/new">
-            <div className="content" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingBottom: '100px' }}>New Spot</div>
+            <div className="issue-box">New Spot</div>
           </Route>
 
           <Route exact path="/spots/:spotId">
-            <SpotDetails className="content" />
+            <SpotDetails />
           </Route>
 
           <Route>
-            <div className="content" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingBottom: '100px' }}>
-              Page Not Found
-            </div>
+            <div className="issue-box">Page Not Found</div>
           </Route>
         </Switch>
       )}

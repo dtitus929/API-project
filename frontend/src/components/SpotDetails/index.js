@@ -6,6 +6,7 @@ import { getSpotReviews } from '../../store/reviews';
 
 export default function SpotDetails() {
     const [hasReviews, setHasReviews] = useState(false);
+    const [isSpot, setIsSpot] = useState(false);
 
     const { spotId } = useParams();
 
@@ -18,7 +19,13 @@ export default function SpotDetails() {
     }
 
     useEffect(() => {
-        dispatch(getOneSpot(spotId));
+        dispatch(getOneSpot(spotId))
+            .then(async () => {
+                setIsSpot(true)
+            })
+            .catch(async () => {
+                setIsSpot(false)
+            })
 
         dispatch(getSpotReviews(spotId))
             .then(async () => {
@@ -74,77 +81,82 @@ export default function SpotDetails() {
 
     return (
 
-        <div className="spotdetail-holder">
+        <>
+            <div className='issue-box' style={isSpot ? { display: 'none' } : {}}>Spot Not Found</div>
 
-            <div key={spot.id}>
-                <h2 style={{ marginBottom: '8px' }}>{spot.name}</h2>
-                <div style={{ marginBottom: '10px' }}>{spot.city}, {spot.state}, {spot.country}</div>
-                <div className="spotdetail-image-container">
-                    <div className="spotdetail-image-left" style={{ borderTopLeftRadius: '14px', borderBottomLeftRadius: '14px', width: '100%', height: '100%' }}>
-                        <img src={spot.SpotImages && spotImagePreview} alt={spot.id} style={{ borderTopLeftRadius: '14px', borderBottomLeftRadius: '14px', width: '100%', height: '100%' }} />
+            <div className="spotdetail-holder" style={!isSpot ? { display: 'none' } : {}}>
+
+                <div key={spot.id}>
+                    <h2 style={{ marginBottom: '8px' }}>{spot.name}</h2>
+                    <div style={{ marginBottom: '10px' }}>{spot.city}, {spot.state}, {spot.country}</div>
+                    <div className="spotdetail-image-container">
+                        <div className="spotdetail-image-left" style={{ borderTopLeftRadius: '14px', borderBottomLeftRadius: '14px', width: '100%', height: '100%' }}>
+                            <img src={spot.SpotImages && spotImagePreview} alt={spot.id} style={{ borderTopLeftRadius: '14px', borderBottomLeftRadius: '14px', width: '100%', height: '100%' }} />
+                        </div>
+
+                        <img src={spot.SpotImages && arrImages[0]} alt={spot.id} style={{ width: '100%', height: '100%' }} />
+                        <img src={spot.SpotImages && arrImages[1]} alt={spot.id} style={{ borderTopRightRadius: '14px', width: '100%', height: '100%' }} />
+                        <img src={spot.SpotImages && arrImages[2]} alt={spot.id} style={{ width: '100%', height: '100%' }} />
+                        <img src={spot.SpotImages && arrImages[3]} alt={spot.id} style={{ borderBottomRightRadius: '14px', width: '100%', height: '100%' }} />
+
+
                     </div>
 
-                    <img src={spot.SpotImages && arrImages[0]} alt={spot.id} style={{ width: '100%', height: '100%' }} />
-                    <img src={spot.SpotImages && arrImages[1]} alt={spot.id} style={{ borderTopRightRadius: '14px', width: '100%', height: '100%' }} />
-                    <img src={spot.SpotImages && arrImages[2]} alt={spot.id} style={{ width: '100%', height: '100%' }} />
-                    <img src={spot.SpotImages && arrImages[3]} alt={spot.id} style={{ borderBottomRightRadius: '14px', width: '100%', height: '100%' }} />
+                    <div style={{ display: 'flex', gap: '20px', borderBottom: '1px solid #CCCCCC', paddingBottom: '20px', marginBottom: '30px' }}>
+                        <div style={{ marginRight: '60px' }}>
+                            <h3>Hosted by {spot.Owner && spot.Owner.firstName} {spot.Owner && spot.Owner.lastName}</h3>
+                            <p>{spot.description}</p>
+                            <p>Phasellus dictum venenatis nisi, sit amet eleifend diam cursus eget. Quisque congue,
+                                tortor eu venenatis auctor, urna elit consequat augue, eget tempor urna ligula vulputate augue. Fusce velit dui, rutrum eu pulvinar nec,
+                                porttitor at felis. Nam sit amet elit in enim gravida cursus. In hendrerit risus et ante consectetur pellentesque. Sed vulputate est nec
+                                accumsan lacinia. Aliquam vulputate blandit felis quis maximus. Nulla tortor magna, ultrices id orci ac, laoreet pulvinar nibh. Praesent
+                                venenatis sapien vitae ipsum euismod posuere. Suspendisse egestas laoreet massa, dictum mollis nisl viverra vitae. Nam porta sagittis
+                                neque ac bibendum. Sed venenatis dignissim ipsum, in malesuada ex efficitur ut. Phasellus metus ante, ullamcorper at sodales quis,
+                                hendrerit vel metus. Praesent interdum justo purus, id rhoncus ligula condimentum nec. Sed venenatis sed ante a suscipit. Sed ac feugiat urna.</p>
+                        </div>
+                        <div style={{ padding: '20px 0px 0px 20px' }}>
 
+                            <div className="spotdetail-infobox">
 
-                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+                                    <div style={{ fontWeight: '500', fontSize: '16px' }}>${Number(spot.price).toFixed(2)}&nbsp;<span style={{ fontWeight: '300' }}>night</span></div>
+                                    <div style={{ fontWeight: '300' }}><i className="fa-solid fa-star" style={{ color: '#993399' }} />&nbsp;{spot.avgStarRating === 'No reviews yet' ? 'New' : (Math.round(spot.avgStarRating * 100) / 100).toFixed(1)} <span style={spot.numReviews === 0 ? { display: 'none' } : {}}>&nbsp;·&nbsp; {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'} </span></div>
+                                </div>
 
-                <div style={{ display: 'flex', gap: '20px', borderBottom: '1px solid #CCCCCC', paddingBottom: '20px', marginBottom: '30px' }}>
-                    <div style={{ marginRight: '60px' }}>
-                        <h3>Hosted by {spot.Owner && spot.Owner.firstName} {spot.Owner && spot.Owner.lastName}</h3>
-                        <p>{spot.description}</p>
-                        <p>Phasellus dictum venenatis nisi, sit amet eleifend diam cursus eget. Quisque congue,
-                            tortor eu venenatis auctor, urna elit consequat augue, eget tempor urna ligula vulputate augue. Fusce velit dui, rutrum eu pulvinar nec,
-                            porttitor at felis. Nam sit amet elit in enim gravida cursus. In hendrerit risus et ante consectetur pellentesque. Sed vulputate est nec
-                            accumsan lacinia. Aliquam vulputate blandit felis quis maximus. Nulla tortor magna, ultrices id orci ac, laoreet pulvinar nibh. Praesent
-                            venenatis sapien vitae ipsum euismod posuere. Suspendisse egestas laoreet massa, dictum mollis nisl viverra vitae. Nam porta sagittis
-                            neque ac bibendum. Sed venenatis dignissim ipsum, in malesuada ex efficitur ut. Phasellus metus ante, ullamcorper at sodales quis,
-                            hendrerit vel metus. Praesent interdum justo purus, id rhoncus ligula condimentum nec. Sed venenatis sed ante a suscipit. Sed ac feugiat urna.</p>
-                    </div>
-                    <div style={{ padding: '20px 0px 0px 20px' }}>
+                                <button onClick={() => { handleReserve() }}>RESERVE</button>
 
-                        <div className="spotdetail-infobox">
-
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-                                <div style={{ fontWeight: '500', fontSize: '16px' }}>${Number(spot.price).toFixed(2)}&nbsp;<span style={{ fontWeight: '300' }}>night</span></div>
-                                <div style={{ fontWeight: '300' }}><i className="fa-solid fa-star" style={{ color: '#993399' }} />&nbsp;{spot.avgStarRating === 'No reviews yet' ? 'New' : (Math.round(spot.avgStarRating * 100) / 100).toFixed(1)} <span style={spot.numReviews === 0 ? { display: 'none' } : {}}>&nbsp;·&nbsp; {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'} </span></div>
                             </div>
-
-                            <button onClick={() => { handleReserve() }}>RESERVE</button>
-
                         </div>
                     </div>
+
+                    <h3><i className="fa-solid fa-star" style={{ color: '#993399' }} />&nbsp;{spot.avgStarRating === 'No reviews yet' ? 'New' : (Math.round(spot.avgStarRating * 100) / 100).toFixed(1)} <span style={spot.numReviews === 0 ? { display: 'none' } : {}}>&nbsp;·&nbsp; {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'} </span></h3>
+
+                    {sessionUser && spot.Owner && sessionUser.id !== spot.Owner.id && !reviewUserIds.includes(sessionUser.id) && (
+                        <div style={{ marginBottom: '18px' }}>
+                            <button id={spot.id}>Post Your Review</button>
+                            {spot.numReviews === 0 ? (<p>Be the first to post a review!</p>) : ''}
+                        </div>
+                    )}
+
+
+
                 </div>
 
-                <h3><i className="fa-solid fa-star" style={{ color: '#993399' }} />&nbsp;{spot.avgStarRating === 'No reviews yet' ? 'New' : (Math.round(spot.avgStarRating * 100) / 100).toFixed(1)} <span style={spot.numReviews === 0 ? { display: 'none' } : {}}>&nbsp;·&nbsp; {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'} </span></h3>
+                {hasReviews && arrReviews?.map(({ id, User, review, createdAt, userId }) => (
 
-                {sessionUser && spot.Owner && sessionUser.id !== spot.Owner.id && !reviewUserIds.includes(sessionUser.id) && (
-                    <div style={{ marginBottom: '18px' }}>
-                        <button id={spot.id}>Post Your Review</button>
-                        {spot.numReviews === 0 ? (<p>Be the first to post a review!</p>) : ''}
+                    <div key={id} style={{ padding: '10px 0px 26px 0px', width: '70%' }}>
+                        <div style={{ fontSize: '15px', fontWeight: 'bold', paddingBottom: '3px' }}>{User['firstName']}</div>
+                        <div style={{ color: '#adadad', paddingBottom: '8px' }}>{createdAt}</div>
+                        <div>{review} Aliquam vulputate blandit felis quis maximus. Nulla tortor magna, ultrices id orci ac, laoreet pulvinar nibh. Praesent venenatis sapien vitae ipsum euismod posuere. Suspendisse egestas laoreet massa, dictum mollis nisl viverra vitae. </div>
+                        {sessionUser && sessionUser.id === userId && (<button style={{ marginTop: '12px' }}>Delete</button>)}
                     </div>
-                )}
 
 
+                ))}
 
             </div>
 
-            {hasReviews && arrReviews?.map(({ id, User, review, createdAt, userId }) => (
-
-                <div key={id} style={{ padding: '10px 0px 26px 0px', width: '70%' }}>
-                    <div style={{ fontSize: '15px', fontWeight: 'bold', paddingBottom: '3px' }}>{User['firstName']}</div>
-                    <div style={{ color: '#adadad', paddingBottom: '8px' }}>{createdAt}</div>
-                    <div>{review} Aliquam vulputate blandit felis quis maximus. Nulla tortor magna, ultrices id orci ac, laoreet pulvinar nibh. Praesent venenatis sapien vitae ipsum euismod posuere. Suspendisse egestas laoreet massa, dictum mollis nisl viverra vitae. </div>
-                    {sessionUser && sessionUser.id === userId && (<button style={{ marginTop: '12px' }}>Delete</button>)}
-                </div>
-
-
-            ))}
-
-        </div>
+        </>
 
     );
 

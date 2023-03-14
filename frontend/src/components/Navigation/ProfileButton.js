@@ -61,7 +61,7 @@ function ProfileButton({ user }) {
 
     return (
         <div className="profile-button-group">
-            <Link to='/spots/new' style={{ paddingRight: '10px' }}>Create a New Spot</Link>
+            <Link to='/spots/new' style={{ paddingRight: '10px', fontWeight: '600' }}>Create a New Spot</Link>
             <button className="profile-button" onClick={openMenu}>
                 <i className="fa-sharp fa-solid fa-bars" style={{ transform: 'scale(1.4, 1)', fontSize: '14px', color: '#993399', paddingRight: '10px' }}></i><i className="fas fa-user-circle" style={{ fontSize: '30px', color: '#993399' }} />
             </button>

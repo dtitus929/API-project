@@ -10,15 +10,22 @@ html, body {
 
 }
 
+button {
+    font-family: 'Open Sans', sans-serif;
+}
+
 #root {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
-.content {
+.issue-box {
     flex: 1 0 auto;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 100px;
 }
 
 a {
@@ -60,6 +67,7 @@ a:hover {
 }
 
 .logsign-button {
+    font-weight: 600;
     background-color: white;
     border: 1px solid #b17bb1;
     border-radius: 14px;
