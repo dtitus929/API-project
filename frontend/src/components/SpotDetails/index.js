@@ -22,6 +22,18 @@ export default function SpotDetails() {
     // console.log('SpotOwnerIS:', spot.Owner && spot.Owner.firstName);
     // console.log("The spot is:", spot);
 
+    let spotImagePreview = null;
+    let arrImages = [];
+
+    if (spot.SpotImages) {
+        for (let i = 0; i < spot.SpotImages.length; i++) {
+            if (spot.SpotImages[i].preview) {
+                spotImagePreview = spot.SpotImages[i].url
+            } else {
+                arrImages.push(spot.SpotImages[i].url)
+            }
+        }
+    }
 
     return (
 
@@ -33,13 +45,13 @@ export default function SpotDetails() {
                 <div style={{ marginBottom: '10px' }}>{spot.city}, {spot.state}, {spot.country}</div>
                 <div className="detail-container">
                     <div className="detail-left" style={{ borderTopLeftRadius: '14px', borderBottomLeftRadius: '14px', width: '100%', height: '100%' }}>
-                        <img src={spot.SpotImages && spot.SpotImages[0].url} alt={spot.id} style={{ borderTopLeftRadius: '14px', borderBottomLeftRadius: '14px', width: '100%', height: '100%' }} />
+                        <img src={spot.SpotImages && spotImagePreview} alt={spot.id} style={{ borderTopLeftRadius: '14px', borderBottomLeftRadius: '14px', width: '100%', height: '100%' }} />
                     </div>
 
-                    <img src={spot.SpotImages && spot.SpotImages[1].url} alt={spot.id} style={{ width: '100%', height: '100%' }} />
-                    <img src={spot.SpotImages && spot.SpotImages[2].url} alt={spot.id} style={{ borderTopRightRadius: '14px', width: '100%', height: '100%' }} />
-                    <img src={spot.SpotImages && spot.SpotImages[3].url} alt={spot.id} style={{ width: '100%', height: '100%' }} />
-                    <img src={spot.SpotImages && spot.SpotImages[4].url} alt={spot.id} style={{ borderBottomRightRadius: '14px', width: '100%', height: '100%' }} />
+                    <img src={spot.SpotImages && arrImages[0]} alt={spot.id} style={{ width: '100%', height: '100%' }} />
+                    <img src={spot.SpotImages && arrImages[1]} alt={spot.id} style={{ borderTopRightRadius: '14px', width: '100%', height: '100%' }} />
+                    <img src={spot.SpotImages && arrImages[2]} alt={spot.id} style={{ width: '100%', height: '100%' }} />
+                    <img src={spot.SpotImages && arrImages[3]} alt={spot.id} style={{ borderBottomRightRadius: '14px', width: '100%', height: '100%' }} />
 
 
                 </div>
@@ -71,7 +83,8 @@ export default function SpotDetails() {
                     </div>
                 </div>
 
-                <h3>Reviews</h3>
+                <h3><i className="fa-solid fa-star" style={{ color: '#993399' }} />&nbsp;{spot.avgStarRating === 'No reviews yet' ? 'New' : (Math.round(spot.avgStarRating * 100) / 100).toFixed(1)} &nbsp;·&nbsp; {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'} </h3>
+
 
 
 
