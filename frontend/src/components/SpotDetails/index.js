@@ -9,6 +9,10 @@ export default function SpotDetails() {
 
     const dispatch = useDispatch();
 
+    const handleReserve = () => {
+        alert('Feature coming soon')
+    }
+
     useEffect(() => {
         dispatch(getOneSpot(spotId));
     }, [dispatch, spotId]);
@@ -58,10 +62,10 @@ export default function SpotDetails() {
 
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
                                 <div style={{ fontWeight: '500', fontSize: '16px' }}>${Number(spot.price).toFixed(2)}&nbsp;<span style={{ fontWeight: '300' }}>night</span></div>
-                                <div style={{ fontWeight: '300' }}><i className="fa-solid fa-star" style={{ color: '#993399' }} />&nbsp;{spot.avgStarRating === 'No reviews yet' ? 'New' : (Math.round(spot.avgStarRating * 100) / 100).toFixed(1)} &nbsp;·&nbsp; {spot.numReviews} {spot.numReviews > 1 ? 'Reviews' : 'Review'} </div>
+                                <div style={{ fontWeight: '300' }}><i className="fa-solid fa-star" style={{ color: '#993399' }} />&nbsp;{spot.avgStarRating === 'No reviews yet' ? 'New' : (Math.round(spot.avgStarRating * 100) / 100).toFixed(1)} &nbsp;·&nbsp; {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'} </div>
                             </div>
 
-                            <button>RESERVE</button>
+                            <button onClick={() => { handleReserve() }}>RESERVE</button>
 
                         </div>
                     </div>

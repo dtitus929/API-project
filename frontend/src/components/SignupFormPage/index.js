@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
@@ -14,14 +14,32 @@ function SignupFormPage(props) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState([]);
+    const [isDisabled, setIsDisabled] = useState(true)
 
+    useEffect(() => {
+        if (
+            email === '' ||
+            username === '' ||
+            firstName === '' ||
+            lastName === '' ||
+            password === '' ||
+            confirmPassword === ''
+        ) {
+            setIsDisabled(true)
+        } else {
+            setIsDisabled(false)
+        }
+    }, [email, username, firstName, lastName, password, confirmPassword]);
 
     if (sessionUser) return <Redirect to="/" />;
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
         if (password === confirmPassword) {
+            setIsDisabled(false)
             setErrors([]);
             return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
                 .then(async () => {
@@ -30,6 +48,7 @@ function SignupFormPage(props) {
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) {
+                        setIsDisabled(true)
                         // console.log(Object.values(data.errors))
                         setErrors(Object.values(data.errors));
                         if (data.message === 'User already exists') {
@@ -40,15 +59,17 @@ function SignupFormPage(props) {
                     }
                 });
         }
-
+        setIsDisabled(true)
         return setErrors(['Password does not match confirmation password']);
     };
 
     return (
         <form onSubmit={handleSubmit}>
-            <ul>
-                {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
+            {errors.length > 0 &&
+                <ul>
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+            }
             <label>
                 Email
                 <input
@@ -103,7 +124,10 @@ function SignupFormPage(props) {
                     required
                 />
             </label>
-            <button type="submit">Sign Up</button>
+            <button
+                type="submit"
+                disabled={isDisabled}
+            >Sign Up</button>
         </form>
     );
 }

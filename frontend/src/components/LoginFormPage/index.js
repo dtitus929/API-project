@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,8 +11,20 @@ function LoginFormPage(props) {
     const [credential, setCredential] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
+    const [isDisabled, setIsDisabled] = useState(true)
 
     const history = useHistory();
+
+    useEffect(() => {
+        if (
+            credential.length < 4 ||
+            password.length < 6
+        ) {
+            setIsDisabled(true)
+        } else {
+            setIsDisabled(false)
+        }
+    }, [credential, password]);
 
     if (sessionUser) return (
         <Redirect to="/" />
@@ -50,9 +62,9 @@ function LoginFormPage(props) {
     return (
 
         <form onSubmit={handleSubmit}>
-            <ul>
-                {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
+
+            {errors && errors.map((error, idx) => <ul><li key={idx}>{error}</li></ul>)}
+
             <label>
                 Username or Email:
                 <input
@@ -71,7 +83,10 @@ function LoginFormPage(props) {
                     required
                 />
             </label>
-            <button type="submit">Log In</button>
+            <button
+                type="submit"
+                disabled={isDisabled}
+            >Log In</button>
             <button onClick={async () => { handleDemo() }} type="submit">Demo User</button>
             <button onClick={async () => { handleDemo2() }} type="submit">Demo Owner</button>
         </form>
