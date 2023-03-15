@@ -60,8 +60,10 @@ export default function SpotDetails(props) {
     }
 
     const reviews = useSelector((state) => state.reviews.spot);
-    const arrReviews = Object.values(reviews);
-    // console.log("The arrReviews are:", arrReviews);
+    const arrReviews = Object.values(reviews).sort((a, b) => {
+        return b.id - a.id;
+    });
+    console.log("The arrReviews are:", arrReviews);
 
     let reviewUserIds = [];
 

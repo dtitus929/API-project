@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { sendSpotReview } from '../../store/reviews'
-import { getSpots } from '../../store/spots';
-import { getOneSpot } from '../../store/spots';
+import { getSpotReviews } from '../../store/reviews';
 
 function AddReview(props) {
 
@@ -51,6 +50,7 @@ function AddReview(props) {
         return dispatch(sendSpotReview({ payload, theSpot }))
             .then(async () => {
                 setShow(false);
+                await dispatch(getSpotReviews(props.currentSpot))
                 history.push(`/spots/${props.currentSpot}`)
             })
             .catch(async (res) => {
