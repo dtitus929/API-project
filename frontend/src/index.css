@@ -46,6 +46,35 @@ a:hover {
     max-width: 100%;
 }
 
+/* ===== SITE WIDE ===== */
+
+.standard-button {
+    background-color: #FFFFFF;
+    color: #993399;
+    border: 1px solid #b17bb1;
+    border-radius: 20px;
+    padding: 2px 12px;
+}
+
+.standard-button:hover {
+    background-color: #f8f2f8;
+    cursor: pointer;
+}
+
+.standard-button-small {
+    background-color: #FFFFFF;
+    color: #993399;
+    border: 1px solid #b17bb1;
+    border-radius: 20px;
+    padding: 1px 10px 2px 10px;
+    font-size: 11px;
+}
+
+.standard-button-small:hover {
+    background-color: #f8f2f8;
+    cursor: pointer;
+}
+
 /* ===== NAV ===== */
 
 .nav-div-holder {
@@ -191,7 +220,7 @@ a:hover {
     box-sizing: content-box; */
 }
 
-.modal-form input {
+.modal-form input, textarea {
     width: 100%;
     margin: 2px 0px 16px 0px;
     padding: 5px 10px;

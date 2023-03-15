@@ -1,7 +1,8 @@
 import { csrfFetch } from './csrf';
 
 const LOAD_SPOT_REVIEWS = 'reviews/loadSpotReviews';
-// const LOAD_USER_REVIES = 'reviews/loadUserReviews';
+// const LOAD_USER_REVIEWS = 'reviews/loadUserReviews';
+// const POST_SPOT_REVIEW = 'reviews/postSpotReview'
 
 const loadSpotReviews = data => {
     return {
@@ -15,9 +16,23 @@ export const getSpotReviews = (id) => async dispatch => {
 
     if (response.ok) {
         const list = await response.json();
-        console.log('BACK:', list.Reviews)
+        // console.log('BACK:', list.Reviews)
         dispatch(loadSpotReviews(list.Reviews));
     }
+
+    return response;
+};
+
+
+export const sendSpotReview = (data) => async () => {
+    // console.log('DATA:', data)
+    const response = await csrfFetch(`/api/spots/${data.theSpot}/reviews`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data.payload)
+    });
 
     return response;
 };

@@ -4,9 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOneSpot } from '../../store/spots';
 import { getSpotReviews } from '../../store/reviews';
 
-export default function SpotDetails() {
+export default function SpotDetails(props) {
     const [hasReviews, setHasReviews] = useState(false);
     const [isSpot, setIsSpot] = useState(false);
+
+    const { setShow, setCurrentModal, setCurrentSpot } = props;
+
+    // console.log('props:', props);
 
     const { spotId } = useParams();
 
@@ -78,6 +82,12 @@ export default function SpotDetails() {
         arrReviews[i].createdAt = month + ' ' + year;
     }
 
+    const handleModal = modal => {
+        setCurrentSpot(spot.id)
+        setCurrentModal(modal);
+        setShow(true);
+    }
+
 
     return (
 
@@ -123,7 +133,7 @@ export default function SpotDetails() {
                                     <div style={{ fontWeight: '300' }}><i className="fa-solid fa-star" style={{ color: '#993399' }} />&nbsp;{spot.avgStarRating === 'No reviews yet' ? 'New' : (Math.round(spot.avgStarRating * 100) / 100).toFixed(1)} <span style={spot.numReviews === 0 ? { display: 'none' } : {}}>&nbsp;·&nbsp; {spot.numReviews} {spot.numReviews === 1 ? 'Review' : 'Reviews'} </span></div>
                                 </div>
 
-                                <button onClick={() => { handleReserve() }}>RESERVE</button>
+                                <button className=' modal-submit-button' onClick={() => { handleReserve() }}>RESERVE</button>
 
                             </div>
                         </div>
@@ -133,7 +143,9 @@ export default function SpotDetails() {
 
                     {sessionUser && spot.Owner && sessionUser.id !== spot.Owner.id && !reviewUserIds.includes(sessionUser.id) && (
                         <div style={{ marginBottom: '18px' }}>
-                            <button id={spot.id}>Post Your Review</button>
+
+                            <button onClick={() => handleModal('addreview')} className='standard-button' id={spot.id}>Post Your Review</button>
+
                             {spot.numReviews === 0 ? (<p>Be the first to post a review!</p>) : ''}
                         </div>
                     )}
@@ -148,7 +160,7 @@ export default function SpotDetails() {
                         <div style={{ fontSize: '15px', fontWeight: 'bold', paddingBottom: '3px' }}>{User['firstName']}</div>
                         <div style={{ color: '#adadad', paddingBottom: '8px' }}>{createdAt}</div>
                         <div>{review} Aliquam vulputate blandit felis quis maximus. Nulla tortor magna, ultrices id orci ac, laoreet pulvinar nibh. Praesent venenatis sapien vitae ipsum euismod posuere. Suspendisse egestas laoreet massa, dictum mollis nisl viverra vitae. </div>
-                        {sessionUser && sessionUser.id === userId && (<button style={{ marginTop: '12px' }}>Delete</button>)}
+                        {sessionUser && sessionUser.id === userId && (<button className='standard-button-small' style={{ marginTop: '10px' }}>Delete</button>)}
                     </div>
 
 

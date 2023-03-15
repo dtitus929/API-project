@@ -9,6 +9,7 @@ import SpotDetails from "./components/SpotDetails";
 import Modal from './components/Modal/Modal'
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
+import AddReview from "./components/AddReview";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
 
   const [show, setShow] = useState(false);
   const [currentModal, setCurrentModal] = useState('');
+  const [currentSpot, setCurrentSpot] = useState('');
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -40,7 +42,7 @@ function App() {
           </Route>
 
           <Route exact path="/spots/:spotId">
-            <SpotDetails />
+            <SpotDetails setShow={setShow} setCurrentModal={setCurrentModal} setCurrentSpot={setCurrentSpot} />
           </Route>
 
           <Route>
@@ -53,6 +55,7 @@ function App() {
       <Modal onClose={() => setShow(false)} show={show}>
         {currentModal === 'login' && (<LoginFormPage setShow={setShow} />)}
         {currentModal === 'signup' && (<SignupFormPage setShow={setShow} />)}
+        {currentModal === 'addreview' && (<AddReview setShow={setShow} currentSpot={currentSpot} />)}
       </Modal>
 
     </>
