@@ -40,6 +40,9 @@ function LoginFormPage(props) {
         setPassword('cindypass');
     };
 
+    const handleClose = () => {
+        setShow(false)
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -61,35 +64,55 @@ function LoginFormPage(props) {
 
     return (
 
-        <form onSubmit={handleSubmit}>
+        <>
 
-            {errors && errors.map((error, idx) => <ul key={idx}><li>{error}</li></ul>)}
+            <div className='modal-header'>
+                <div>&nbsp;</div>
+                <div className='modal-title'>Log In</div>
+                <div><button className="modal-close" onClick={() => { handleClose() }}>X</button></div>
+            </div>
 
-            <label>
-                Username or Email:
-                <input
-                    type="text"
-                    value={credential}
-                    onChange={(e) => setCredential(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Password:
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </label>
-            <button
-                type="submit"
-                disabled={isDisabled}
-            >Log In</button>
-            <button onClick={async () => { handleDemo() }} type="submit">Demo User</button>
-            <button onClick={async () => { handleDemo2() }} type="submit">Demo Owner</button>
-        </form>
+            <form onSubmit={handleSubmit} className="modal-form">
+
+                {errors.length > 0 &&
+                    <ul style={{ padding: '0px', margin: '2px 0px 20px 8px', color: 'red' }}>
+                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
+                }
+
+                <label>
+                    Username or Email
+                    <input
+                        type="text"
+                        value={credential}
+                        onChange={(e) => setCredential(e.target.value)}
+                        required
+                    />
+
+                </label>
+                <label>
+                    Password
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </label>
+                <button
+                    type="submit"
+                    className='modal-submit-button'
+                    disabled={isDisabled}
+                >Log In</button>
+
+                <div style={{ display: 'flex', justifyContent: 'center', color: '#CCCCCC', marginTop: '15px' }}>
+                    <button className='modal-demouser-button' onClick={async () => { handleDemo() }} type="submit">Demo Site User</button> &#183;
+                    <button className='modal-demouser-button' onClick={async () => { handleDemo2() }} type="submit">Demo Spot Owner</button>
+                </div>
+
+            </form>
+
+        </>
 
     );
 }

@@ -33,7 +33,9 @@ function SignupFormPage(props) {
 
     if (sessionUser) return <Redirect to="/" />;
 
-
+    const handleClose = () => {
+        setShow(false)
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -64,71 +66,83 @@ function SignupFormPage(props) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            {errors.length > 0 &&
-                <ul>
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul>
-            }
-            <label>
-                Email
-                <input
-                    type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Username
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                First Name
-                <input
-                    type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Last Name
-                <input
-                    type="text"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Password
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </label>
-            <label>
-                Confirm Password
-                <input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                />
-            </label>
-            <button
-                type="submit"
-                disabled={isDisabled}
-            >Sign Up</button>
-        </form>
+
+        <>
+            <div className='modal-header'>
+                <div>&nbsp;</div>
+                <div className='modal-title'>Sign Up</div>
+                <div><button className="modal-close" onClick={() => { handleClose() }}>X</button></div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="modal-form">
+
+                {errors.length > 0 &&
+                    <ul style={{ padding: '0px', margin: '2px 0px 20px 8px', color: 'red' }}>
+                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
+                }
+
+                <label>
+                    Email
+                    <input
+                        type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    Username
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    First Name
+                    <input
+                        type="text"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    Last Name
+                    <input
+                        type="text"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    Password
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    Confirm Password
+                    <input
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                    />
+                </label>
+                <button
+                    type="submit"
+                    className='modal-submit-button'
+                    disabled={isDisabled}
+                >Sign Up</button>
+            </form>
+        </>
     );
 }
 

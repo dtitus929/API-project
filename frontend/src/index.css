@@ -152,22 +152,89 @@ a:hover {
     cursor: pointer;
 }
 
-/* ===== FORMS ===== */
+/* ===== MODAL / MODAL FORMS ===== */
 
-form {
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px 20px 10px;
+}
+
+.modal-title {
+    font-weight: 700;
+    font-size: 18px;
+    color: #993399;
+}
+
+.modal-close {
+    border: 0px;
+    font-weight: 400;
+    transform: scale(1.25, 1);
+    border-radius: 20px;
+    padding: 3px 6px;
+    background-color: #fff;
+}
+
+.modal-close:hover {
+    background-color: #ededed;
+    cursor: pointer;
+}
+
+.modal-form {
     display: flex;
     flex-direction: column;
-    width: fit-content;
-    gap: 5px;
+
+    /* width: 100%; */
+    /* width: fit-content; */
+    /* gap: 5px;
+    width: 100%;
+    box-sizing: content-box; */
 }
 
-form div {
-    padding-bottom: 8px;
+.modal-form input {
+    width: 100%;
+    margin: 2px 0px 16px 0px;
+    padding: 5px 10px;
+    border-radius: 7px;
+    border: 1px solid #7b7b7b;
+    box-sizing: border-box;
+    font-size: 15px;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
 }
 
-form input {
-    margin: 0px 5px;
+.modal-submit-button {
+    background-color: #993399;
+    margin-top: 10px;
+    border: 0px;
+    border-radius: 7px;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 7px 0px;
 }
+
+.modal-submit-button:hover {
+    background-color: #aa4aaa;
+    cursor: pointer;
+}
+
+.modal-submit-button:disabled {
+    background-color: #d3b3d3;
+    cursor: default;
+}
+
+.modal-demouser-button {
+    background-color: #FFFFFF;
+    border: 0px;
+    color: #b3b3b3
+}
+
+.modal-demouser-button:hover {
+    cursor: pointer;
+    color: #993399
+}
+
 
 /* ===== HOME ===== */
 

@@ -26,6 +26,7 @@ function App() {
 
   return (
     <>
+
       <Navigation isLoaded={isLoaded} setShow={setShow} setCurrentModal={setCurrentModal} />
       {isLoaded && (
         <Switch>
@@ -53,14 +54,6 @@ function App() {
         {currentModal === 'login' && (<LoginFormPage setShow={setShow} />)}
         {currentModal === 'signup' && (<SignupFormPage setShow={setShow} />)}
       </Modal>
-
-      {/* <LoginModal title="Log In" onClose={() => setShowLogin(false)} show={showLogin}>
-        <LoginFormPage setShowLogin={setShowLogin} />
-      </LoginModal> */}
-
-      {/* <SignupModal title="Sign Up" onClose={() => setShowSignup(false)} show={showSignup}>
-        <SignupFormPage setShowSignup={setShowSignup} />
-      </SignupModal> */}
 
     </>
   );
