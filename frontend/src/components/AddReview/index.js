@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import { sendSpotReview } from '../../store/reviews'
+import { sendSpotReview } from '../../store/reviews';
+import { getOneSpot } from '../../store/spots';
 import { getSpotReviews } from '../../store/reviews';
+
+import StarRating from './StarRating'
 
 function AddReview(props) {
 
     const theSpot = props.currentSpot;
-
-    // console.log('PRPS:', props.currentSpot)
 
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(0);
@@ -21,8 +22,6 @@ function AddReview(props) {
     const { setShow } = props;
 
     const history = useHistory();
-
-    // const sessionUser = useSelector(state => state.session.user);
 
     useEffect(() => {
         if (review.length < 10 || stars <= 0) {
@@ -50,7 +49,8 @@ function AddReview(props) {
         return dispatch(sendSpotReview({ payload, theSpot }))
             .then(async () => {
                 setShow(false);
-                await dispatch(getSpotReviews(props.currentSpot))
+                await dispatch(getOneSpot(props.currentSpot));
+                await dispatch(getSpotReviews(props.currentSpot));
                 history.push(`/spots/${props.currentSpot}`)
             })
             .catch(async (res) => {
@@ -62,6 +62,11 @@ function AddReview(props) {
                 }
             });
 
+    };
+
+    const onChange = (number) => {
+        // const number = e.target.value;
+        setStars(parseInt(number));
     };
 
     return (
@@ -94,15 +99,13 @@ function AddReview(props) {
                     />
 
                 </label>
-                <label>
-                    Stars
-                    <input
-                        type="text"
-                        value={stars}
-                        onChange={(e) => setStars(e.target.value)}
-                        required
-                    />
-                </label>
+
+                <StarRating
+                    disabled={false}
+                    onChange={onChange}
+                    rating={stars}
+                />
+
                 <button
                     type="submit"
                     className='modal-submit-button'

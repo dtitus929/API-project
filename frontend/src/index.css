@@ -212,12 +212,6 @@ a:hover {
 .modal-form {
     display: flex;
     flex-direction: column;
-
-    /* width: 100%; */
-    /* width: fit-content; */
-    /* gap: 5px;
-    width: 100%;
-    box-sizing: content-box; */
 }
 
 .modal-form input, textarea {
@@ -230,6 +224,10 @@ a:hover {
     font-size: 15px;
     font-weight: 300;
     font-family: 'Open Sans', sans-serif;
+}
+
+.modal-form textarea {
+    margin: 0px 0px 6px 0px;
 }
 
 .modal-submit-button {
@@ -262,6 +260,23 @@ a:hover {
 .modal-demouser-button:hover {
     cursor: pointer;
     color: #993399
+}
+
+/* ===== STAR RATING ===== */
+
+.rating-input {
+    display: flex;
+    justify-content: center;
+}
+
+.rating-input .filled {
+    font-size: 24px;
+    color: #993399;
+}
+
+.rating-input .empty {
+    font-size: 24px;
+    color: #dfd1df;
 }
 
 
