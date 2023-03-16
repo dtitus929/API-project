@@ -20,14 +20,6 @@ button {
     height: 100%;
 }
 
-.issue-box {
-    flex: 1 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 100px;
-}
-
 a {
     text-decoration: none;
     color: #993399;
@@ -47,6 +39,15 @@ a:hover {
 }
 
 /* ===== SITE WIDE ===== */
+
+.issue-box {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 100px;
+    margin: 0px 40px;
+}
 
 .standard-button {
     background-color: #FFFFFF;
