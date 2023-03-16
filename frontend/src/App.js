@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
+import ManageSpots from "./components/ManageSpots";
 import Footer from "./components/Footer";
 import SpotDetails from "./components/SpotDetails";
 import Modal from './components/Modal/Modal'
@@ -37,6 +38,10 @@ function App() {
 
           <Route path="/" exact>
             <Home />
+          </Route>
+
+          <Route path="/spots/current" exact>
+            <ManageSpots />
           </Route>
 
           <Route exact path="/spots/new">

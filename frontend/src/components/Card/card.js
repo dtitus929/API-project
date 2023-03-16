@@ -20,7 +20,11 @@ export default function Card(props) {
                         </div>
                     </Link>
 
-                    <div style={!showUpdateDelete ? { display: 'none' } : {}}><button>Update</button><button>Delete</button></div>
+                    <div style={!showUpdateDelete ? { display: 'none' } : {}}>
+                        <div style={{ display: 'flex', gap: '5px', padding: '8px 0px 12px 0px' }}>
+                            <button className="standard-button">Update</button><button className="standard-button">Delete</button>
+                        </div>
+                    </div>
 
                 </div>
 

@@ -75,6 +75,29 @@ a:hover {
     cursor: pointer;
 }
 
+.dark-button {
+    background-color: #993399;
+    color: #FFFFFF;
+    border-radius: 20px;
+    padding: 2px 12px;
+    border: 0px;
+}
+
+.dark-button:hover {
+    background-color: #aa4aaa;
+    cursor: pointer;
+}
+
+.page-title-holder {
+    padding: 35px 40px;
+}
+
+.page-title {
+    font-weight: 700;
+    font-size: 18px;
+    color: #993399;
+}
+
 /* ===== NAV ===== */
 
 .nav-div-holder {
@@ -154,6 +177,32 @@ a:hover {
 .hidden {
     display: none
 }
+
+/* ===== PROFILE BUTTON ===== */
+
+.profile-userinfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-userinfo div {
+    padding: 5px 0px;
+}
+
+.profile-userinfo div:first-child {
+    padding-bottom: 0px;
+    font-weight: 700;
+}
+
+.profile-userinfo div:nth-child(2) {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.profile-userinfo div:last-child {
+    padding-top: 10px;
+}
+
 
 /* ===== FOOTER ===== */
 
