@@ -53,6 +53,8 @@ function DeleteReview(props) {
             <div className='modal-header'>
                 <div>&nbsp;</div>
                 <div className='modal-title'>Confirm Delete</div>
+                {/* <div>Current Review ID:{props.currentReview}</div>
+                <div>Current Spot ID:{props.currentSpot}</div> */}
                 <div><button className="modal-close" onClick={() => { handleClose() }}>X</button></div>
             </div>
 

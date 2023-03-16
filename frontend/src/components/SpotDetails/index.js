@@ -23,31 +23,12 @@ export default function SpotDetails(props) {
         alert('Feature coming soon')
     }
 
-    useEffect(() => {
-        dispatch(getOneSpot(spotId))
-            .then(async () => {
-                setIsSpot(true)
-            })
-            .catch(async () => {
-                setIsSpot(false)
-            })
-
-        dispatch(clearSpotReviews())
-
-        dispatch(getSpotReviews(spotId))
-            .then(async () => {
-                setHasReviews(true)
-            })
-            .catch(async () => {
-                setHasReviews(false)
-            })
-
-    }, [dispatch, spotId]);
-
     const spot = useSelector((state) => state.spots.singleSpot);
     // const ownerHolder = Object.entries(spot.Owner);
     // console.log('SpotOwnerIS:', spot.Owner && spot.Owner.firstName);
     // console.log("The spot is:", spot);
+
+    // console.log('Single spot reviews', spot.numReviews);
 
     let spotImagePreview = null;
     let arrImages = [];
@@ -87,15 +68,38 @@ export default function SpotDetails(props) {
         arrReviews[i].createdAt = month + ' ' + year;
     }
 
+    useEffect(() => {
+        dispatch(clearSpotReviews())
+
+        dispatch(getOneSpot(spotId))
+            .then(async () => {
+                setIsSpot(true)
+            })
+            .catch(async () => {
+                setIsSpot(false)
+            })
+
+        dispatch(getSpotReviews(spotId))
+            .then(async () => {
+                setHasReviews(true)
+            })
+            .catch(async () => {
+                setHasReviews(false)
+                console.log('Caught Error of no Reviews found');
+                dispatch(clearSpotReviews())
+            })
+
+    }, [dispatch, spotId, hasReviews]);
+
     const handleModal = (modal, id) => {
         if (modal === 'addreview') setCurrentSpot(spot.id);
-        if (modal === 'deletereview') setCurrentReview(id)
+        if (modal === 'deletereview') {
+            setCurrentSpot(spot.id)
+            setCurrentReview(id)
+        }
         setCurrentModal(modal);
         setShow(true);
     }
-
-
-
 
     return (
 
@@ -162,7 +166,7 @@ export default function SpotDetails(props) {
 
                 </div>
 
-                {arrReviews.length > 0 && arrReviews?.map(({ id, User, review, createdAt, userId }) => (
+                {arrReviews.length > 0 && spot.numReviews > 0 && arrReviews?.map(({ id, User, review, createdAt, userId }) => (
 
                     <div key={id} style={{ padding: '10px 0px 26px 0px', width: '70%' }}>
                         <div style={{ fontSize: '15px', fontWeight: 'bold', paddingBottom: '3px' }}>{User['firstName']}</div>

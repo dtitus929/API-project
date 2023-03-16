@@ -10,7 +10,7 @@ import Modal from './components/Modal/Modal'
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import AddReview from "./components/AddReview";
-import DeleteReview from "./components/DeleteConfirmation";
+import DeleteReview from "./components/DeleteReview/";
 
 
 function App() {
