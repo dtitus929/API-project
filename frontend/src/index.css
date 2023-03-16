@@ -233,6 +233,55 @@ a:hover {
 
 /* ===== MODAL / MODAL FORMS ===== */
 
+.spot-form-holder {
+    display: flex;
+    justify-content: center;
+    padding: 0px 45px 130px 45px;
+}
+
+.spot-form-holder form {
+    width: 600px;
+}
+
+.spot-form-subheader-holder {
+    padding-bottom: 20px;
+    max-width: 470px
+}
+
+.spot-form-subheader {
+    font-weight: 700;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+.spot-form-divider {
+    background-color: #CCCCCC;
+    height: 1px;
+    margin: 10px 0px 18px 0px;
+}
+
+.spot-submit-button {
+    background-color: #993399;
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 16px;
+    border-radius: 20px;
+    padding: 3px 18px;
+    border: 0px;
+}
+
+.spot-submit-button:hover {
+    background-color: #aa4aaa;
+    cursor: pointer;
+}
+
+.spot-submit-button:disabled {
+    background-color: #d3b3d3;
+    cursor: default;
+}
+
+/* ===== MODAL / MODAL FORMS ===== */
+
 .modal-header {
     display: flex;
     justify-content: space-between;

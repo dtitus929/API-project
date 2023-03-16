@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function Card(props) {
 
+
     const { arrSpots, showUpdateDelete } = props;
+
+    const history = useHistory();
+
+    const handleUpdate = (id) => {
+        history.push(`/spots/${id}/edit`)
+    }
 
     return (
 
@@ -22,7 +30,7 @@ export default function Card(props) {
 
                     <div style={!showUpdateDelete ? { display: 'none' } : {}}>
                         <div style={{ display: 'flex', gap: '5px', padding: '8px 0px 12px 0px' }}>
-                            <button className="standard-button">Update</button><button className="standard-button">Delete</button>
+                            <button onClick={() => { handleUpdate(id) }} className="standard-button">Update</button><button className="standard-button">Delete</button>
                         </div>
                     </div>
 

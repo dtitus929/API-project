@@ -71,7 +71,7 @@ const reviewsReducer = (state = initialState, action) => {
                 ...state, spot: { ...allReviews }
             }
         case CLEAR_SPOT_REVIEWS:
-            console.log('HERE CLEAR');
+            // console.log('HERE CLEAR');
             return { ...state, spot: {} }
         default:
             return state;

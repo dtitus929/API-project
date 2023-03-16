@@ -11,7 +11,8 @@ import Modal from './components/Modal/Modal'
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import AddReview from "./components/AddReview";
-import DeleteReview from "./components/DeleteReview/";
+import DeleteReview from "./components/DeleteReview";
+import SpotForm from "./components/Spot";
 
 
 function App() {
@@ -45,7 +46,11 @@ function App() {
           </Route>
 
           <Route exact path="/spots/new">
-            <div className="issue-box">New Spot</div>
+            <SpotForm />
+          </Route>
+
+          <Route exact path="/spots/:spotId/edit">
+            <SpotForm />
           </Route>
 
           <Route exact path="/spots/:spotId">

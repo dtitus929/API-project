@@ -85,7 +85,6 @@ export default function SpotDetails(props) {
             })
             .catch(async () => {
                 setHasReviews(false)
-                console.log('Caught Error of no Reviews found');
                 dispatch(clearSpotReviews())
             })
 

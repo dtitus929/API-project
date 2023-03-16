@@ -20,7 +20,7 @@ export default function ManageSpots() {
     // console.log("The spots are:", spots);
 
     const arrSpots = Object.values(spots).filter(item => item.ownerId === sessionUser.id);
-    console.log("The arrSpots is:", arrSpots);
+    // console.log("The arrSpots is:", arrSpots);
 
     if (!sessionUser) return (
         <Redirect to="/" />
