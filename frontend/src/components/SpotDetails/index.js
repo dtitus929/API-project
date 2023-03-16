@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { getOneSpot } from '../../store/spots';
 import { getSpotReviews } from '../../store/reviews';
+import { clearSpotReviews } from '../../store/reviews';
 
 export default function SpotDetails(props) {
     const [hasReviews, setHasReviews] = useState(false);
@@ -30,6 +31,8 @@ export default function SpotDetails(props) {
             .catch(async () => {
                 setIsSpot(false)
             })
+
+        dispatch(clearSpotReviews())
 
         dispatch(getSpotReviews(spotId))
             .then(async () => {
@@ -63,7 +66,7 @@ export default function SpotDetails(props) {
     const arrReviews = Object.values(reviews).sort((a, b) => {
         return b.id - a.id;
     });
-    console.log("The arrReviews are:", arrReviews);
+    // console.log("The arrReviews are:", arrReviews);
 
     let reviewUserIds = [];
 
@@ -156,7 +159,7 @@ export default function SpotDetails(props) {
 
                 </div>
 
-                {hasReviews && arrReviews?.map(({ id, User, review, createdAt, userId }) => (
+                {arrReviews.length > 0 && arrReviews?.map(({ id, User, review, createdAt, userId }) => (
 
                     <div key={id} style={{ padding: '10px 0px 26px 0px', width: '70%' }}>
                         <div style={{ fontSize: '15px', fontWeight: 'bold', paddingBottom: '3px' }}>{User['firstName']}</div>

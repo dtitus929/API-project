@@ -1,6 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const LOAD_SPOT_REVIEWS = 'reviews/loadSpotReviews';
+const CLEAR_SPOT_REVIEWS = 'reviews/clearSpotReviews'
 // const LOAD_USER_REVIEWS = 'reviews/loadUserReviews';
 // const POST_SPOT_REVIEW = 'reviews/postSpotReview'
 
@@ -8,6 +9,12 @@ const loadSpotReviews = data => {
     return {
         type: LOAD_SPOT_REVIEWS,
         payload: data
+    };
+};
+
+export const clearSpotReviews = () => {
+    return {
+        type: CLEAR_SPOT_REVIEWS,
     };
 };
 
@@ -37,7 +44,7 @@ export const sendSpotReview = (data) => async () => {
     return response;
 };
 
-const initialState = { spot: {}, user: {} };
+const initialState = { spot: {}, user: { id: 'bob' } };
 
 const reviewsReducer = (state = initialState, action) => {
 
@@ -49,6 +56,9 @@ const reviewsReducer = (state = initialState, action) => {
             return {
                 ...state, spot: { ...allReviews }
             }
+        case CLEAR_SPOT_REVIEWS:
+            console.log('HERE CLEAR');
+            return { ...state, spot: {} }
         default:
             return state;
     }
