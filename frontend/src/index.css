@@ -251,6 +251,39 @@ a:hover {
     cursor: default;
 }
 
+.modal-yes-button {
+    background-color: #d80f0f;
+    margin-top: 25px;
+    border: 0px;
+    border-radius: 7px;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 7px 0px;
+}
+
+.modal-yes-button:hover {
+    background-color: #ff0000;
+    cursor: pointer;
+}
+
+.modal-no-button {
+    background-color: #797979;
+    width: 100%;
+    margin-top: 15px;
+    border: 0px;
+    border-radius: 7px;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 7px 0px;
+}
+
+.modal-no-button:hover {
+    background-color: #969696;
+    cursor: pointer;
+}
+
 .modal-demouser-button {
     background-color: #FFFFFF;
     border: 0px;

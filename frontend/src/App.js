@@ -10,6 +10,7 @@ import Modal from './components/Modal/Modal'
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import AddReview from "./components/AddReview";
+import DeleteReview from "./components/DeleteConfirmation";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
   const [show, setShow] = useState(false);
   const [currentModal, setCurrentModal] = useState('');
   const [currentSpot, setCurrentSpot] = useState('');
+  const [currentReview, setCurrentReview] = useState('');
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -42,7 +44,7 @@ function App() {
           </Route>
 
           <Route exact path="/spots/:spotId">
-            <SpotDetails setShow={setShow} setCurrentModal={setCurrentModal} setCurrentSpot={setCurrentSpot} />
+            <SpotDetails setShow={setShow} setCurrentModal={setCurrentModal} setCurrentSpot={setCurrentSpot} setCurrentReview={setCurrentReview} />
           </Route>
 
           <Route>
@@ -56,6 +58,7 @@ function App() {
         {currentModal === 'login' && (<LoginFormPage setShow={setShow} />)}
         {currentModal === 'signup' && (<SignupFormPage setShow={setShow} />)}
         {currentModal === 'addreview' && (<AddReview setShow={setShow} currentSpot={currentSpot} />)}
+        {currentModal === 'deletereview' && (<DeleteReview setShow={setShow} currentReview={currentReview} currentSpot={currentSpot} />)}
       </Modal>
 
     </>

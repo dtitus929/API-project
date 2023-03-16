@@ -9,7 +9,7 @@ export default function SpotDetails(props) {
     const [hasReviews, setHasReviews] = useState(false);
     const [isSpot, setIsSpot] = useState(false);
 
-    const { setShow, setCurrentModal, setCurrentSpot } = props;
+    const { setShow, setCurrentModal, setCurrentSpot, setCurrentReview } = props;
 
     // console.log('props:', props);
 
@@ -87,11 +87,14 @@ export default function SpotDetails(props) {
         arrReviews[i].createdAt = month + ' ' + year;
     }
 
-    const handleModal = modal => {
-        setCurrentSpot(spot.id)
+    const handleModal = (modal, id) => {
+        if (modal === 'addreview') setCurrentSpot(spot.id);
+        if (modal === 'deletereview') setCurrentReview(id)
         setCurrentModal(modal);
         setShow(true);
     }
+
+
 
 
     return (
@@ -165,7 +168,7 @@ export default function SpotDetails(props) {
                         <div style={{ fontSize: '15px', fontWeight: 'bold', paddingBottom: '3px' }}>{User['firstName']}</div>
                         <div style={{ color: '#adadad', paddingBottom: '8px' }}>{createdAt}</div>
                         <div>{review} Aliquam vulputate blandit felis quis maximus. Nulla tortor magna, ultrices id orci ac, laoreet pulvinar nibh. Praesent venenatis sapien vitae ipsum euismod posuere. Suspendisse egestas laoreet massa, dictum mollis nisl viverra vitae. </div>
-                        {sessionUser && sessionUser.id === userId && (<button className='standard-button-small' style={{ marginTop: '10px' }}>Delete</button>)}
+                        {sessionUser && sessionUser.id === userId && (<button onClick={() => handleModal('deletereview', id)} className='standard-button-small' style={{ marginTop: '10px' }}>Delete</button>)}
                     </div>
 
 

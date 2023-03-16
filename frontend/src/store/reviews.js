@@ -2,8 +2,8 @@ import { csrfFetch } from './csrf';
 
 const LOAD_SPOT_REVIEWS = 'reviews/loadSpotReviews';
 const CLEAR_SPOT_REVIEWS = 'reviews/clearSpotReviews'
-// const LOAD_USER_REVIEWS = 'reviews/loadUserReviews';
-// const POST_SPOT_REVIEW = 'reviews/postSpotReview'
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 const loadSpotReviews = data => {
     return {
@@ -11,13 +11,6 @@ const loadSpotReviews = data => {
         payload: data
     };
 };
-
-export const clearSpotReviews = () => {
-    return {
-        type: CLEAR_SPOT_REVIEWS,
-    };
-};
-
 export const getSpotReviews = (id) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${id}/reviews`);
 
@@ -26,10 +19,30 @@ export const getSpotReviews = (id) => async dispatch => {
         // console.log('BACK:', list.Reviews)
         dispatch(loadSpotReviews(list.Reviews));
     }
-
     return response;
 };
 
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+export const deleteSpotReview = (id) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${id}`, {
+        method: "delete",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+    return response;
+};
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+export const clearSpotReviews = () => {
+    return {
+        type: CLEAR_SPOT_REVIEWS,
+    };
+};
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 export const sendSpotReview = (data) => async () => {
     // console.log('DATA:', data)
@@ -40,9 +53,10 @@ export const sendSpotReview = (data) => async () => {
         },
         body: JSON.stringify(data.payload)
     });
-
     return response;
 };
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 const initialState = { spot: {}, user: { id: 'bob' } };
 
