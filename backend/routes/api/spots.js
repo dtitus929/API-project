@@ -616,7 +616,8 @@ router.get('/:spotId/reviews', async (req, res, next) => {
         {
             model: ReviewImage,
             attributes: ['id', 'url']
-        }]
+        }],
+        order: [['id']]
     })
 
     if (Reviews.length === 0) {

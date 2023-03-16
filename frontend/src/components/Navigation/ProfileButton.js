@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 
@@ -11,11 +11,15 @@ function ProfileButton({ user }) {
     const [ownsSpots, setOwnsSpots] = useState(null);
     const ulRef = useRef();
 
+    const history = useHistory();
+
     const spots = useSelector((state) => state.spots.allSpots);
     // console.log("From Profile:", spots);
 
-    if (spots && ownsSpots === null) {
-        spots.forEach(element => {
+    const arrSpots = Object.values(spots);
+
+    if (arrSpots && ownsSpots === null) {
+        arrSpots.forEach(element => {
             // console.log(user.id, element.ownerId);
             if (user.id === element.ownerId) {
                 setOwnsSpots(true)
@@ -50,13 +54,14 @@ function ProfileButton({ user }) {
     const logout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.logout());
+        history.push("/")
     };
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
     return (
         <div className="profile-button-group">
-            <Link to='/spots/new' style={{ paddingRight: '10px' }}>Create a New Spot</Link>
+            <Link to='/spots/new' style={{ paddingRight: '10px', fontWeight: '600' }}>Create a New Spot</Link>
             <button className="profile-button" onClick={openMenu}>
                 <i className="fa-sharp fa-solid fa-bars" style={{ transform: 'scale(1.4, 1)', fontSize: '14px', color: '#993399', paddingRight: '10px' }}></i><i className="fas fa-user-circle" style={{ fontSize: '30px', color: '#993399' }} />
             </button>

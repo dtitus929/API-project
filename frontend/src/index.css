@@ -1,7 +1,7 @@
 /* TODO Add site wide styles */
 
 html, body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     margin: 0px;
     box-sizing: border-box;
@@ -10,15 +10,22 @@ html, body {
 
 }
 
+button {
+    font-family: 'Open Sans', sans-serif;
+}
+
 #root {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
-.content {
+.issue-box {
     flex: 1 0 auto;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 100px;
 }
 
 a {
@@ -39,49 +46,42 @@ a:hover {
     max-width: 100%;
 }
 
-.footer {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    flex-direction: row;
-    border-top: 1px solid #CCCCCC;
-    padding: 18px 35px;
+/* ===== SITE WIDE ===== */
+
+.standard-button {
     background-color: #FFFFFF;
-    justify-content: space-between;
+    color: #993399;
+    border: 1px solid #b17bb1;
+    border-radius: 20px;
+    padding: 2px 12px;
 }
 
+.standard-button:hover {
+    background-color: #f8f2f8;
+    cursor: pointer;
+}
 
-form {
+.standard-button-small {
+    background-color: #FFFFFF;
+    color: #993399;
+    border: 1px solid #b17bb1;
+    border-radius: 20px;
+    padding: 1px 10px 2px 10px;
+    font-size: 11px;
+}
+
+.standard-button-small:hover {
+    background-color: #f8f2f8;
+    cursor: pointer;
+}
+
+/* ===== NAV ===== */
+
+.nav-div-holder {
     display: flex;
-    flex-direction: column;
-    width: fit-content;
-    gap: 5px;
+    justify-content: center;
+    border-bottom: 1px solid #CCCCCC;
 }
-
-form div {
-    padding-bottom: 8px;
-}
-
-form input {
-    margin: 0px 5px;
-}
-
-.spot-card-link {
-    color: #000000;
-}
-
-.spot-card-link:hover {
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.fake-footer-link:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
 
 .nav-div {
     list-style-type: none;
@@ -90,11 +90,13 @@ form input {
     flex-direction: row;
     align-items: center;
     margin: 0px;
-    border-bottom: 1px solid #CCCCCC;
     padding: 10px 35px;
+    min-height: 46px;
+    width: 100%;
 }
 
 .logsign-button {
+    font-weight: 600;
     background-color: white;
     border: 1px solid #b17bb1;
     border-radius: 14px;
@@ -119,10 +121,9 @@ form input {
 }
 
 .profile-button:hover {
-    background-color: #FFFFFF;
     border: 1px solid #ab7dab;
     box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
-    background-color: #f8f2f8;
+    background-color: #FFFFFF;
     cursor: pointer;
 }
 
@@ -143,7 +144,7 @@ form input {
     width: 220px;
     top: 48px;
     background-color: #FFFFFF;
-    border: 1px solid #ab7dab;
+    border: 1px solid #e8e8e8;
     border-radius: 12px;
     padding: 16px;
     box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
@@ -154,32 +155,198 @@ form input {
     display: none
 }
 
+/* ===== FOOTER ===== */
+
+.footer-holder {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 18px 35px;
+    background-color: #FFFFFF;
+    border-top: 1px solid #CCCCCC;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.fake-footer-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* ===== MODAL / MODAL FORMS ===== */
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 10px 20px 10px;
+}
+
+.modal-title {
+    font-weight: 700;
+    font-size: 18px;
+    color: #993399;
+}
+
+.modal-close {
+    border: 0px;
+    font-weight: 400;
+    transform: scale(1.25, 1);
+    border-radius: 20px;
+    padding: 3px 6px;
+    background-color: #fff;
+}
+
+.modal-close:hover {
+    background-color: #ededed;
+    cursor: pointer;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-form input, textarea {
+    width: 100%;
+    margin: 2px 0px 16px 0px;
+    padding: 5px 10px;
+    border-radius: 7px;
+    border: 1px solid #7b7b7b;
+    box-sizing: border-box;
+    font-size: 15px;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.modal-form textarea {
+    margin: 0px 0px 6px 0px;
+}
+
+.modal-submit-button {
+    background-color: #993399;
+    margin-top: 10px;
+    border: 0px;
+    border-radius: 7px;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 7px 0px;
+}
+
+.modal-submit-button:hover {
+    background-color: #aa4aaa;
+    cursor: pointer;
+}
+
+.modal-submit-button:disabled {
+    background-color: #d3b3d3;
+    cursor: default;
+}
+
+.modal-demouser-button {
+    background-color: #FFFFFF;
+    border: 0px;
+    color: #b3b3b3
+}
+
+.modal-demouser-button:hover {
+    cursor: pointer;
+    color: #993399
+}
+
+/* ===== STAR RATING ===== */
+
+.rating-input {
+    display: flex;
+    justify-content: center;
+}
+
+.rating-input .filled {
+    font-size: 24px;
+    color: #993399;
+}
+
+.rating-input .empty {
+    font-size: 24px;
+    color: #dfd1df;
+}
+
+
+/* ===== HOME ===== */
+
+.spot-holder {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
 .spot-card-holder {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     padding: 35px;
+    width: 100%;
 }
 
 .spot-card {
     padding: 0px;
 }
 
-.detail-container {
+.spot-card-link {
+    color: #000000;
+}
+
+.spot-card-link:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* ===== SPOT DETAIL ===== */
+
+.spotdetail-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 30px 30px 80px 30px;
+    max-width: 1000px;
+    margin: 0px auto;
+}
+
+.spotdetail-image-container {
     display: grid;
     grid-template-columns: 1fr 0.5fr 0.5fr;
     grid-template-rows: 1fr 1fr;
-    /* gap: 1px; */
+    gap: 7px;
     grid-template-areas:
         "detail-left . ."
         "detail-left . .";
 }
 
-.detail-left {
+.spotdetail-image-left {
     grid-area: detail-left;
 }
 
-/* ======================================= */
+.spotdetail-infobox {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
+}
+
+/* ================= Media Queries ====================== */
 
 @media screen and (max-width:1124px) {
     .spot-card-holder {

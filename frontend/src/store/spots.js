@@ -1,7 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const LOAD_SPOTS = 'home/loadSpots';
-const LOAD_ONE_SPOT = 'home/loadOneSpot';
+const LOAD_ONE_SPOT = 'spotdetails/loadOneSpot';
 
 const loadSpots = data => {
     return {
@@ -28,33 +28,30 @@ const loadOneSpot = data => {
 };
 
 export const getOneSpot = (id) => async dispatch => {
-    console.log(id);
+    // console.log(id);
     const response = await csrfFetch(`/api/spots/${id}`);
 
     if (response.ok) {
         const spot = await response.json();
-        console.log('BACK:', spot)
+        // console.log('BACK:', spot)
         dispatch(loadOneSpot(spot));
     }
 };
 
 
-const initialState = { allSpots: null, singleSpot: null };
+const initialState = { allSpots: {}, singleSpot: {} };
 
 const spotsReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case LOAD_SPOTS:
-            // console.log('PAYLOAD:', action.payload);
-            return { ...state, allSpots: action.payload }
-
-        // const allSpots = {};
-        // action.payload.forEach((spot) => (allSpots[spot.id] = spot));
-        // return {
-        //     ...state, allSpots: { ...allSpots }
-        // }
+            const allSpots = {};
+            action.payload.forEach((spot) => (allSpots[spot.id] = spot));
+            return {
+                ...state, allSpots: { ...allSpots }, singleSpot: {}
+            }
         case LOAD_ONE_SPOT:
-            return { ...state, singleSpot: [action.payload] }
+            return { ...state, singleSpot: action.payload }
 
         default:
             return state;
