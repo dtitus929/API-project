@@ -58,6 +58,18 @@ export const postNewSpot = (data) => async () => {
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+export const deleteSpot = (id) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${id}`, {
+        method: "delete",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+    return response;
+};
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 const initialState = { allSpots: {}, singleSpot: {} };
 
 const spotsReducer = (state = initialState, action) => {

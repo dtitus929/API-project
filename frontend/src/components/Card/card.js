@@ -1,15 +1,26 @@
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { getOneSpot } from "../../store/spots";
+import { useDispatch } from "react-redux";
+
 
 export default function Card(props) {
 
-
-    const { arrSpots, showUpdateDelete } = props;
+    const { arrSpots, showUpdateDelete, setShow, setCurrentModal, setCurrentSpot } = props;
 
     const history = useHistory();
 
-    const handleUpdate = (id) => {
+    const dispatch = useDispatch();
+
+    const handleUpdate = async (id) => {
+        dispatch(getOneSpot(id))
         history.push(`/spots/${id}/edit`)
+    }
+
+    const handleModal = (id) => {
+        setCurrentModal('deletespot');
+        setCurrentSpot(id)
+        setShow(true);
     }
 
     return (
@@ -30,7 +41,7 @@ export default function Card(props) {
 
                     <div style={!showUpdateDelete ? { display: 'none' } : {}}>
                         <div style={{ display: 'flex', gap: '5px', padding: '8px 0px 12px 0px' }}>
-                            <button onClick={() => { handleUpdate(id) }} className="standard-button">Update</button><button className="standard-button">Delete</button>
+                            <button onClick={() => { handleUpdate(id) }} className="standard-button">Update</button><button onClick={() => { handleModal(id) }} className="standard-button">Delete</button>
                         </div>
                     </div>
 

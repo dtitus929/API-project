@@ -12,13 +12,17 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import AddReview from "./components/AddReview";
 import DeleteReview from "./components/DeleteReview";
-import SpotForm from "./components/Spot";
+import DeleteSpot from "./components/DeleteSpot";
+import SpotForm from "./components/SpotForm";
+import { useSelector } from "react-redux";
 
 
 function App() {
 
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const spot = useSelector((state) => state.spots.singleSpot);
 
   const [show, setShow] = useState(false);
   const [currentModal, setCurrentModal] = useState('');
@@ -42,7 +46,7 @@ function App() {
           </Route>
 
           <Route path="/spots/current" exact>
-            <ManageSpots />
+            <ManageSpots setShow={setShow} setCurrentModal={setCurrentModal} setCurrentSpot={setCurrentSpot} />
           </Route>
 
           <Route exact path="/spots/new">
@@ -50,7 +54,7 @@ function App() {
           </Route>
 
           <Route exact path="/spots/:spotId/edit">
-            <SpotForm />
+            <SpotForm spot={spot} />
           </Route>
 
           <Route exact path="/spots/:spotId">
@@ -69,6 +73,7 @@ function App() {
         {currentModal === 'signup' && (<SignupFormPage setShow={setShow} />)}
         {currentModal === 'addreview' && (<AddReview setShow={setShow} currentSpot={currentSpot} />)}
         {currentModal === 'deletereview' && (<DeleteReview setShow={setShow} currentReview={currentReview} currentSpot={currentSpot} />)}
+        {currentModal === 'deletespot' && (<DeleteSpot setShow={setShow} currentSpot={currentSpot} />)}
       </Modal>
 
     </>

@@ -5,22 +5,24 @@ import { Link, Redirect } from "react-router-dom";
 
 import { getSpots } from '../../store/spots';
 
-export default function ManageSpots() {
+export default function ManageSpots(props) {
+
+    const { setShow, setCurrentModal, setCurrentSpot } = props;
 
     const dispatch = useDispatch();
 
     const sessionUser = useSelector(state => state.session.user);
 
 
-    useEffect(() => {
-        dispatch(getSpots());
-    }, [dispatch]);
-
     const spots = useSelector((state) => state.spots.allSpots);
     // console.log("The spots are:", spots);
 
     const arrSpots = Object.values(spots).filter(item => item.ownerId === sessionUser.id);
     // console.log("The arrSpots is:", arrSpots);
+
+    useEffect(() => {
+        dispatch(getSpots());
+    }, [dispatch]);
 
     if (!sessionUser) return (
         <Redirect to="/" />
@@ -39,7 +41,7 @@ export default function ManageSpots() {
 
             <div className="spot-holder">
                 <div className='spot-card-holder' style={{ paddingTop: '0px' }}>
-                    <Card arrSpots={arrSpots} showUpdateDelete={true} />
+                    <Card setShow={setShow} setCurrentModal={setCurrentModal} setCurrentSpot={setCurrentSpot} arrSpots={arrSpots} showUpdateDelete={true} />
                 </div>
             </div>
 

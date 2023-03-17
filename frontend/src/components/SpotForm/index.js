@@ -1,31 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
-import * as sessionActions from "../../store/session";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { postNewSpot } from "../../store/spots"
 import { getSpots } from "../../store/spots";
 
+function SpotForm(props) {
 
-function SpotForm() {
+    const { spot } = props;
 
     const { spotId } = useParams();
 
     const dispatch = useDispatch();
-    const sessionUser = useSelector((state) => state.session.user);
 
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [country, setCountry] = useState("");
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [price, setPrice] = useState("");
-    const [photo1, setPhoto1] = useState("");
-    const [photo2, setPhoto2] = useState("");
-    const [photo3, setPhoto3] = useState("");
-    const [photo4, setPhoto4] = useState("");
-    const [photo5, setPhoto5] = useState("");
+    const [address, setAddress] = useState(spot?.address || '');
+    const [city, setCity] = useState(spot?.city || '');
+    const [state, setState] = useState(spot?.state || '');
+    const [country, setCountry] = useState(spot?.country || '');
+    const [name, setName] = useState(spot?.name || '');
+    const [description, setDescription] = useState(spot?.description || '');
+    const [price, setPrice] = useState(spot?.price || '');
+    const [photo1, setPhoto1] = useState('');
+    const [photo2, setPhoto2] = useState('');
+    const [photo3, setPhoto3] = useState('');
+    const [photo4, setPhoto4] = useState('');
+    const [photo5, setPhoto5] = useState('');
     const lat = 37.7645358;
     const lng = -122.4730327;
     const [errors, setErrors] = useState({});
@@ -33,13 +32,6 @@ function SpotForm() {
     const [hasSumbitted, setHasSubmitted] = useState(false)
 
     const history = useHistory();
-
-    // console.log('sessUserID:', sessionUser.id);
-    // console.log('paramSpotID:', spotId);
-
-    // if (!sessionUser || sessionUser.id !== spotId) return (
-    //     <Redirect to="/" />
-    // );
 
     const pageErrors = {};
 
@@ -158,7 +150,7 @@ function SpotForm() {
 
     };
 
-    console.log('Errors:', { errors });
+    // console.log('Errors:', { errors });
 
     return (
 

@@ -28,9 +28,6 @@ function ProfileButton({ user }) {
         })
     };
 
-    // console.log(ownsSpots);
-
-
     const openMenu = (e) => {
         if (showMenu) return;
         setShowMenu(true);
