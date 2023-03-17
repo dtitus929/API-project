@@ -44,7 +44,7 @@ export const clearSpotReviews = () => {
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-export const sendSpotReview = (data) => async () => {
+export const postSpotReview = (data) => async () => {
     // console.log('DATA:', data)
     const response = await csrfFetch(`/api/spots/${data.theSpot}/reviews`, {
         method: "post",
@@ -58,7 +58,7 @@ export const sendSpotReview = (data) => async () => {
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-const initialState = { spot: {}, user: { id: 'bob' } };
+const initialState = { spot: {}, user: {} };
 
 const reviewsReducer = (state = initialState, action) => {
 

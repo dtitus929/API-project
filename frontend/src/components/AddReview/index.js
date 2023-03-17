@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { sendSpotReview } from '../../store/reviews';
+import { postSpotReview } from '../../store/reviews';
 import { getOneSpot } from '../../store/spots';
 import { getSpotReviews } from '../../store/reviews';
 
@@ -46,7 +46,7 @@ function AddReview(props) {
             stars
         };
 
-        return dispatch(sendSpotReview({ payload, theSpot }))
+        return dispatch(postSpotReview({ payload, theSpot }))
             .then(async () => {
                 setShow(false);
                 await dispatch(getOneSpot(props.currentSpot));

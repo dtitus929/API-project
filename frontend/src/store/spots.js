@@ -3,6 +3,8 @@ import { csrfFetch } from './csrf';
 const LOAD_SPOTS = 'home/loadSpots';
 const LOAD_ONE_SPOT = 'spotdetails/loadOneSpot';
 
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 const loadSpots = data => {
     return {
         type: LOAD_SPOTS,
@@ -19,6 +21,8 @@ export const getSpots = () => async dispatch => {
         dispatch(loadSpots(list.Spots));
     }
 };
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 const loadOneSpot = data => {
     return {
@@ -38,6 +42,21 @@ export const getOneSpot = (id) => async dispatch => {
     }
 };
 
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+export const postNewSpot = (data) => async () => {
+    // console.log('DATA:', data)
+    const response = await csrfFetch(`/api/spots`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    return response;
+};
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 const initialState = { allSpots: {}, singleSpot: {} };
 

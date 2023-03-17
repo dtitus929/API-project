@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { useParams } from "react-router-dom";
+import { postNewSpot } from "../../store/spots"
+
 
 function SpotForm() {
 
@@ -18,16 +20,18 @@ function SpotForm() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-    const [photo1, setPhone1] = useState("");
-    const [photo2, setPhone2] = useState("");
-    const [photo3, setPhone3] = useState("");
-    const [photo4, setPhone4] = useState("");
-    const [photo5, setPhone5] = useState("");
-    const [errors, setErrors] = useState([]);
-    const [isDisabled, setIsDisabled] = useState(true)
-
+    const [photo1, setPhoto1] = useState("");
+    const [photo2, setPhoto2] = useState("");
+    const [photo3, setPhoto3] = useState("");
+    const [photo4, setPhoto4] = useState("");
+    const [photo5, setPhoto5] = useState("");
     const lat = 37.7645358;
     const lng = -122.4730327;
+    const [errors, setErrors] = useState({});
+    const [isDisabled, setIsDisabled] = useState(false);
+    const [hasSumbitted, setHasSubmitted] = useState(false)
+
+    const history = useHistory();
 
     // console.log('sessUserID:', sessionUser.id);
     // console.log('paramSpotID:', spotId);
@@ -36,41 +40,123 @@ function SpotForm() {
     //     <Redirect to="/" />
     // );
 
-    // useEffect(() => {
-    //     if (
-    //         email === '' ||
-    //         username === '' ||
-    //         firstName === '' ||
-    //         lastName === '' ||
-    //         password === '' ||
-    //         confirmPassword === ''
-    //     ) {
-    //         setIsDisabled(true)
-    //     } else {
-    //         setIsDisabled(false)
-    //     }
-    // }, [email, username, firstName, lastName, password, confirmPassword]);
+    const pageErrors = {};
+
+    useEffect(() => {
+
+        if (
+            address === '' ||
+            city === '' ||
+            state === '' ||
+            country === '' ||
+            name === '' ||
+            description === '' ||
+            price === '' ||
+            photo1 === ''
+        ) {
+            setIsDisabled(true)
+        } else {
+            setIsDisabled(false)
+        }
+
+        if (hasSumbitted && description.length < 30) {
+            pageErrors.description = 'Description needs a minimum of 30 characters'
+            setIsDisabled(true)
+        } else {
+            setErrors(delete errors.description)
+        }
+
+        if (hasSumbitted && !/^-{0,1}\d*\.{0,1}\d+$/.test(price)) {
+            pageErrors.price = 'Price must inlude dollar a value only (ex: 200 or 195.95)'
+            setIsDisabled(true)
+        } else {
+            setErrors(delete errors.price)
+        }
+
+        if (hasSumbitted && (!photo1.includes('.png') && !photo1.includes('.jpg') && !photo1.includes('.jpeg'))) {
+            pageErrors.imgtype1 = 'Image URL needs to end in .png, .jpg or .jpeg';
+            setIsDisabled(true)
+        } else {
+            setErrors(delete errors.imgtype1)
+        }
+
+        if (hasSumbitted && photo2.length >= 1 && (!photo2.includes('.png') && !photo2.includes('.jpg') && !photo2.includes('.jpeg'))) {
+            pageErrors.imgtype2 = 'Image URL needs to end in .png, .jpg or .jpeg';
+            setIsDisabled(true)
+        } else {
+            setErrors(delete errors.imgtype2)
+        }
+
+        if (hasSumbitted && photo2.length >= 1 && (!photo2.includes('.png') && !photo2.includes('.jpg') && !photo2.includes('.jpeg'))) {
+            pageErrors.imgtype2 = 'Image URL needs to end in .png, .jpg or .jpeg';
+            setIsDisabled(true)
+        } else {
+            setErrors(delete errors.imgtype2)
+        }
+
+        if (hasSumbitted && photo3.length >= 1 && (!photo3.includes('.png') && !photo3.includes('.jpg') && !photo3.includes('.jpeg'))) {
+            pageErrors.imgtype3 = 'Image URL needs to end in .png, .jpg or .jpeg';
+            setIsDisabled(true)
+        } else {
+            setErrors(delete errors.imgtype3)
+        }
+
+        if (hasSumbitted && photo4.length >= 1 && (!photo4.includes('.png') && !photo4.includes('.jpg') && !photo4.includes('.jpeg'))) {
+            pageErrors.imgtype4 = 'Image URL needs to end in .png, .jpg or .jpeg';
+            setIsDisabled(true)
+        } else {
+            setErrors(delete errors.imgtype4)
+        }
+
+
+        if (hasSumbitted && photo5.length >= 1 && (!photo5.includes('.png') && !photo5.includes('.jpg') && !photo5.includes('.jpeg'))) {
+            pageErrors.imgtype5 = 'Image URL needs to end in .png, .jpg or .jpeg';
+            setIsDisabled(true)
+        } else {
+            setErrors(delete errors.imgtype5)
+        }
+
+        setErrors(pageErrors);
+
+    }, [hasSumbitted, address, city, state, country, name, description, price, photo1, photo2, photo3, photo4, photo5]);
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrors([]);
-        setIsDisabled(false)
-        setErrors([]);
-        return dispatch(sessionActions.signup({ address, city, state, country, name, description, price, lat, lng }))
-            .then(async () => {
-                // setShow(false)
-            })
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) {
-                    setIsDisabled(true)
-                    // console.log(Object.values(data.errors))
-                    setErrors(Object.values(data.errors));
-                }
-            });
+
+        setHasSubmitted(true);
+
+        if (description.length < 30) return null;
+        if (!/^-{0,1}\d*\.{0,1}\d+$/.test(price)) return null;
+        if (photo1.length >= 1 && !photo1.includes('.png') && !photo1.includes('.jpg') && !photo1.includes('.jpeg')) return null;
+        if (photo2.length >= 1 && !photo2.includes('.png') && !photo2.includes('.jpg') && !photo2.includes('.jpeg')) return null;
+        if (photo3.length >= 1 && !photo3.includes('.png') && !photo3.includes('.jpg') && !photo3.includes('.jpeg')) return null;
+        if (photo4.length >= 1 && !photo4.includes('.png') && !photo4.includes('.jpg') && !photo4.includes('.jpeg')) return null;
+        if (photo5.length >= 1 && !photo5.includes('.png') && !photo5.includes('.jpg') && !photo5.includes('.jpeg')) return null;
+
+        if (!spotId) {
+            return dispatch(postNewSpot({ address, city, state, country, name, description, price, lat, lng }))
+                .then(async (res) => {
+                    const data = await res.json();
+                    // console.log(data);
+                    history.push(`/spots/${data.id}`)
+                })
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) {
+                        setIsDisabled(true)
+                        // console.log(Object.values(data.errors))
+                        setErrors(data.errors);
+                    }
+                });
+        } else {
+
+        }
+
 
     };
+
+    console.log('Errors:', { errors });
 
     return (
 
@@ -98,7 +184,7 @@ function SpotForm() {
                     </div>
 
                     <label>
-                        Country
+                        Country{errors.country && (<span className='error1'>{errors.country}</span>)}
                         <input
                             type="text"
                             placeholder="Country"
@@ -108,7 +194,7 @@ function SpotForm() {
                         />
                     </label>
                     <label>
-                        Street Address
+                        Street Address{errors.address && (<span className='error1'>{errors.address}</span>)}
                         <input
                             type="text"
                             placeholder="Address"
@@ -119,7 +205,7 @@ function SpotForm() {
                     </label>
                     <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                         <label style={{ width: '60%' }}>
-                            City
+                            City{errors.city && (<span className='error1'>{errors.city}</span>)}
                             <input
                                 type="text"
                                 placeholder="City"
@@ -130,7 +216,7 @@ function SpotForm() {
                         </label>
                         <div style={{ padding: '0px 8px 14px 4px' }}>,</div>
                         <label style={{ width: '40%' }}>
-                            State
+                            State{errors.state && (<span className='error1'>{errors.state}</span>)}
                             <input
                                 type="text"
                                 placeholder="State"
@@ -151,13 +237,14 @@ function SpotForm() {
                         </div>
 
                         <textarea
-                            placeholder="Description..."
+                            placeholder="Please write at least 30 characters..."
                             rows={5}
                             type="text"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             required
                         />
+                        {errors.description && (<div className='error2'>{errors.description}</div>)}
                     </label>
 
                     <div className='spot-form-divider'></div>
@@ -176,6 +263,7 @@ function SpotForm() {
                             onChange={(e) => setName(e.target.value)}
                             required
                         />
+                        {errors.name && (<div className='error2'>{errors.name}</div>)}
                     </label>
 
                     <div className='spot-form-divider'></div>
@@ -186,13 +274,17 @@ function SpotForm() {
                     </div>
 
                     <label>
-                        <input
-                            type="text"
-                            placeholder="Price per night (USD)"
-                            value={price}
-                            onChange={(e) => setPrice(e.target.value)}
-                            required
-                        />
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <div style={{ padding: '0px 5px 13px 0px' }}>$</div>
+                            <input
+                                type="text"
+                                placeholder="Price per night (USD)"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                required
+                            />
+                        </div>
+                        {errors.price && (<div className='error2'>{errors.price}</div>)}
                     </label>
 
                     <div className='spot-form-divider'></div>
@@ -207,37 +299,38 @@ function SpotForm() {
                             type="text"
                             placeholder="Preview Image URL"
                             value={photo1}
-                            onChange={(e) => setPhone1(e.target.value)}
+                            onChange={(e) => setPhoto1(e.target.value)}
                             required
                         />
+                        {errors.imgtype1 && (<div className='error3'>{errors.imgtype1}</div>)}
                         <input
                             type="text"
                             placeholder="Image URL"
                             value={photo2}
-                            onChange={(e) => setPhone2(e.target.value)}
-                            required
+                            onChange={(e) => setPhoto2(e.target.value)}
                         />
+                        {errors.imgtype2 && (<div className='error3'>{errors.imgtype2}</div>)}
                         <input
                             type="text"
                             placeholder="Image URL"
                             value={photo3}
-                            onChange={(e) => setPhone3(e.target.value)}
-                            required
+                            onChange={(e) => setPhoto3(e.target.value)}
                         />
+                        {errors.imgtype3 && (<div className='error3'>{errors.imgtype3}</div>)}
                         <input
                             type="text"
                             placeholder="Image URL"
                             value={photo4}
-                            onChange={(e) => setPhone4(e.target.value)}
-                            required
+                            onChange={(e) => setPhoto4(e.target.value)}
                         />
+                        {errors.imgtype4 && (<div className='error3'>{errors.imgtype4}</div>)}
                         <input
                             type="text"
                             placeholder="Image URL"
                             value={photo5}
-                            onChange={(e) => setPhone5(e.target.value)}
-                            required
+                            onChange={(e) => setPhoto5(e.target.value)}
                         />
+                        {errors.imgtype5 && (<div className='error3'>{errors.imgtype5}</div>)}
                     </label>
                     <div className='spot-form-divider'></div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
