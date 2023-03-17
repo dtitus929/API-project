@@ -334,7 +334,7 @@ function SpotForm() {
                             <input
                                 type="text"
                                 placeholder="Price per night (USD)"
-                                value={Number(price).toFixed(2)}
+                                value={price}
                                 onChange={(e) => setPrice(e.target.value)}
                                 required
                             />
