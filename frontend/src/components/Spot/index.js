@@ -4,6 +4,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { useParams } from "react-router-dom";
 import { postNewSpot } from "../../store/spots"
+import { getSpots } from "../../store/spots";
 
 
 function SpotForm() {
@@ -139,6 +140,7 @@ function SpotForm() {
                 .then(async (res) => {
                     const data = await res.json();
                     // console.log(data);
+                    await dispatch(getSpots());
                     history.push(`/spots/${data.id}`)
                 })
                 .catch(async (res) => {
