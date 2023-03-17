@@ -1,26 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { postNewSpot } from "../../store/spots"
 import { editSpot } from "../../store/spots"
 import { getSpots } from "../../store/spots";
 
-function SpotForm(props) {
+function SpotForm() {
 
-    const { spot } = props;
+    const spot = useSelector((state) => state.spots.singleSpot);
+    // console.log('spot:', spot);
+    // console.log('image:', spot.SpotImages.find(item => item.preview === true).item.url);
+
+    let spotImagePreview = null;
+    let arrImages = [];
+
+    if (spot.SpotImages) {
+        for (let i = 0; i < spot.SpotImages.length; i++) {
+            if (spot.SpotImages[i].preview) {
+                spotImagePreview = spot.SpotImages[i].url
+            } else {
+                arrImages.push(spot.SpotImages[i].url)
+            }
+        }
+    }
+
+    console.log(spotImagePreview);
+    console.log(arrImages);
 
     const { spotId } = useParams();
 
     const dispatch = useDispatch();
 
-    const [address, setAddress] = useState(spot?.address || '');
-    const [city, setCity] = useState(spot?.city || '');
-    const [state, setState] = useState(spot?.state || '');
-    const [country, setCountry] = useState(spot?.country || '');
-    const [name, setName] = useState(spot?.name || '');
-    const [description, setDescription] = useState(spot?.description || '');
-    const [price, setPrice] = useState(spot?.price || '');
+    const [address, setAddress] = useState();
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [country, setCountry] = useState('');
+    const [name, setName] = useState(spot.name || '');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState('');
     const [photo1, setPhoto1] = useState('');
     const [photo2, setPhoto2] = useState('');
     const [photo3, setPhoto3] = useState('');
@@ -31,6 +49,21 @@ function SpotForm(props) {
     const [errors, setErrors] = useState({});
     const [isDisabled, setIsDisabled] = useState(false);
     const [hasSumbitted, setHasSubmitted] = useState(false)
+
+    useEffect(() => {
+        setAddress(address || spot.address)
+        setCity(city || spot.city)
+        setState(state || spot.state)
+        setCountry(country || spot.country)
+        setName(name || spot.name)
+        setDescription(description || spot.description)
+        setPrice(price || spot.price)
+        setPhoto1(spotImagePreview || '')
+        setPhoto2(arrImages[0] || '')
+        setPhoto3(arrImages[1] || '')
+        setPhoto4(arrImages[2] || '')
+        setPhoto5(arrImages[3] || '')
+    }, [address, spot.address, city, spot.city, state, spot.state, country, spot.country, name, spot.name, description, spot.description, price, spot.price]);
 
     const history = useHistory();
 
@@ -113,6 +146,8 @@ function SpotForm(props) {
         setErrors(pageErrors);
 
     }, [hasSumbitted, address, city, state, country, name, description, price, photo1, photo2, photo3, photo4, photo5]);
+
+
 
 
     const handleSubmit = (e) => {
@@ -299,7 +334,7 @@ function SpotForm(props) {
                             <input
                                 type="text"
                                 placeholder="Price per night (USD)"
-                                value={price}
+                                value={Number(price).toFixed(2)}
                                 onChange={(e) => setPrice(e.target.value)}
                                 required
                             />

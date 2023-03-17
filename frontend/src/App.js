@@ -22,8 +22,6 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const spot = useSelector((state) => state.spots.singleSpot);
-
   const [show, setShow] = useState(false);
   const [currentModal, setCurrentModal] = useState('');
   const [currentSpot, setCurrentSpot] = useState('');
@@ -54,7 +52,7 @@ function App() {
           </Route>
 
           <Route exact path="/spots/:spotId/edit">
-            <SpotForm spot={spot} />
+            <SpotForm />
           </Route>
 
           <Route exact path="/spots/:spotId">
