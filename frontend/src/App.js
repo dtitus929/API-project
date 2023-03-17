@@ -13,7 +13,8 @@ import SignupFormPage from "./components/SignupFormPage";
 import AddReview from "./components/AddReview";
 import DeleteReview from "./components/DeleteReview";
 import DeleteSpot from "./components/DeleteSpot";
-import SpotForm from "./components/SpotForm";
+import NewSpotForm from "./components/SpotForm/newspot";
+import UpdateSpotForm from "./components/SpotForm/updatespot";
 
 
 function App() {
@@ -47,11 +48,11 @@ function App() {
           </Route>
 
           <Route exact path="/spots/new">
-            <SpotForm />
+            <NewSpotForm />
           </Route>
 
           <Route exact path="/spots/:spotId/edit">
-            <SpotForm />
+            <UpdateSpotForm />
           </Route>
 
           <Route exact path="/spots/:spotId">

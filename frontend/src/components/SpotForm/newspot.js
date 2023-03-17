@@ -1,34 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import { postNewSpot } from "../../store/spots"
-import { editSpot } from "../../store/spots"
 import { getSpots } from "../../store/spots";
 
-function SpotForm() {
-
-    const spot = useSelector((state) => state.spots.singleSpot);
-    // console.log('spot:', spot);
-    // console.log('image:', spot.SpotImages.find(item => item.preview === true).item.url);
-
-    let spotImagePreview = null;
-    let arrImages = [];
-
-    if (spot.SpotImages) {
-        for (let i = 0; i < spot.SpotImages.length; i++) {
-            if (spot.SpotImages[i].preview) {
-                spotImagePreview = spot.SpotImages[i].url
-            } else {
-                arrImages.push(spot.SpotImages[i].url)
-            }
-        }
-    }
-
-    console.log(spotImagePreview);
-    console.log(arrImages);
-
-    const { spotId } = useParams();
+function NewSpotForm() {
 
     const dispatch = useDispatch();
 
@@ -36,7 +12,7 @@ function SpotForm() {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
-    const [name, setName] = useState(spot.name || '');
+    const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [photo1, setPhoto1] = useState('');
@@ -49,21 +25,6 @@ function SpotForm() {
     const [errors, setErrors] = useState({});
     const [isDisabled, setIsDisabled] = useState(false);
     const [hasSumbitted, setHasSubmitted] = useState(false)
-
-    useEffect(() => {
-        setAddress(address || spot.address)
-        setCity(city || spot.city)
-        setState(state || spot.state)
-        setCountry(country || spot.country)
-        setName(name || spot.name)
-        setDescription(description || spot.description)
-        setPrice(price || spot.price)
-        setPhoto1(spotImagePreview || '')
-        setPhoto2(arrImages[0] || '')
-        setPhoto3(arrImages[1] || '')
-        setPhoto4(arrImages[2] || '')
-        setPhoto5(arrImages[3] || '')
-    }, [address, spot.address, city, spot.city, state, spot.state, country, spot.country, name, spot.name, description, spot.description, price, spot.price]);
 
     const history = useHistory();
 
@@ -147,9 +108,6 @@ function SpotForm() {
 
     }, [hasSumbitted, address, city, state, country, name, description, price, photo1, photo2, photo3, photo4, photo5]);
 
-
-
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -163,55 +121,22 @@ function SpotForm() {
         if (photo4.length >= 1 && !photo4.includes('.png') && !photo4.includes('.jpg') && !photo4.includes('.jpeg')) return null;
         if (photo5.length >= 1 && !photo5.includes('.png') && !photo5.includes('.jpg') && !photo5.includes('.jpeg')) return null;
 
-        if (!spotId) {
-            return dispatch(postNewSpot({ address, city, state, country, name, description, price, lat, lng }))
-                .then(async (res) => {
-                    const data = await res.json();
-                    // console.log(data);
-                    await dispatch(getSpots());
-                    history.push(`/spots/${data.id}`)
-                })
-                .catch(async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) {
-                        setIsDisabled(true)
-                        // console.log(Object.values(data.errors))
-                        setErrors(data.errors);
-                    }
-                });
-        } else {
-            const payload = {
-                address,
-                city,
-                state,
-                country,
-                name,
-                description,
-                price,
-                lat,
-                lng
-            };
-            return dispatch(editSpot({ payload, spotId }))
-                .then(async (res) => {
-                    const data = await res.json();
-                    // console.log(data);
-                    await dispatch(getSpots());
-                    history.push(`/spots/${data.id}`)
-                })
-                .catch(async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) {
-                        setIsDisabled(true)
-                        // console.log(Object.values(data.errors))
-                        setErrors(data.errors);
-                    }
-                });
-        }
-
-
+        return dispatch(postNewSpot({ address, city, state, country, name, description, price, lat, lng }))
+            .then(async (res) => {
+                const data = await res.json();
+                // console.log(data);
+                await dispatch(getSpots());
+                history.push(`/spots/${data.id}`)
+            })
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    setIsDisabled(true)
+                    // console.log(Object.values(data.errors))
+                    setErrors(data.errors);
+                }
+            });
     };
-
-    // console.log('Errors:', { errors });
 
     return (
 
@@ -219,7 +144,7 @@ function SpotForm() {
 
             <div className='page-title-holder'>
                 <div className='page-title' style={{ paddingBottom: '5px' }}>
-                    {!spotId ? 'Create a New Spot' : 'Update your Spot'}
+                    Create a New Spot
                 </div>
             </div>
 
@@ -394,7 +319,8 @@ function SpotForm() {
                             className='spot-submit-button'
                             style={{ width: 'fit-content' }}
                             disabled={isDisabled}
-                        >{!spotId ? 'Create Spot' : 'Update Spot'}
+                        >
+                            Create Spot
                         </button>
                     </div>
                 </form>
@@ -403,4 +329,4 @@ function SpotForm() {
     );
 }
 
-export default SpotForm;
+export default NewSpotForm;
