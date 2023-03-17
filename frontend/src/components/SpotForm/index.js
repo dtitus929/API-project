@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { postNewSpot } from "../../store/spots"
+import { editSpot } from "../../store/spots"
 import { getSpots } from "../../store/spots";
 
 function SpotForm(props) {
@@ -144,7 +145,32 @@ function SpotForm(props) {
                     }
                 });
         } else {
-
+            const payload = {
+                address,
+                city,
+                state,
+                country,
+                name,
+                description,
+                price,
+                lat,
+                lng
+            };
+            return dispatch(editSpot({ payload, spotId }))
+                .then(async (res) => {
+                    const data = await res.json();
+                    // console.log(data);
+                    await dispatch(getSpots());
+                    history.push(`/spots/${data.id}`)
+                })
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) {
+                        setIsDisabled(true)
+                        // console.log(Object.values(data.errors))
+                        setErrors(data.errors);
+                    }
+                });
         }
 
 

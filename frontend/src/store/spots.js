@@ -58,6 +58,20 @@ export const postNewSpot = (data) => async () => {
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+export const editSpot = (data) => async () => {
+    // console.log('DATA:', data)
+    const response = await csrfFetch(`/api/spots/${data.spotId}`, {
+        method: "put",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data.payload)
+    });
+    return response;
+};
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 export const deleteSpot = (id) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${id}`, {
         method: "delete",
