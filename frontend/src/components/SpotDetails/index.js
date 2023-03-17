@@ -123,8 +123,8 @@ export default function SpotDetails(props) {
 
                     </div>
 
-                    <div style={{ display: 'flex', gap: '20px', borderBottom: '1px solid #CCCCCC', paddingBottom: '20px', marginBottom: '30px' }}>
-                        <div style={{ marginRight: '60px' }}>
+                    <div className='detail-info-holder'>
+                        <div className='detail-info-text'>
                             <h3>Hosted by {spot.Owner && spot.Owner.firstName} {spot.Owner && spot.Owner.lastName}</h3>
                             <p>{spot.description}</p>
                             <p>Phasellus dictum venenatis nisi, sit amet eleifend diam cursus eget. Quisque congue,
@@ -135,7 +135,7 @@ export default function SpotDetails(props) {
                                 neque ac bibendum. Sed venenatis dignissim ipsum, in malesuada ex efficitur ut. Phasellus metus ante, ullamcorper at sodales quis,
                                 hendrerit vel metus. Praesent interdum justo purus, id rhoncus ligula condimentum nec. Sed venenatis sed ante a suscipit. Sed ac feugiat urna.</p>
                         </div>
-                        <div style={{ padding: '20px 0px 0px 20px' }}>
+                        <div className='detail-info-roundbox-holder'>
 
                             <div className="spotdetail-infobox">
 

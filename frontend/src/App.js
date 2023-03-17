@@ -14,7 +14,6 @@ import AddReview from "./components/AddReview";
 import DeleteReview from "./components/DeleteReview";
 import DeleteSpot from "./components/DeleteSpot";
 import SpotForm from "./components/SpotForm";
-import { useSelector } from "react-redux";
 
 
 function App() {
