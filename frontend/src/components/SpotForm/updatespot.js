@@ -258,7 +258,7 @@ function UpdateSpotForm() {
 
                         <div className='spot-form-subheader-holder'>
                             <div className='spot-form-subheader'>Describe your place to guests</div>
-                            Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.
+                            Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.
                         </div>
 
                         <textarea

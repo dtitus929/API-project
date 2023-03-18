@@ -44,15 +44,43 @@ export const getOneSpot = (id) => async dispatch => {
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-export const postNewSpot = (data) => async () => {
+export const addSpotImage = (id, url, preview) => async () => {
+    // console.log('In spot image thunk');
+    console.log('DATA FROM addSpotImage:', id, url, preview)
+    const response = await csrfFetch(`/api/spots/${id}/images`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(
+            {
+                url,
+                preview
+            }
+        )
+    });
+    return response;
+};
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+export const postNewSpot = (data) => async dispatch => {
     // console.log('DATA:', data)
     const response = await csrfFetch(`/api/spots`, {
         method: "post",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data)
-    });
+        body: JSON.stringify(data.payload)
+    })
+
+    // console.log('Raw response:', response);
+
+    if (response.ok) {
+        const newResponse = await response.json();
+        return newResponse;
+    }
+
     return response;
 };
 

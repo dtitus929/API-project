@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { postNewSpot } from "../../store/spots"
-import { getSpots } from "../../store/spots";
+import { addSpotImage } from "../../store/spots"
 
 function NewSpotForm() {
 
     const dispatch = useDispatch();
 
-    const [address, setAddress] = useState();
+    const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
@@ -108,7 +108,7 @@ function NewSpotForm() {
 
     }, [hasSumbitted, address, city, state, country, name, description, price, photo1, photo2, photo3, photo4, photo5]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         setHasSubmitted(true);
@@ -121,21 +121,52 @@ function NewSpotForm() {
         if (photo4.length >= 1 && !photo4.includes('.png') && !photo4.includes('.jpg') && !photo4.includes('.jpeg')) return null;
         if (photo5.length >= 1 && !photo5.includes('.png') && !photo5.includes('.jpg') && !photo5.includes('.jpeg')) return null;
 
-        return dispatch(postNewSpot({ address, city, state, country, name, description, price, lat, lng }))
-            .then(async (res) => {
-                const data = await res.json();
-                // console.log(data);
-                await dispatch(getSpots());
+        const payload = {
+            address,
+            city,
+            state,
+            country,
+            name,
+            description,
+            price,
+            lat,
+            lng
+        };
+
+        const otherImages = {
+            photo1,
+            photo2,
+            photo3,
+            photo4,
+            photo5
+        }
+        // console.log();
+
+        let data = await dispatch(postNewSpot({ payload, otherImages }))
+
+        if (data) {
+            let spotImage1 = await dispatch(addSpotImage(data.id, otherImages.photo1, true))
+            await dispatch(addSpotImage(data.id, otherImages.photo2, false))
+            await dispatch(addSpotImage(data.id, otherImages.photo3, false))
+            await dispatch(addSpotImage(data.id, otherImages.photo4, false))
+            await dispatch(addSpotImage(data.id, otherImages.photo5, false))
+            if (spotImage1) {
                 history.push(`/spots/${data.id}`)
-            })
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) {
-                    setIsDisabled(true)
-                    // console.log(Object.values(data.errors))
-                    setErrors(data.errors);
-                }
-            });
+            }
+        }
+
+
+        // .catch(async (res) => {
+        //     console.log("RESPONSE", res);
+
+        //     const data = await res.json();
+
+        //     if (data && data.errors) {
+        //         setIsDisabled(true)
+        //         // console.log(Object.values(data.errors))
+        //         setErrors(data.errors);
+        //     }
+        // });
     };
 
     return (
@@ -213,7 +244,7 @@ function NewSpotForm() {
 
                         <div className='spot-form-subheader-holder'>
                             <div className='spot-form-subheader'>Describe your place to guests</div>
-                            Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.
+                            Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.
                         </div>
 
                         <textarea
