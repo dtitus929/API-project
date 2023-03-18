@@ -168,7 +168,6 @@ function UpdateSpotForm() {
         return dispatch(editSpot({ payload, spotId }))
             .then(async (res) => {
                 const data = await res.json();
-                // console.log(data);
                 await dispatch(getSpots());
                 history.push(`/spots/${data.id}`)
             })
@@ -176,7 +175,6 @@ function UpdateSpotForm() {
                 const data = await res.json();
                 if (data && data.errors) {
                     setIsDisabled(true)
-                    // console.log(Object.values(data.errors))
                     setErrors(data.errors);
                 }
             });
@@ -197,17 +195,10 @@ function UpdateSpotForm() {
 
                 <form onSubmit={handleSubmit} className="modal-form">
 
-                    {errors.length > 0 &&
-                        <ul style={{ padding: '0px', margin: '2px 0px 20px 8px', color: 'red' }}>
-                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                        </ul>
-                    }
-
                     <div className='spot-form-subheader-holder'>
                         <div className='spot-form-subheader'>Where's your place located?</div>
                         Guests will only get your exact address once they booked a reservation.
                     </div>
-
                     <label>
                         Country{errors.country && (<span className='error1'>{errors.country}</span>)}
                         <input
@@ -260,7 +251,6 @@ function UpdateSpotForm() {
                             <div className='spot-form-subheader'>Describe your place to guests</div>
                             Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.
                         </div>
-
                         <textarea
                             placeholder="Please write at least 30 characters..."
                             rows={5}
@@ -278,7 +268,6 @@ function UpdateSpotForm() {
                         <div className='spot-form-subheader'>Create a title for your spot</div>
                         Catch guests' attention with a spot title that highlights what makes your place special.
                     </div>
-
                     <label>
 
                         <input
@@ -297,7 +286,6 @@ function UpdateSpotForm() {
                         <div className='spot-form-subheader'>Set a base price for your spot</div>
                         Competitive pricing can help your listing stand out and rank higher in search results.
                     </div>
-
                     <label>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <div style={{ padding: '0px 5px 13px 0px' }}>$</div>
@@ -318,7 +306,6 @@ function UpdateSpotForm() {
                         <div className='spot-form-subheader'>Liven up your spot with photos</div>
                         Submit a link to at least one photo to publish your spot.
                     </div>
-
                     <label>
                         <input
                             type="text"
@@ -357,7 +344,9 @@ function UpdateSpotForm() {
                         />
                         {errors.imgtype5 && (<div className='error3'>{errors.imgtype5}</div>)}
                     </label>
+
                     <div className='spot-form-divider'></div>
+
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <button
                             type="submit"
@@ -367,6 +356,7 @@ function UpdateSpotForm() {
                         >
                             Update Spot
                         </button>
+
                     </div>
                 </form>
             </div>

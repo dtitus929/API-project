@@ -10,9 +10,6 @@ export default function SpotDetails(props) {
     const [isSpot, setIsSpot] = useState(false);
 
     const { setShow, setCurrentModal, setCurrentSpot, setCurrentReview } = props;
-
-    // console.log('props:', props);
-
     const { spotId } = useParams();
 
     const dispatch = useDispatch();
@@ -24,11 +21,6 @@ export default function SpotDetails(props) {
     }
 
     const spot = useSelector((state) => state.spots.singleSpot);
-    // const ownerHolder = Object.entries(spot.Owner);
-    // console.log('SpotOwnerIS:', spot.Owner && spot.Owner.firstName);
-    // console.log("The spot is:", spot);
-
-    // console.log('Single spot reviews', spot.numReviews);
 
     let spotImagePreview = null;
     let arrImages = [];
@@ -47,7 +39,6 @@ export default function SpotDetails(props) {
     const arrReviews = Object.values(reviews).sort((a, b) => {
         return b.id - a.id;
     });
-    // console.log("The arrReviews are:", arrReviews);
 
     let reviewUserIds = [];
 
@@ -61,9 +52,6 @@ export default function SpotDetails(props) {
         const createdDate = new Date(arrReviews[i].createdAt);
         const month = monthNames[createdDate.getUTCMonth()];
         const year = createdDate.getUTCFullYear();
-        // console.log(createdDate);
-        // console.log(month);
-        // console.log(year);
 
         arrReviews[i].createdAt = month + ' ' + year;
     }

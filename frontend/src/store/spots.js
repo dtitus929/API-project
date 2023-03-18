@@ -17,7 +17,6 @@ export const getSpots = () => async dispatch => {
 
     if (response.ok) {
         const list = await response.json();
-        // console.log('BACK:', list.Spots)
         dispatch(loadSpots(list.Spots));
     }
 };
@@ -32,12 +31,10 @@ const loadOneSpot = data => {
 };
 
 export const getOneSpot = (id) => async dispatch => {
-    // console.log(id);
     const response = await csrfFetch(`/api/spots/${id}`);
 
     if (response.ok) {
         const spot = await response.json();
-        // console.log('BACK:', spot)
         dispatch(loadOneSpot(spot));
     }
 };
@@ -45,8 +42,6 @@ export const getOneSpot = (id) => async dispatch => {
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 export const addSpotImage = (id, url, preview) => async () => {
-    // console.log('In spot image thunk');
-    console.log('DATA FROM addSpotImage:', id, url, preview)
     const response = await csrfFetch(`/api/spots/${id}/images`, {
         method: "post",
         headers: {
@@ -65,7 +60,6 @@ export const addSpotImage = (id, url, preview) => async () => {
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 export const postNewSpot = (data) => async dispatch => {
-    // console.log('DATA:', data)
     const response = await csrfFetch(`/api/spots`, {
         method: "post",
         headers: {
@@ -73,8 +67,6 @@ export const postNewSpot = (data) => async dispatch => {
         },
         body: JSON.stringify(data.payload)
     })
-
-    // console.log('Raw response:', response);
 
     if (response.ok) {
         const newResponse = await response.json();
@@ -87,7 +79,6 @@ export const postNewSpot = (data) => async dispatch => {
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 export const editSpot = (data) => async () => {
-    // console.log('DATA:', data)
     const response = await csrfFetch(`/api/spots/${data.spotId}`, {
         method: "put",
         headers: {

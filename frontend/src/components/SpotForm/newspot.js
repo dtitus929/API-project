@@ -140,33 +140,48 @@ function NewSpotForm() {
             photo4,
             photo5
         }
-        // console.log();
 
         let data = await dispatch(postNewSpot({ payload, otherImages }))
+            .catch(async (res) => {
+
+                const data = await res.json();
+
+                if (data && data.errors) {
+                    setIsDisabled(true)
+                    setErrors(data.errors);
+                }
+            });
+
+        console.log(otherImages.photo2);
 
         if (data) {
+
             let spotImage1 = await dispatch(addSpotImage(data.id, otherImages.photo1, true))
-            await dispatch(addSpotImage(data.id, otherImages.photo2, false))
-            await dispatch(addSpotImage(data.id, otherImages.photo3, false))
-            await dispatch(addSpotImage(data.id, otherImages.photo4, false))
-            await dispatch(addSpotImage(data.id, otherImages.photo5, false))
+            if (otherImages.photo2) {
+                await dispatch(addSpotImage(data.id, otherImages.photo2, false))
+            } else {
+                await dispatch(addSpotImage(data.id, 'https://i.ibb.co/nMs8KdL/coming-soon-alt.png', false))
+            }
+            if (otherImages.photo3) {
+                await dispatch(addSpotImage(data.id, otherImages.photo3, false))
+            } else {
+                await dispatch(addSpotImage(data.id, 'https://i.ibb.co/nMs8KdL/coming-soon-alt.png', false))
+            }
+            if (otherImages.photo4) {
+                await dispatch(addSpotImage(data.id, otherImages.photo4, false))
+            } else {
+                await dispatch(addSpotImage(data.id, 'https://i.ibb.co/nMs8KdL/coming-soon-alt.png', false))
+            }
+            if (otherImages.photo5) {
+                await dispatch(addSpotImage(data.id, otherImages.photo5, false))
+            } else {
+                await dispatch(addSpotImage(data.id, 'https://i.ibb.co/nMs8KdL/coming-soon-alt.png', false))
+            }
             if (spotImage1) {
                 history.push(`/spots/${data.id}`)
             }
         }
 
-
-        // .catch(async (res) => {
-        //     console.log("RESPONSE", res);
-
-        //     const data = await res.json();
-
-        //     if (data && data.errors) {
-        //         setIsDisabled(true)
-        //         // console.log(Object.values(data.errors))
-        //         setErrors(data.errors);
-        //     }
-        // });
     };
 
     return (
@@ -183,12 +198,6 @@ function NewSpotForm() {
 
                 <form onSubmit={handleSubmit} className="modal-form">
 
-                    {errors.length > 0 &&
-                        <ul style={{ padding: '0px', margin: '2px 0px 20px 8px', color: 'red' }}>
-                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                        </ul>
-                    }
-
                     <div className='spot-form-subheader-holder'>
                         <div className='spot-form-subheader'>Where's your place located?</div>
                         Guests will only get your exact address once they booked a reservation.
@@ -204,6 +213,7 @@ function NewSpotForm() {
                             required
                         />
                     </label>
+
                     <label>
                         Street Address{errors.address && (<span className='error1'>{errors.address}</span>)}
                         <input
@@ -214,6 +224,7 @@ function NewSpotForm() {
                             required
                         />
                     </label>
+
                     <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                         <label style={{ width: '60%' }}>
                             City{errors.city && (<span className='error1'>{errors.city}</span>)}
@@ -241,12 +252,10 @@ function NewSpotForm() {
                     <div className='spot-form-divider'></div>
 
                     <label>
-
                         <div className='spot-form-subheader-holder'>
                             <div className='spot-form-subheader'>Describe your place to guests</div>
                             Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.
                         </div>
-
                         <textarea
                             placeholder="Please write at least 30 characters..."
                             rows={5}
@@ -264,7 +273,6 @@ function NewSpotForm() {
                         <div className='spot-form-subheader'>Create a title for your spot</div>
                         Catch guests' attention with a spot title that highlights what makes your place special.
                     </div>
-
                     <label>
 
                         <input
@@ -283,7 +291,6 @@ function NewSpotForm() {
                         <div className='spot-form-subheader'>Set a base price for your spot</div>
                         Competitive pricing can help your listing stand out and rank higher in search results.
                     </div>
-
                     <label>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <div style={{ padding: '0px 5px 13px 0px' }}>$</div>
@@ -304,7 +311,6 @@ function NewSpotForm() {
                         <div className='spot-form-subheader'>Liven up your spot with photos</div>
                         Submit a link to at least one photo to publish your spot.
                     </div>
-
                     <label>
                         <input
                             type="text"
@@ -343,7 +349,9 @@ function NewSpotForm() {
                         />
                         {errors.imgtype5 && (<div className='error3'>{errors.imgtype5}</div>)}
                     </label>
+
                     <div className='spot-form-divider'></div>
+
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <button
                             type="submit"
@@ -353,6 +361,7 @@ function NewSpotForm() {
                         >
                             Create Spot
                         </button>
+
                     </div>
                 </form>
             </div>

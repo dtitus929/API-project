@@ -8,8 +8,8 @@ const StarRating = ({ rating, disabled, onChange }) => {
         setActiveRating(rating)
     }, [rating])
 
-
     return (
+
         <>
             <div className="rating-input">
                 <div

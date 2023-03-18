@@ -16,7 +16,6 @@ export const getSpotReviews = (id) => async dispatch => {
 
     if (response.ok) {
         const list = await response.json();
-        // console.log('BACK:', list.Reviews)
         dispatch(loadSpotReviews(list.Reviews));
     }
     return response;
@@ -45,7 +44,6 @@ export const clearSpotReviews = () => {
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 export const postSpotReview = (data) => async () => {
-    // console.log('DATA:', data)
     const response = await csrfFetch(`/api/spots/${data.theSpot}/reviews`, {
         method: "post",
         headers: {
@@ -64,14 +62,12 @@ const reviewsReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case LOAD_SPOT_REVIEWS:
-            // console.log('ERR Payload', action.payload);
             const allReviews = {};
             action.payload.forEach((review) => (allReviews[review.id] = review));
             return {
                 ...state, spot: { ...allReviews }
             }
         case CLEAR_SPOT_REVIEWS:
-            // console.log('HERE CLEAR');
             return { ...state, spot: {} }
         default:
             return state;

@@ -17,7 +17,6 @@ function DeleteReview(props) {
 
     const history = useHistory();
 
-
     const handleClose = () => {
         setShow(false)
     }
@@ -37,16 +36,13 @@ function DeleteReview(props) {
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
-                    // console.log(Object.values(data.errors))
                     setErrors(Object.values(data.errors));
                 }
             });
 
     };
 
-
     return (
-
 
         <>
 
@@ -80,7 +76,6 @@ function DeleteReview(props) {
         </>
 
     )
-
 
 };
 

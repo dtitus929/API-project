@@ -3,7 +3,6 @@ import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 
-
 function ProfileButton({ user }) {
 
     const dispatch = useDispatch();
@@ -14,13 +13,11 @@ function ProfileButton({ user }) {
     const history = useHistory();
 
     const spots = useSelector((state) => state.spots.allSpots);
-    // console.log("From Profile:", spots);
 
     const arrSpots = Object.values(spots);
 
     if (arrSpots && ownsSpots === null) {
         arrSpots.forEach(element => {
-            // console.log(user.id, element.ownerId);
             if (user.id === element.ownerId) {
                 setOwnsSpots(true)
                 return

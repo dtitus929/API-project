@@ -32,7 +32,6 @@ function AddReview(props) {
     }, [review, stars]);
 
 
-
     const handleClose = () => {
         setShow(false)
     }
@@ -57,7 +56,6 @@ function AddReview(props) {
                 const data = await res.json();
                 if (data && data.errors) {
                     setIsDisabled(true)
-                    // console.log(Object.values(data.errors))
                     setErrors(Object.values(data.errors));
                 }
             });
@@ -70,7 +68,6 @@ function AddReview(props) {
     };
 
     return (
-
 
         <>
 
@@ -118,7 +115,6 @@ function AddReview(props) {
         </>
 
     )
-
 
 };
 

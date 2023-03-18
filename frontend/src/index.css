@@ -30,10 +30,10 @@ a:hover {
 }
 
 /**
- * Restrict sizing to the page width in all browsers (opinionated). ???????
+ * Restrict sizing to the page width in all browsers
  */
 
-:where(iframe, img, input, video, select, textarea) {
+:where(img, input, select, textarea) {
     height: auto;
     max-width: 100%;
 }
@@ -557,5 +557,9 @@ a:hover {
         align-items: center;
         gap: 8px;
         width: 100%;
+    }
+
+    .spot-holder {
+        padding-bottom: 80px;
     }
 }

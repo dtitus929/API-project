@@ -13,12 +13,9 @@ export default function ManageSpots(props) {
 
     const sessionUser = useSelector(state => state.session.user);
 
-
     const spots = useSelector((state) => state.spots.allSpots);
-    // console.log("The spots are:", spots);
 
     const arrSpots = Object.values(spots).filter(item => item.ownerId === sessionUser.id);
-    // console.log("The arrSpots is:", arrSpots);
 
     useEffect(() => {
         dispatch(getSpots());

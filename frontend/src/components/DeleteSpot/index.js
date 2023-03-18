@@ -24,7 +24,6 @@ function DeleteSpot(props) {
         e.preventDefault();
         setErrors([]);
 
-
         return dispatch(deleteSpot(props.currentSpot))
             .then(async () => {
                 setShow(false);
@@ -34,16 +33,13 @@ function DeleteSpot(props) {
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
-                    // console.log(Object.values(data.errors))
                     setErrors(Object.values(data.errors));
                 }
             });
 
     };
 
-
     return (
-
 
         <>
 
@@ -77,7 +73,6 @@ function DeleteSpot(props) {
         </>
 
     )
-
 
 };
 

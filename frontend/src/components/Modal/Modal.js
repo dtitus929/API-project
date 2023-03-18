@@ -5,7 +5,6 @@ import "./Modal.css";
 
 const Modal = props => {
 
-
     return ReactDOM.createPortal(
         <CSSTransition
             in={props.show}
