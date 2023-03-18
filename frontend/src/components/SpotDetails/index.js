@@ -9,10 +9,7 @@ export default function SpotDetails(props) {
     const [hasReviews, setHasReviews] = useState(false);
     const [isSpot, setIsSpot] = useState(false);
 
-    const { setShow, setCurrentModal, setCurrentSpot } = props;
-
-    // console.log('props:', props);
-
+    const { setShow, setCurrentModal, setCurrentSpot, setCurrentReview } = props;
     const { spotId } = useParams();
 
     const dispatch = useDispatch();
@@ -23,31 +20,7 @@ export default function SpotDetails(props) {
         alert('Feature coming soon')
     }
 
-    useEffect(() => {
-        dispatch(getOneSpot(spotId))
-            .then(async () => {
-                setIsSpot(true)
-            })
-            .catch(async () => {
-                setIsSpot(false)
-            })
-
-        dispatch(clearSpotReviews())
-
-        dispatch(getSpotReviews(spotId))
-            .then(async () => {
-                setHasReviews(true)
-            })
-            .catch(async () => {
-                setHasReviews(false)
-            })
-
-    }, [dispatch, spotId]);
-
     const spot = useSelector((state) => state.spots.singleSpot);
-    // const ownerHolder = Object.entries(spot.Owner);
-    // console.log('SpotOwnerIS:', spot.Owner && spot.Owner.firstName);
-    // console.log("The spot is:", spot);
 
     let spotImagePreview = null;
     let arrImages = [];
@@ -66,7 +39,6 @@ export default function SpotDetails(props) {
     const arrReviews = Object.values(reviews).sort((a, b) => {
         return b.id - a.id;
     });
-    // console.log("The arrReviews are:", arrReviews);
 
     let reviewUserIds = [];
 
@@ -80,19 +52,41 @@ export default function SpotDetails(props) {
         const createdDate = new Date(arrReviews[i].createdAt);
         const month = monthNames[createdDate.getUTCMonth()];
         const year = createdDate.getUTCFullYear();
-        // console.log(createdDate);
-        // console.log(month);
-        // console.log(year);
 
         arrReviews[i].createdAt = month + ' ' + year;
     }
 
-    const handleModal = modal => {
-        setCurrentSpot(spot.id)
+    useEffect(() => {
+        dispatch(clearSpotReviews())
+
+        dispatch(getOneSpot(spotId))
+            .then(async () => {
+                setIsSpot(true)
+            })
+            .catch(async () => {
+                setIsSpot(false)
+            })
+
+        dispatch(getSpotReviews(spotId))
+            .then(async () => {
+                setHasReviews(true)
+            })
+            .catch(async () => {
+                setHasReviews(false)
+                dispatch(clearSpotReviews())
+            })
+
+    }, [dispatch, spotId, hasReviews]);
+
+    const handleModal = (modal, id) => {
+        if (modal === 'addreview') setCurrentSpot(spot.id);
+        if (modal === 'deletereview') {
+            setCurrentSpot(spot.id)
+            setCurrentReview(id)
+        }
         setCurrentModal(modal);
         setShow(true);
     }
-
 
     return (
 
@@ -117,8 +111,8 @@ export default function SpotDetails(props) {
 
                     </div>
 
-                    <div style={{ display: 'flex', gap: '20px', borderBottom: '1px solid #CCCCCC', paddingBottom: '20px', marginBottom: '30px' }}>
-                        <div style={{ marginRight: '60px' }}>
+                    <div className='detail-info-holder'>
+                        <div className='detail-info-text'>
                             <h3>Hosted by {spot.Owner && spot.Owner.firstName} {spot.Owner && spot.Owner.lastName}</h3>
                             <p>{spot.description}</p>
                             <p>Phasellus dictum venenatis nisi, sit amet eleifend diam cursus eget. Quisque congue,
@@ -129,7 +123,7 @@ export default function SpotDetails(props) {
                                 neque ac bibendum. Sed venenatis dignissim ipsum, in malesuada ex efficitur ut. Phasellus metus ante, ullamcorper at sodales quis,
                                 hendrerit vel metus. Praesent interdum justo purus, id rhoncus ligula condimentum nec. Sed venenatis sed ante a suscipit. Sed ac feugiat urna.</p>
                         </div>
-                        <div style={{ padding: '20px 0px 0px 20px' }}>
+                        <div className='detail-info-roundbox-holder'>
 
                             <div className="spotdetail-infobox">
 
@@ -159,13 +153,13 @@ export default function SpotDetails(props) {
 
                 </div>
 
-                {arrReviews.length > 0 && arrReviews?.map(({ id, User, review, createdAt, userId }) => (
+                {arrReviews.length > 0 && spot.numReviews > 0 && arrReviews?.map(({ id, User, review, createdAt, userId }) => (
 
                     <div key={id} style={{ padding: '10px 0px 26px 0px', width: '70%' }}>
                         <div style={{ fontSize: '15px', fontWeight: 'bold', paddingBottom: '3px' }}>{User['firstName']}</div>
                         <div style={{ color: '#adadad', paddingBottom: '8px' }}>{createdAt}</div>
                         <div>{review} Aliquam vulputate blandit felis quis maximus. Nulla tortor magna, ultrices id orci ac, laoreet pulvinar nibh. Praesent venenatis sapien vitae ipsum euismod posuere. Suspendisse egestas laoreet massa, dictum mollis nisl viverra vitae. </div>
-                        {sessionUser && sessionUser.id === userId && (<button className='standard-button-small' style={{ marginTop: '10px' }}>Delete</button>)}
+                        {sessionUser && sessionUser.id === userId && (<button onClick={() => handleModal('deletereview', id)} className='standard-button-small' style={{ marginTop: '10px' }}>Delete</button>)}
                     </div>
 
 

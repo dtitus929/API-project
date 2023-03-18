@@ -20,14 +20,6 @@ button {
     height: 100%;
 }
 
-.issue-box {
-    flex: 1 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 100px;
-}
-
 a {
     text-decoration: none;
     color: #993399;
@@ -38,15 +30,24 @@ a:hover {
 }
 
 /**
- * Restrict sizing to the page width in all browsers (opinionated). ???????
+ * Restrict sizing to the page width in all browsers
  */
 
-:where(iframe, img, input, video, select, textarea) {
+:where(img, input, select, textarea) {
     height: auto;
     max-width: 100%;
 }
 
 /* ===== SITE WIDE ===== */
+
+.issue-box {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 100px;
+    margin: 0px 40px;
+}
 
 .standard-button {
     background-color: #FFFFFF;
@@ -73,6 +74,29 @@ a:hover {
 .standard-button-small:hover {
     background-color: #f8f2f8;
     cursor: pointer;
+}
+
+.dark-button {
+    background-color: #993399;
+    color: #FFFFFF;
+    border-radius: 20px;
+    padding: 2px 12px;
+    border: 0px;
+}
+
+.dark-button:hover {
+    background-color: #aa4aaa;
+    cursor: pointer;
+}
+
+.page-title-holder {
+    padding: 35px 40px;
+}
+
+.page-title {
+    font-weight: 700;
+    font-size: 18px;
+    color: #993399;
 }
 
 /* ===== NAV ===== */
@@ -155,6 +179,32 @@ a:hover {
     display: none
 }
 
+/* ===== PROFILE BUTTON ===== */
+
+.profile-userinfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-userinfo div {
+    padding: 5px 0px;
+}
+
+.profile-userinfo div:first-child {
+    padding-bottom: 0px;
+    font-weight: 700;
+}
+
+.profile-userinfo div:nth-child(2) {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.profile-userinfo div:last-child {
+    padding-top: 10px;
+}
+
+
 /* ===== FOOTER ===== */
 
 .footer-holder {
@@ -179,6 +229,72 @@ a:hover {
 .fake-footer-link:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+/* ===== MODAL / MODAL FORMS ===== */
+
+.spot-form-holder {
+    display: flex;
+    justify-content: center;
+    padding: 0px 45px 130px 45px;
+}
+
+.spot-form-holder form {
+    width: 600px;
+}
+
+.spot-form-subheader-holder {
+    padding-bottom: 20px;
+    max-width: 470px
+}
+
+.spot-form-subheader {
+    font-weight: 700;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+.spot-form-divider {
+    background-color: #CCCCCC;
+    height: 1px;
+    margin: 10px 0px 18px 0px;
+}
+
+.spot-submit-button {
+    background-color: #993399;
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 16px;
+    border-radius: 20px;
+    padding: 3px 18px;
+    border: 0px;
+}
+
+.spot-submit-button:hover {
+    background-color: #aa4aaa;
+    cursor: pointer;
+}
+
+.spot-submit-button:disabled {
+    background-color: #d3b3d3;
+    cursor: default;
+}
+
+.spot-form-holder .error1 {
+    padding-left: 20px;
+    color: red
+}
+
+.spot-form-holder .error2 {
+    padding-bottom: 5px;
+    color: red
+}
+
+.spot-form-holder .error3 {
+    position: relative;
+    top: -10px;
+    padding: 0px 0px 0px 0px;
+    color: red
 }
 
 /* ===== MODAL / MODAL FORMS ===== */
@@ -249,6 +365,39 @@ a:hover {
 .modal-submit-button:disabled {
     background-color: #d3b3d3;
     cursor: default;
+}
+
+.modal-yes-button {
+    background-color: #d80f0f;
+    margin-top: 25px;
+    border: 0px;
+    border-radius: 7px;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 7px 0px;
+}
+
+.modal-yes-button:hover {
+    background-color: #ff0000;
+    cursor: pointer;
+}
+
+.modal-no-button {
+    background-color: #797979;
+    width: 100%;
+    margin-top: 15px;
+    border: 0px;
+    border-radius: 7px;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 7px 0px;
+}
+
+.modal-no-button:hover {
+    background-color: #969696;
+    cursor: pointer;
 }
 
 .modal-demouser-button {
@@ -346,6 +495,25 @@ a:hover {
     box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
 }
 
+.detail-info-holder {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #CCCCCC;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+
+}
+
+.detail-info-text {
+    margin-right: 60px;
+}
+
+.detail-info-roundbox-holder {
+    padding: 20px 0px 0px 20px
+}
+
+
+
 /* ================= Media Queries ====================== */
 
 @media screen and (max-width:1124px) {
@@ -366,4 +534,32 @@ a:hover {
         grid-template-columns: repeat(1, 1fr);
     }
 
+}
+
+@media screen and (max-width:870px) {
+    .detail-info-holder {
+        flex-direction: column-reverse;
+    }
+
+    .detail-info-roundbox-holder {
+        padding: 30px 0px 0px 0px
+    }
+
+    .detail-info-text {
+        margin-right: 90px;
+    }
+}
+
+
+@media screen and (max-width:635px) {
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .spot-holder {
+        padding-bottom: 80px;
+    }
 }

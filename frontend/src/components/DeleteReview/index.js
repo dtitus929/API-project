@@ -1,36 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { postSpotReview } from '../../store/reviews';
 import { getOneSpot } from '../../store/spots';
 import { getSpotReviews } from '../../store/reviews';
+import { deleteSpotReview } from '../../store/reviews'
 
-import StarRating from './StarRating'
 
-function AddReview(props) {
+function DeleteReview(props) {
 
-    const theSpot = props.currentSpot;
-
-    const [review, setReview] = useState('');
-    const [stars, setStars] = useState(0);
     const [errors, setErrors] = useState([]);
-    const [isDisabled, setIsDisabled] = useState(true)
 
     const dispatch = useDispatch();
 
     const { setShow } = props;
 
     const history = useHistory();
-
-    useEffect(() => {
-        if (review.length < 10 || stars <= 0) {
-            setIsDisabled(true)
-        } else {
-            setIsDisabled(false)
-        }
-    }, [review, stars]);
-
 
     const handleClose = () => {
         setShow(false)
@@ -40,12 +25,8 @@ function AddReview(props) {
         e.preventDefault();
         setErrors([]);
 
-        const payload = {
-            review,
-            stars
-        };
 
-        return dispatch(postSpotReview({ payload, theSpot }))
+        return dispatch(deleteSpotReview(props.currentReview))
             .then(async () => {
                 setShow(false);
                 await dispatch(getOneSpot(props.currentSpot));
@@ -55,16 +36,10 @@ function AddReview(props) {
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
-                    setIsDisabled(true)
                     setErrors(Object.values(data.errors));
                 }
             });
 
-    };
-
-    const onChange = (number) => {
-        // const number = e.target.value;
-        setStars(parseInt(number));
     };
 
     return (
@@ -73,7 +48,9 @@ function AddReview(props) {
 
             <div className='modal-header'>
                 <div>&nbsp;</div>
-                <div className='modal-title'>How was your stay?</div>
+                <div className='modal-title'>Confirm Delete</div>
+                {/* <div>Current Review ID:{props.currentReview}</div>
+                <div>Current Spot ID:{props.currentSpot}</div> */}
                 <div><button className="modal-close" onClick={() => { handleClose() }}>X</button></div>
             </div>
 
@@ -84,33 +61,17 @@ function AddReview(props) {
                         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul>
                 }
+                Are you sure you want to delete this review?
 
-                <label>
-                    <textarea
-                        placeholder="Leave your review here..."
-                        rows={5}
-                        type="text"
-                        value={review}
-                        onChange={(e) => setReview(e.target.value)}
-                        required
-                    />
-
-                </label>
-
-                <StarRating
-                    disabled={false}
-                    onChange={onChange}
-                    rating={stars}
-                />
 
                 <button
                     type="submit"
-                    className='modal-submit-button'
-                    disabled={isDisabled}
-                >Submit Your Review</button>
-
+                    className='modal-yes-button'
+                >Yes <span style={{ fontWeight: '300', paddingLeft: '20px' }}>(Delete Review)</span></button>
 
             </form>
+
+            <button className="modal-no-button" onClick={() => { handleClose() }}>No <span style={{ fontWeight: '300', paddingLeft: '28px' }}>(Keep Review)</span></button>
 
         </>
 
@@ -118,4 +79,4 @@ function AddReview(props) {
 
 };
 
-export default AddReview;
+export default DeleteReview;

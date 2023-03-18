@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import logo from './aircnc-logo.svg';
 
-
 function Navigation({ isLoaded, setShow, setCurrentModal }) {
 
     const sessionUser = useSelector(state => state.session.user);

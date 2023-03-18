@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         ownerId: 4,
-        address: "2132 Gold Avenue Southeast",
+        address: "2132 Main Southeast",
         city: "Albuquerque",
         state: "New Mexico",
         country: "United States of America",
@@ -83,7 +83,7 @@ module.exports = {
       },
       {
         ownerId: 4,
-        address: "2132 Gold Avenue Southeast",
+        address: "2132 King Court Way",
         city: "Frankfurt",
         state: "Colorado",
         country: "United States of America",
@@ -95,7 +95,7 @@ module.exports = {
       },
       {
         ownerId: 3,
-        address: "217 Seward Street",
+        address: "2329 Elm Street",
         city: "Bule",
         state: "Mississippi",
         country: "United States of America",
@@ -107,7 +107,7 @@ module.exports = {
       },
       {
         ownerId: 4,
-        address: "9 Grover Avenue",
+        address: "1310 Drawbride Lane",
         city: "Hamilton",
         state: "Maryland",
         country: "United States of America",

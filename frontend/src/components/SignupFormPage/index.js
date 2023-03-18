@@ -51,7 +51,6 @@ function SignupFormPage(props) {
                     const data = await res.json();
                     if (data && data.errors) {
                         setIsDisabled(true)
-                        // console.log(Object.values(data.errors))
                         setErrors(Object.values(data.errors));
                         if (data.message === 'User already exists') {
                             let newErrors = errors;
