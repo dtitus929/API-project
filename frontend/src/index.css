@@ -512,6 +512,23 @@ a:hover {
     padding: 20px 0px 0px 20px
 }
 
+.copyright-button {
+    background-color: inherit;
+    border: none;
+    border-radius: 4px;
+    /* font-size: 15px; */
+    color: #464646;
+    cursor: pointer;
+    text-decoration: none;
+    /* margin-left: 5px; */
+    padding: 0px 3px;
+}
+
+.copyright-button:hover {
+    /* background-color: #f3f3f3; */
+    color: #993399;
+}
+
 
 
 /* ================= Media Queries ====================== */
