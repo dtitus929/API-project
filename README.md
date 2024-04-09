@@ -5,6 +5,7 @@ AirCnC is a full stack clone project built while attending App Academy coding bo
 This project was a great first step in learning how to put together a fully functional RESTful back-end API and connecting it to a clean, responsive and intuitive front-end.
 
 https://davet-airbnb.onrender.com/
+* This site may take a minute to spin up.  Give it a minute. 😀 
   
 ![aircnc-example-pics](https://user-images.githubusercontent.com/111056707/226110094-e2269dfc-a242-4c68-9645-2f3040b67dd8.png)
   
